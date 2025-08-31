@@ -64,7 +64,7 @@ export default function FormatFilters({ className = "" }: FormatFiltersProps) {
   }: { 
     title: string;
     section: keyof FilterState;
-    items: { value: string; label: string; description?: string }[];
+    items: readonly { readonly value: string; readonly label: string; readonly description?: string }[];
     getCount: (value: string) => number;
   }) => (
     <div className="space-y-3">
