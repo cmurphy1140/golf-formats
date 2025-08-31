@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Filter, RotateCcw, Check } from 'lucide-react';
 import { useFilters, useFilterCounts } from '@/src/hooks/use-filters';
+import { FilterState } from '@/types/golf';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -62,7 +63,7 @@ export default function FormatFilters({ className = "" }: FormatFiltersProps) {
     getCount 
   }: { 
     title: string;
-    section: keyof typeof filterState;
+    section: keyof FilterState;
     items: { value: string; label: string; description?: string }[];
     getCount: (value: string) => number;
   }) => (
