@@ -61,7 +61,7 @@ export default function FilterPanel({
   }: { 
     title: string;
     section: keyof typeof expandedSections;
-    items: { value: string; label: string; description?: string }[];
+    items: readonly { readonly value: string; readonly label: string; readonly description?: string }[];
     getCount: (value: string) => number;
   }) => (
     <div className="border-b border-gray-200 dark:border-gray-700 last:border-b-0">
