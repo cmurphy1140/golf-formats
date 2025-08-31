@@ -1,0 +1,902 @@
+[
+  {
+    "id": "stroke-play",
+    "name": "Stroke Play",
+    "category": "tournament",
+    "description": "The most traditional golf format where every stroke counts. Players complete all holes and the lowest total score wins.",
+    "players": {
+      "min": 1,
+      "max": 144,
+      "ideal": 4
+    },
+    "skillLevel": ["beginner", "intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Count every stroke taken",
+      "Complete all 18 holes",
+      "Record actual score for each hole",
+      "Penalties add to stroke count",
+      "Player with lowest total wins"
+    ],
+    "scoring": {
+      "method": "Total Strokes",
+      "description": "Add up all strokes taken across all holes. The player with the fewest total strokes wins."
+    },
+    "pros": [
+      "Simple and straightforward scoring",
+      "True test of overall golf ability",
+      "Standard format for most tournaments",
+      "Easy to track handicap improvements"
+    ],
+    "cons": [
+      "One bad hole can ruin entire round",
+      "Can be slow with high handicappers",
+      "Less forgiving for beginners",
+      "May discourage risk-taking"
+    ],
+    "tips": [
+      "Focus on avoiding big numbers",
+      "Play conservative on difficult holes",
+      "Keep mental game strong throughout",
+      "Track statistics for improvement"
+    ],
+    "popularity": 5,
+    "difficulty": 3
+  },
+  {
+    "id": "match-play",
+    "name": "Match Play",
+    "category": "tournament",
+    "description": "Head-to-head competition where players compete to win individual holes rather than counting total strokes.",
+    "players": {
+      "min": 2,
+      "max": 2,
+      "ideal": 2
+    },
+    "skillLevel": ["beginner", "intermediate", "advanced"],
+    "duration": "3-4 hours",
+    "type": "individual",
+    "rules": [
+      "Win holes by having lowest score",
+      "Holes can be won, lost, or halved (tied)",
+      "Match ends when one player is up by more holes than remain",
+      "Concessions allowed (gimmes)",
+      "Winner determined by holes won, not strokes"
+    ],
+    "scoring": {
+      "method": "Holes Won",
+      "description": "Track holes won vs lost. Match ends when mathematical elimination occurs."
+    },
+    "pros": [
+      "Bad holes don't ruin entire round",
+      "More aggressive play rewarded",
+      "Direct competition creates excitement",
+      "Can concede putts to speed play"
+    ],
+    "cons": [
+      "Can end before 18 holes",
+      "Requires even number of players",
+      "Less suitable for large groups",
+      "Handicapping can be complex"
+    ],
+    "tips": [
+      "Play aggressively when down",
+      "Apply pressure when ahead",
+      "Know when to concede putts",
+      "Study opponent's tendencies"
+    ],
+    "popularity": 4,
+    "difficulty": 2
+  },
+  {
+    "id": "scramble",
+    "name": "Scramble",
+    "category": "team",
+    "description": "Team format where all players hit from the best shot location. Perfect for mixed skill levels and charity events.",
+    "players": {
+      "min": 2,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["beginner", "intermediate", "advanced"],
+    "duration": "3-4 hours",
+    "type": "team",
+    "rules": [
+      "All team members tee off",
+      "Select best shot and all play from there",
+      "Continue until ball is holed",
+      "Must use minimum number of drives per player",
+      "Record single team score per hole"
+    ],
+    "scoring": {
+      "method": "Team Score",
+      "description": "One score per hole for entire team. Lowest total team score wins."
+    },
+    "pros": [
+      "Great for beginners and mixed abilities",
+      "Fast pace of play",
+      "Less pressure on individuals",
+      "Encourages team bonding"
+    ],
+    "cons": [
+      "Better players dominate shot selection",
+      "Individual performance not tracked",
+      "Can be too easy for skilled teams",
+      "Less practice for weak shots"
+    ],
+    "tips": [
+      "Put best driver last for pressure shots",
+      "Save good putters for crucial moments",
+      "Ensure everyone contributes drives",
+      "Communicate on shot selection"
+    ],
+    "popularity": 5,
+    "difficulty": 1
+  },
+  {
+    "id": "best-ball",
+    "name": "Best Ball",
+    "category": "team",
+    "description": "Each player plays their own ball, but only the best score among teammates counts for each hole.",
+    "players": {
+      "min": 2,
+      "max": 4,
+      "ideal": 2
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "team",
+    "rules": [
+      "Everyone plays their own ball",
+      "Record best score among team members",
+      "All players complete each hole",
+      "Individual scores can be tracked",
+      "Team with lowest best-ball total wins"
+    ],
+    "scoring": {
+      "method": "Best Individual Score",
+      "description": "Use lowest score among team members for each hole."
+    },
+    "pros": [
+      "Everyone plays own ball",
+      "Maintains individual integrity",
+      "Good practice for all shots",
+      "Reduces pressure on single bad shot"
+    ],
+    "cons": [
+      "Slower than scramble format",
+      "Weaker players may not contribute",
+      "Can be frustrating for high handicappers",
+      "Requires all balls to be played out"
+    ],
+    "tips": [
+      "Pair complementary playing styles",
+      "Stronger player takes risks",
+      "Weaker player plays conservative",
+      "Encourage partners after bad shots"
+    ],
+    "popularity": 4,
+    "difficulty": 2
+  },
+  {
+    "id": "alternate-shot",
+    "name": "Alternate Shot (Foursomes)",
+    "category": "team",
+    "description": "Partners alternate hitting the same ball, including tee shots on alternating holes.",
+    "players": {
+      "min": 2,
+      "max": 2,
+      "ideal": 2
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "3-4 hours",
+    "type": "partnership",
+    "rules": [
+      "Partners alternate shots with same ball",
+      "Alternate who tees off on each hole",
+      "Continue alternating until holed",
+      "Penalties don't affect shot rotation",
+      "One score per team per hole"
+    ],
+    "scoring": {
+      "method": "Team Score",
+      "description": "Single score per hole for the partnership."
+    },
+    "pros": [
+      "Fast pace of play",
+      "True team format",
+      "Strategic player pairing important",
+      "Builds partnership skills"
+    ],
+    "cons": [
+      "Pressure of bad shots affects partner",
+      "Less individual play time",
+      "Can be frustrating with skill mismatch",
+      "Difficult for beginners"
+    ],
+    "tips": [
+      "Determine tee shot rotation based on holes",
+      "Communicate on strategy and club selection",
+      "Stay positive after partner's bad shots",
+      "Practice approach shots most"
+    ],
+    "popularity": 3,
+    "difficulty": 4
+  },
+  {
+    "id": "stableford",
+    "name": "Stableford",
+    "category": "tournament",
+    "description": "Points-based scoring system that rewards good play and minimizes impact of bad holes.",
+    "players": {
+      "min": 1,
+      "max": 144,
+      "ideal": 4
+    },
+    "skillLevel": ["beginner", "intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Earn points based on score relative to par",
+      "Eagle: 4 points, Birdie: 3 points, Par: 2 points",
+      "Bogey: 1 point, Double bogey+: 0 points",
+      "Highest point total wins",
+      "Can pick up after reaching 0-point threshold"
+    ],
+    "scoring": {
+      "method": "Points System",
+      "description": "Points awarded based on score relative to par. Most points wins."
+    },
+    "pros": [
+      "Rewards aggressive play",
+      "Bad holes have limited damage",
+      "Speeds up play (can pick up)",
+      "Encourages risk-taking"
+    ],
+    "cons": [
+      "More complex scoring system",
+      "Different from traditional golf",
+      "May not reflect true ability",
+      "Handicap adjustments needed"
+    ],
+    "tips": [
+      "Go for birdies on easier holes",
+      "Pick up when out of points",
+      "Focus on scoring holes that suit your game",
+      "Take calculated risks"
+    ],
+    "popularity": 3,
+    "difficulty": 2
+  },
+  {
+    "id": "skins",
+    "name": "Skins",
+    "category": "betting",
+    "description": "Each hole is worth a 'skin' - win the hole outright to claim it. Ties carry skins forward.",
+    "players": {
+      "min": 2,
+      "max": 4,
+      "ideal": 3
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Each hole worth predetermined value",
+      "Must win hole outright (no ties)",
+      "Tied holes carry value to next hole",
+      "Carryovers can create big pots",
+      "Player with most skins value wins"
+    ],
+    "scoring": {
+      "method": "Skins Won",
+      "description": "Track skins won per hole. Carryovers increase subsequent hole values."
+    },
+    "pros": [
+      "Every hole matters equally",
+      "Exciting carryover potential",
+      "Can win without best overall score",
+      "Natural drama on closing holes"
+    ],
+    "cons": [
+      "Requires agreed stakes",
+      "Can be expensive with carryovers",
+      "May discourage conservative play",
+      "Uneven skin distribution possible"
+    ],
+    "tips": [
+      "Play aggressive on carryover holes",
+      "Know when to play safe vs risk",
+      "Track running skin values",
+      "Consider validation requirements"
+    ],
+    "popularity": 4,
+    "difficulty": 2
+  },
+  {
+    "id": "nassau",
+    "name": "Nassau",
+    "category": "betting",
+    "description": "Three separate bets in one round: front nine, back nine, and overall 18 holes.",
+    "players": {
+      "min": 2,
+      "max": 4,
+      "ideal": 2
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Three separate competitions",
+      "Front 9 winner, Back 9 winner, Overall winner",
+      "Can be match or stroke play",
+      "Often includes automatic presses",
+      "Each bet worth agreed amount"
+    ],
+    "scoring": {
+      "method": "Three Separate Bets",
+      "description": "Track three independent scores: holes 1-9, 10-18, and combined."
+    },
+    "pros": [
+      "Multiple chances to win",
+      "Bad start doesn't end competition",
+      "Flexibility in bet amounts",
+      "Traditional and widely known"
+    ],
+    "cons": [
+      "Can get expensive with presses",
+      "Complex with multiple matches",
+      "Requires careful scorekeeping",
+      "Handicapping can be tricky"
+    ],
+    "tips": [
+      "Understand press rules before starting",
+      "Manage risk across three bets",
+      "Strong finish can win two bets",
+      "Track all bets carefully"
+    ],
+    "popularity": 4,
+    "difficulty": 3
+  },
+  {
+    "id": "wolf",
+    "name": "Wolf",
+    "category": "betting",
+    "description": "Rotating captain (wolf) chooses to play alone or with a partner after each tee shot.",
+    "players": {
+      "min": 4,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "team",
+    "rules": [
+      "Rotation determines wolf for each hole",
+      "Wolf tees off last and chooses partner or goes alone",
+      "Must choose partner immediately after their tee shot",
+      "Lone wolf earns/loses double points",
+      "Better ball format when wolf has partner"
+    ],
+    "scoring": {
+      "method": "Points Per Hole",
+      "description": "Points won/lost each hole. Lone wolf worth double."
+    },
+    "pros": [
+      "Strategic partnership decisions",
+      "Everyone gets to be wolf",
+      "Exciting lone wolf opportunities",
+      "Balances different skill levels"
+    ],
+    "cons": [
+      "Complex rules for beginners",
+      "Requires exactly 4 players",
+      "Can slow pace with decisions",
+      "Point tracking can be confusing"
+    ],
+    "tips": [
+      "Watch everyone's tee shot before deciding",
+      "Go lone wolf on your best holes",
+      "Track rotation to plan strategy",
+      "Consider handicaps in decisions"
+    ],
+    "popularity": 3,
+    "difficulty": 4
+  },
+  {
+    "id": "bingo-bango-bongo",
+    "name": "Bingo Bango Bongo",
+    "category": "casual",
+    "description": "Points awarded for three achievements per hole: first on green, closest to pin, first in hole.",
+    "players": {
+      "min": 2,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["beginner", "intermediate"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Bingo: First ball on green (1 point)",
+      "Bango: Closest to pin once all on green (1 point)",
+      "Bongo: First to hole out (1 point)",
+      "Must play in proper order",
+      "Most total points wins"
+    ],
+    "scoring": {
+      "method": "Achievement Points",
+      "description": "Three points available per hole for specific achievements."
+    },
+    "pros": [
+      "Levels playing field for different abilities",
+      "Rewards different skills",
+      "Keeps everyone engaged",
+      "Fun and lighthearted"
+    ],
+    "cons": [
+      "Requires strict playing order",
+      "Can slow pace of play",
+      "Strategy can override good golf",
+      "May encourage unusual play"
+    ],
+    "tips": [
+      "Lay up for first on green",
+      "Putt out quickly when close",
+      "Play proper order strictly",
+      "Focus on achievable points"
+    ],
+    "popularity": 3,
+    "difficulty": 1
+  },
+  {
+    "id": "vegas",
+    "name": "Vegas",
+    "category": "betting",
+    "description": "Team scores create two-digit numbers, with lowest score first. Difference determines points won/lost.",
+    "players": {
+      "min": 4,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "team",
+    "rules": [
+      "Two teams of two players",
+      "Combine scores to make two-digit number",
+      "Lower score goes first (3 and 5 becomes 35)",
+      "Difference in team numbers determines points",
+      "Birdies can flip opponent's score"
+    ],
+    "scoring": {
+      "method": "Score Combination",
+      "description": "Team scores combine into two-digit numbers. Point differential determines winner."
+    },
+    "pros": [
+      "Exciting scoring swings possible",
+      "Team strategy important",
+      "Handicaps easily incorporated",
+      "High stakes potential"
+    ],
+    "cons": [
+      "Can get expensive quickly",
+      "Complex scoring for beginners",
+      "Requires all four to finish holes",
+      "Big swings can be demoralizing"
+    ],
+    "tips": [
+      "Avoid big numbers at all costs",
+      "Understand flipping rules",
+      "Play conservative when ahead",
+      "Communicate with partner"
+    ],
+    "popularity": 2,
+    "difficulty": 4
+  },
+  {
+    "id": "chapman",
+    "name": "Chapman (Pinehurst)",
+    "category": "team",
+    "description": "Both players drive, play partner's ball for second shot, then select one ball to finish.",
+    "players": {
+      "min": 2,
+      "max": 2,
+      "ideal": 2
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "partnership",
+    "rules": [
+      "Both players tee off",
+      "Play partner's drive for second shot",
+      "Select one ball after second shots",
+      "Alternate shots to finish hole",
+      "Strategic format combining scramble and alternate shot"
+    ],
+    "scoring": {
+      "method": "Team Score",
+      "description": "One score per team per hole."
+    },
+    "pros": [
+      "Uses both players' strengths",
+      "Strategic shot selection",
+      "Less pressure than pure alternate shot",
+      "Good for mixed abilities"
+    ],
+    "cons": [
+      "Complex format for beginners",
+      "Slower than some formats",
+      "Requires good communication",
+      "Can be confusing initially"
+    ],
+    "tips": [
+      "Longer hitter should tee off on par 5s",
+      "Consider approach strengths for selection",
+      "Communicate before ball selection",
+      "Practice with partner beforehand"
+    ],
+    "popularity": 2,
+    "difficulty": 3
+  },
+  {
+    "id": "shamble",
+    "name": "Shamble",
+    "category": "team",
+    "description": "Scramble off the tee, then everyone plays their own ball from the selected drive.",
+    "players": {
+      "min": 2,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["beginner", "intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "team",
+    "rules": [
+      "All players tee off",
+      "Select best drive",
+      "Everyone plays own ball from selected spot",
+      "Record individual or team scores",
+      "Can use various scoring methods"
+    ],
+    "scoring": {
+      "method": "Individual or Team",
+      "description": "Can score as best ball, total team score, or individual scores."
+    },
+    "pros": [
+      "Reduces pressure on tee shots",
+      "Everyone plays own ball mostly",
+      "Faster than regular stroke play",
+      "Good for mixed skill levels"
+    ],
+    "cons": [
+      "Best driver dominates tee shots",
+      "More complex than scramble",
+      "Various scoring methods confuse",
+      "Still requires good approach play"
+    ],
+    "tips": [
+      "Determine scoring method beforehand",
+      "Use minimum drives per player",
+      "Consider position over distance",
+      "Play to approach strengths"
+    ],
+    "popularity": 3,
+    "difficulty": 2
+  },
+  {
+    "id": "four-ball",
+    "name": "Four-Ball",
+    "category": "team",
+    "description": "Two-person teams where each player plays own ball, better score counts for the team.",
+    "players": {
+      "min": 4,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "team",
+    "rules": [
+      "Each player plays own ball",
+      "Better score between partners counts",
+      "Can be match or stroke play",
+      "Partners can assist with advice",
+      "Common in team competitions"
+    ],
+    "scoring": {
+      "method": "Better Ball",
+      "description": "Use better score between partners for team score."
+    },
+    "pros": [
+      "Both players stay involved",
+      "Partner provides backup",
+      "True golf with team element",
+      "Standard competitive format"
+    ],
+    "cons": [
+      "Slower pace of play",
+      "Weaker player may not contribute",
+      "Requires full rounds from all",
+      "Can be one-sided with skill gaps"
+    ],
+    "tips": [
+      "One player aggressive, one safe",
+      "Support partner after bad shots",
+      "Know when your score won't count",
+      "Use handicaps appropriately"
+    ],
+    "popularity": 4,
+    "difficulty": 2
+  },
+  {
+    "id": "quota",
+    "name": "Quota",
+    "category": "casual",
+    "description": "Players earn points based on performance, trying to meet or exceed their personal quota.",
+    "players": {
+      "min": 1,
+      "max": 20,
+      "ideal": 4
+    },
+    "skillLevel": ["beginner", "intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Establish quota based on handicap (usually 36 minus handicap)",
+      "Points: Bogey=1, Par=2, Birdie=4, Eagle=8",
+      "Try to exceed personal quota",
+      "Can adjust quotas based on recent play",
+      "Winner has highest plus differential"
+    ],
+    "scoring": {
+      "method": "Points vs Quota",
+      "description": "Earn points per hole, compare to pre-set quota."
+    },
+    "pros": [
+      "Self-competition element",
+      "Adjustable to any skill level",
+      "Rewards improvement",
+      "Good for regular groups"
+    ],
+    "cons": [
+      "Requires handicap knowledge",
+      "Quota setting can be arbitrary",
+      "Complex for casual players",
+      "May not reflect day's performance"
+    ],
+    "tips": [
+      "Track scores to refine quota",
+      "Adjust quota regularly",
+      "Focus on par and birdie holes",
+      "Pick up when out of points"
+    ],
+    "popularity": 2,
+    "difficulty": 2
+  },
+  {
+    "id": "dots",
+    "name": "Dots (Garbage/Junk)",
+    "category": "betting",
+    "description": "Award points for various achievements beyond score: sandies, barkies, greenies, etc.",
+    "players": {
+      "min": 2,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Points for achievements: Greenie (closest to pin par 3)",
+      "Sandy (up and down from bunker)",
+      "Barkie (par after hitting tree)",
+      "Arnie (par without fairway)",
+      "Determine point values before round"
+    ],
+    "scoring": {
+      "method": "Achievement Points",
+      "description": "Track various achievements throughout round for points."
+    },
+    "pros": [
+      "Adds fun side games",
+      "Rewards recovery shots",
+      "Keeps interest on every hole",
+      "Customizable achievements"
+    ],
+    "cons": [
+      "Complex tracking required",
+      "Can distract from golf",
+      "Arguments over achievements",
+      "Slows pace if overdone"
+    ],
+    "tips": [
+      "Keep achievements simple",
+      "Agree on all rules beforehand",
+      "Track on separate card",
+      "Set reasonable point values"
+    ],
+    "popularity": 3,
+    "difficulty": 2
+  },
+  {
+    "id": "six-six-six",
+    "name": "Six-Six-Six",
+    "category": "team",
+    "description": "Play three different formats over 18 holes - 6 holes each of different games.",
+    "players": {
+      "min": 4,
+      "max": 4,
+      "ideal": 4
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "team",
+    "rules": [
+      "Holes 1-6: One format (e.g., scramble)",
+      "Holes 7-12: Different format (e.g., best ball)",
+      "Holes 13-18: Third format (e.g., alternate shot)",
+      "Cumulative scoring across formats",
+      "Teams can rotate partners"
+    ],
+    "scoring": {
+      "method": "Cumulative",
+      "description": "Combine scores from all three six-hole segments."
+    },
+    "pros": [
+      "Variety keeps it interesting",
+      "Tests different skills",
+      "No format dominates",
+      "Good for all-day events"
+    ],
+    "cons": [
+      "Complex rule tracking",
+      "Transitions can be confusing",
+      "Requires format knowledge",
+      "Scoring can be complicated"
+    ],
+    "tips": [
+      "Plan format order strategically",
+      "Know each format's rules",
+      "Adjust strategy per segment",
+      "Track scoring carefully"
+    ],
+    "popularity": 2,
+    "difficulty": 3
+  },
+  {
+    "id": "nines",
+    "name": "Nines (Nine Points)",
+    "category": "betting",
+    "description": "Nine points distributed each hole based on score ranking among players.",
+    "players": {
+      "min": 3,
+      "max": 3,
+      "ideal": 3
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Nine points per hole distributed by scores",
+      "Best score: 5 points, Second: 3 points, Third: 1 point",
+      "Ties split points accordingly",
+      "Track cumulative points",
+      "Most points after 18 wins"
+    ],
+    "scoring": {
+      "method": "Point Distribution",
+      "description": "Distribute 9 points per hole based on scores."
+    },
+    "pros": [
+      "Every hole is important",
+      "Works perfectly with three players",
+      "Simple point system",
+      "Handicaps easily applied"
+    ],
+    "cons": [
+      "Only works with three players",
+      "Can become lopsided",
+      "Requires constant calculation",
+      "Ties complicate distribution"
+    ],
+    "tips": [
+      "Track running totals",
+      "Know point distributions for ties",
+      "Play consistent golf",
+      "Avoid big numbers"
+    ],
+    "popularity": 2,
+    "difficulty": 2
+  },
+  {
+    "id": "modified-stableford",
+    "name": "Modified Stableford",
+    "category": "tournament",
+    "description": "Stableford scoring with custom point values, often used in professional events.",
+    "players": {
+      "min": 1,
+      "max": 144,
+      "ideal": 4
+    },
+    "skillLevel": ["intermediate", "advanced"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Custom point values set by tournament",
+      "Example: Eagle=8, Birdie=3, Par=0, Bogey=-1, Double=-3",
+      "Rewards aggressive play more than standard",
+      "Highest point total wins",
+      "Used in some PGA Tour events"
+    ],
+    "scoring": {
+      "method": "Modified Points",
+      "description": "Custom point values emphasizing birdies and eagles."
+    },
+    "pros": [
+      "Encourages aggressive play",
+      "Exciting scoring opportunities",
+      "Less penalty for bad holes",
+      "Spectator friendly"
+    ],
+    "cons": [
+      "Point values can vary",
+      "More complex than regular scoring",
+      "May not suit all courses",
+      "Requires score adjustments"
+    ],
+    "tips": [
+      "Attack birdie opportunities",
+      "Know exact point values",
+      "Take calculated risks",
+      "Focus on scoring holes"
+    ],
+    "popularity": 3,
+    "difficulty": 3
+  },
+  {
+    "id": "peoria",
+    "name": "Peoria System",
+    "category": "casual",
+    "description": "Handicapping system for players without official handicaps, using secret holes for calculation.",
+    "players": {
+      "min": 1,
+      "max": 144,
+      "ideal": 4
+    },
+    "skillLevel": ["beginner", "intermediate"],
+    "duration": "4-5 hours",
+    "type": "individual",
+    "rules": [
+      "Select 6 secret holes before round",
+      "Calculate handicap from those holes",
+      "Apply handicap to gross score",
+      "Holes revealed after round",
+      "Creates instant handicap competition"
+    ],
+    "scoring": {
+      "method": "Net Score",
+      "description": "Gross score minus Peoria handicap calculation."
+    },
+    "pros": [
+      "No handicap required",
+      "Levels playing field",
+      "Good for charity events",
+      "Simple to implement"
+    ],
+    "cons": [
+      "Can be unfair/random",
+      "Doesn't reflect true ability",
+      "Lucky hole selection matters",
+      "Not for serious competition"
+    ],
+    "tips": [
+      "Play every hole seriously",
+      "Don't assume which holes count",
+      "Consistent play rewarded",
+      "Good for one-time events"
+    ],
+    "popularity": 2,
+    "difficulty": 1
+  }
+]
