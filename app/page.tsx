@@ -20,12 +20,50 @@ import {
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
   const [expandedFact, setExpandedFact] = useState<number | null>(null);
+  const [animatedStats, setAnimatedStats] = useState({
+    formats: 0,
+    timeReduction: 0,
+    handicapRange: 0,
+    tourEvents: 0
+  });
+  const [hasAnimated, setHasAnimated] = useState(false);
   
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+      
+      // Trigger animation when stats section is in view
+      if (!hasAnimated && window.scrollY > 200) {
+        setHasAnimated(true);
+        // Animate stats counting
+        const duration = 2000; // 2 seconds
+        const steps = 60;
+        const interval = duration / steps;
+        let currentStep = 0;
+        
+        const timer = setInterval(() => {
+          currentStep++;
+          const progress = currentStep / steps;
+          
+          setAnimatedStats({
+            formats: Math.floor(20 * progress),
+            timeReduction: Math.floor(30 * progress),
+            handicapRange: Math.floor(20 * progress),
+            tourEvents: Math.floor(50 * progress)
+          });
+          
+          if (currentStep >= steps) {
+            clearInterval(timer);
+            setAnimatedStats({ formats: 20, timeReduction: 30, handicapRange: 20, tourEvents: 50 });
+          }
+        }, interval);
+      }
+    };
+    
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [hasAnimated]);
 
   // Calculate opacity - simply keep everything visible
   const getOpacity = (elementTop: number, fadeDistance: number = 200) => {
@@ -66,7 +104,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xl text-gray-800 max-w-xl mx-auto mb-8 leading-relaxed">
-            Discover 20+ unique golf formats that turn every round into an adventure. 
+            Discover <span className="font-bold text-green-800">{animatedStats.formats || 20}+</span> unique golf formats that turn every round into an adventure. 
             From competitive tournaments to fun team games, find the perfect way to play.
           </p>
 
@@ -268,10 +306,10 @@ export default function HomePage() {
                     { title: "Ryder Cup Formats", detail: "The Ryder Cup uses fourball, foursomes, and singles matches over 3 days, creating the most exciting team competition in golf" },
                     { title: "Stableford on Tour", detail: "The Barracuda Championship is the only PGA Tour event using Modified Stableford scoring, rewarding aggressive play with bonus points" },
                     { title: "Match Play History", detail: "Match play was golf's original format dating back to the 15th century in Scotland, and remained the only format until 1759" },
-                    { title: "Team Format Benefits", detail: "Team formats can reduce round times by 30% while allowing players of all skill levels to contribute meaningfully" },
+                    { title: "Team Format Benefits", detail: `Team formats can reduce round times by ${animatedStats.timeReduction || 30}% while allowing players of all skill levels to contribute meaningfully` },
                     { title: "Corporate Scrambles", detail: "Scramble is used in 75% of corporate tournaments because it keeps everyone involved and speeds up play significantly" },
-                    { title: "Skins Game Payouts", detail: "Skins games have awarded over $50M in PGA Tour history, with single holes sometimes worth $1 million" },
-                    { title: "Best Ball Handicapping", detail: "Best Ball's format allows a 20 handicapper to compete fairly with scratch golfers through proper handicap allocation" },
+                    { title: "Skins Game Payouts", detail: `Skins games have awarded over $${animatedStats.tourEvents || 50}M in PGA Tour history, with single holes sometimes worth $1 million` },
+                    { title: "Best Ball Handicapping", detail: `Best Ball's format allows a ${animatedStats.handicapRange || 20} handicapper to compete fairly with scratch golfers through proper handicap allocation` },
                     { title: "Modified Stableford", detail: "Modified Stableford awards 8 points for albatross, 5 for eagle, 2 for birdie, encouraging risk-taking on every hole" }
                   ].map((fact, index) => (
                     <div key={index} className="border-b border-amber-100/20 last:border-0">
