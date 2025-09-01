@@ -30,7 +30,7 @@ const RevealOnScroll = dynamic(() => import('@/components/reveal-on-scroll'), { 
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
-  const [expandedFact, setExpandedFact] = useState<number | null>(0);
+  const [expandedFact, setExpandedFact] = useState<number>(0);
   const [animatedStats, setAnimatedStats] = useState({
     formats: 0,
     timeReduction: 0,
