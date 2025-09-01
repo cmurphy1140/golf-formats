@@ -4,24 +4,24 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/src/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-900",
+  "inline-flex items-center justify-center whitespace-nowrap rounded text-sm font-medium transition-all focus-masters disabled:pointer-events-none disabled:opacity-50 gap-2",
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700 hover:shadow-lg hover:-translate-y-0.5",
-        destructive: "bg-red-500 text-white hover:bg-red-600",
-        outline: "border border-gray-200 bg-white hover:bg-gray-100 hover:text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white",
-        secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600",
-        ghost: "hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white",
-        link: "text-green-600 underline-offset-4 hover:underline dark:text-green-400",
-        glass: "backdrop-blur-xl bg-white/70 border border-gray-200/50 hover:bg-white/80 dark:bg-gray-900/70 dark:border-gray-700/50 dark:hover:bg-gray-900/80",
+        default: "btn-masters-primary hover-lift",
+        destructive: "bg-masters-azalea text-masters-cream hover:bg-masters-azalea/90",
+        outline: "btn-masters-secondary hover-lift",
+        secondary: "bg-masters-sand text-masters-charcoal hover:bg-masters-stone",
+        ghost: "btn-masters-ghost hover-lift",
+        link: "text-masters-pine underline-offset-4 hover:underline",
+        glass: "glass-masters hover:bg-masters-cream/80 border border-masters-stone/20",
       },
       size: {
-        default: "h-10 px-6 py-2",
-        sm: "h-9 px-4 py-1.5 text-xs",
-        lg: "h-12 px-8 py-3 text-base",
-        xl: "h-14 px-10 py-4 text-lg",
-        icon: "h-10 w-10",
+        default: "h-12 px-6 py-3",
+        sm: "h-10 px-4 py-2 text-xs",
+        lg: "h-14 px-8 py-4 text-base",
+        xl: "h-16 px-10 py-5 text-lg",
+        icon: "h-12 w-12",
       },
     },
     defaultVariants: {

@@ -1,276 +1,514 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { golfFormats } from '@/data/formats';
-import FormatCard from '@/components/format-card';
-import SearchBar from '@/components/search-bar';
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
+import { useEffect, useState } from 'react';
 import { 
-  Trophy, 
-  Users, 
-  Clock, 
-  Target,
   ArrowRight,
+  Trophy,
+  Users,
+  Target,
   Sparkles,
-  Grid,
-  Zap,
-  Star
+  DollarSign,
+  Award,
+  ChevronDown,
+  Clock,
+  TrendingUp,
+  Heart,
+  Zap
 } from 'lucide-react';
 
 export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [featuredFormats, setFeaturedFormats] = useState(golfFormats.slice(0, 6));
+  const [scrollY, setScrollY] = useState(0);
+  const [expandedFact, setExpandedFact] = useState<number | null>(null);
+  
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  // Popular formats
-  const popularFormats = [
-    golfFormats.find(f => f.id === 'scramble'),
-    golfFormats.find(f => f.id === 'best-ball'),
-    golfFormats.find(f => f.id === 'skins'),
-    golfFormats.find(f => f.id === 'stableford'),
-  ].filter(Boolean);
+  // Calculate opacity - simply keep everything visible
+  const getOpacity = (elementTop: number, fadeDistance: number = 200) => {
+    // Disable fading entirely - keep all content fully visible
+    return 1;
+  };
 
-  const stats = [
-    { icon: Trophy, label: 'Game Formats', value: golfFormats.length + '+' },
-    { icon: Users, label: 'Player Options', value: '1-144' },
-    { icon: Clock, label: 'Time Ranges', value: '3-5 hrs' },
-    { icon: Target, label: 'Skill Levels', value: 'All' },
-  ];
-
-  const categories = [
-    { name: 'Tournament', count: golfFormats.filter(f => f.category === 'tournament').length, color: 'from-blue-500 to-blue-600' },
-    { name: 'Casual', count: golfFormats.filter(f => f.category === 'casual').length, color: 'from-green-500 to-green-600' },
-    { name: 'Betting', count: golfFormats.filter(f => f.category === 'betting').length, color: 'from-orange-500 to-orange-600' },
-    { name: 'Team', count: golfFormats.filter(f => f.category === 'team').length, color: 'from-purple-500 to-purple-600' },
-  ];
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    if (query) {
-      const filtered = golfFormats.filter(format => 
-        format.name.toLowerCase().includes(query.toLowerCase()) ||
-        format.description.toLowerCase().includes(query.toLowerCase())
-      );
-      setFeaturedFormats(filtered.slice(0, 6));
-    } else {
-      setFeaturedFormats(golfFormats.slice(0, 6));
-    }
+  // Calculate transform based on scroll - disabled to prevent content shifting
+  const getTransform = (speed: number = 1) => {
+    // Disabled parallax transform to keep content in place
+    return `translateY(0px)`;
   };
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-blue-600 to-purple-600">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+    <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
+      {/* Hero Section with Parallax */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-green-50 to-white"
+          style={{ transform: getTransform(0.5) }}
+        />
+        
+        <div 
+          className="relative z-10 max-w-3xl mx-auto text-center px-6 transition-opacity duration-300"
+          style={{ 
+            opacity: getOpacity(0),
+            transform: getTransform(0.2)
+          }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-800 rounded-full text-green-800 text-sm font-medium mb-8">
+            <Sparkles size={16} />
+            <span>Transform Your Golf Experience</span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-bold text-green-900 mb-4 leading-tight">
+            Why Play Golf
+            <span className="block text-green-800">The Same Way?</span>
+          </h1>
+
+          <p className="text-xl text-gray-800 max-w-xl mx-auto mb-8 leading-relaxed">
+            Discover 20+ unique golf formats that turn every round into an adventure. 
+            From competitive tournaments to fun team games, find the perfect way to play.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <Link
+              href="/formats"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-800 text-white font-medium rounded-lg hover:bg-green-900 transition-colors"
+            >
+              Explore Formats
+              <ArrowRight size={20} />
+            </Link>
+            <Link
+              href="#why-formats"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-700 font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+            >
+              Learn More
+              <ChevronDown size={20} />
+            </Link>
+          </div>
+
+          {/* Scroll Indicator - Positioned Lower */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-green-800 text-xs font-medium">Scroll to explore</span>
+              <div className="animate-bounce">
+                <ChevronDown size={28} className="text-green-800" strokeWidth={2.5} />
+              </div>
+            </div>
+          </div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white mb-6">
-              <Sparkles size={16} />
-              <span className="text-sm font-medium">Your Complete Golf Formats Resource</span>
-            </div>
-            
-            <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6">
-              Discover Your Perfect
-              <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                Golf Game Format
-              </span>
-            </h1>
-            
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-10">
-              From classic stroke play to exciting betting games, find the ideal format for your group. 
-              {golfFormats.length}+ formats with detailed rules, scoring, and strategies.
-            </p>
-
-            <div className="max-w-2xl mx-auto mb-8">
-              <SearchBar 
-                onSearch={handleSearch}
-                placeholder="Try 'scramble', 'betting', or '4 players'..."
-                className="transform hover:scale-105 transition-transform"
-              />
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/formats"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:shadow-xl transform hover:-translate-y-1 transition-all"
-              >
-                Browse All Formats
-                <Grid size={20} />
-              </Link>
-              <Link
-                href="/formats?category=tournament"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 rounded-full font-semibold hover:bg-white/30 transition-all"
-              >
-                Tournament Formats
-                <Trophy size={20} />
-              </Link>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                  <Icon className="w-8 h-8 text-white/80 mx-auto mb-2" />
-                  <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-sm text-white/70">{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
+        {/* Subtle Down Arrow */}
+        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 z-20">
+          <ChevronDown size={20} className="text-green-600/40 animate-pulse" />
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Browse by Category
+      {/* What is This App Section */}
+      <section id="what-is-this" className="relative py-12 px-6">
+        <div 
+          className="max-w-4xl mx-auto transition-all duration-500"
+          style={{ 
+            opacity: getOpacity(600),
+            transform: getTransform(0.05)
+          }}
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-green-900 mb-4">
+              What is Golf Format Explorer?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              Find the perfect format for your playing style
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
+              Your comprehensive guide to making golf more exciting, social, and enjoyable 
+              through different playing formats
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => (
-              <Link
-                key={category.name}
-                href={`/formats?category=${category.name.toLowerCase()}`}
-                className="group relative overflow-hidden rounded-2xl p-6 bg-white dark:bg-gray-800 hover:shadow-xl transition-all hover:-translate-y-1"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-r ${category.color} opacity-5 group-hover:opacity-10 transition-opacity`} />
-                <div className="relative">
-                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${category.color} mb-4`}>
-                    <Trophy className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                    {category.name}
-                  </h3>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                    {category.count}
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    formats available
-                  </p>
-                  <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-1 transition-all" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Formats */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                Popular Formats
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300">
-                Most-played formats by recreational golfers
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-green-100 hover:shadow-xl transition-shadow">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <Target className="w-6 h-6 text-green-800" />
+              </div>
+              <h3 className="text-xl font-bold text-green-900 mb-3">
+                Find Your Game
+              </h3>
+              <p className="text-base text-gray-800 leading-relaxed">
+                Match your skill level, group size, and playing style with the perfect format. 
+                Whether you're a beginner or scratch golfer, there's a format for you.
               </p>
             </div>
-            <Link
-              href="/formats"
-              className="hidden sm:inline-flex items-center gap-2 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 font-semibold"
-            >
-              View all
-              <ArrowRight size={20} />
-            </Link>
-          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popularFormats.map((format) => format && (
-              <div key={format.id} className="relative">
-                <div className="absolute -top-2 -right-2 z-10">
-                  <div className="bg-yellow-400 text-yellow-900 rounded-full p-2">
-                    <Star size={16} fill="currentColor" />
-                  </div>
-                </div>
-                <FormatCard format={format} />
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-green-100 hover:shadow-xl transition-shadow">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <Heart className="w-6 h-6 text-green-800" />
               </div>
-            ))}
+              <h3 className="text-xl font-bold text-green-900 mb-3">
+                Keep It Fresh
+              </h3>
+              <p className="text-base text-gray-800 leading-relaxed">
+                Stop playing the same way every round. Our formats add variety, excitement, 
+                and new challenges that keep golf interesting week after week.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-green-100 hover:shadow-xl transition-shadow">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-green-800" />
+              </div>
+              <h3 className="text-xl font-bold text-green-900 mb-3">
+                Learn & Improve
+              </h3>
+              <p className="text-base text-gray-800 leading-relaxed">
+                Each format teaches different skills and strategies. Build confidence, 
+                learn course management, and become a more complete golfer.
+              </p>
+            </div>
           </div>
+        </div>
+        
+        {/* Subtle Section Divider */}
+        <div className="flex justify-center mt-4">
+          <ChevronDown size={20} className="text-green-600/30 animate-pulse" />
         </div>
       </section>
 
-      {/* Featured Formats */}
-      <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {searchQuery ? 'Search Results' : 'Featured Formats'}
+      {/* Why Use Different Formats Section */}
+      <section id="why-formats" className="relative py-12 px-6 bg-gradient-to-b from-white to-green-50">
+        <div 
+          className="max-w-4xl mx-auto"
+          style={{ 
+            opacity: getOpacity(1200),
+            transform: getTransform(0.05)
+          }}
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Why Use Different Golf Formats?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              {searchQuery 
-                ? `Showing results for "${searchQuery}"`
-                : 'Handpicked formats to enhance your golf experience'}
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Transform your regular foursome into an exciting competition or casual fun
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredFormats.map((format) => (
-              <FormatCard key={format.id} format={format} />
-            ))}
+          <div className="grid md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
+            <div className="space-y-4">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center">
+                    <Users className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-green-900 mb-2">
+                    Level the Playing Field
+                  </h3>
+                  <p className="text-base text-gray-800 leading-relaxed">
+                    Many formats allow players of different skill levels to compete fairly. 
+                    Scrambles and best ball formats let beginners contribute while learning from better players.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-green-900 mb-2">
+                    Speed Up Play
+                  </h3>
+                  <p className="text-base text-gray-800 leading-relaxed">
+                    Formats like scramble and alternate shot can significantly reduce round times 
+                    while maintaining the fun and competitive spirit.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-green-900 mb-2">
+                    Develop New Skills
+                  </h3>
+                  <p className="text-base text-gray-800 leading-relaxed">
+                    Different formats emphasize different aspects of the game. Match play teaches 
+                    strategy, while stableford encourages aggressive play.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center">
+                    <Heart className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-green-900 mb-2">
+                    Build Camaraderie
+                  </h3>
+                  <p className="text-base text-gray-800 leading-relaxed">
+                    Team formats create bonds and memorable moments. Share victories, support 
+                    each other through tough shots, and enjoy golf as a social experience.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative h-full">
+              <div className="bg-gradient-to-b from-green-900 to-green-700 rounded-2xl p-6 h-full flex flex-col">
+                <h3 className="text-2xl font-bold mb-4 text-amber-50">Did You Know?</h3>
+                <div className="space-y-2 flex-1">
+                  {[
+                    { title: "Ryder Cup Formats", detail: "The Ryder Cup uses fourball, foursomes, and singles matches over 3 days, creating the most exciting team competition in golf" },
+                    { title: "Stableford on Tour", detail: "The Barracuda Championship is the only PGA Tour event using Modified Stableford scoring, rewarding aggressive play with bonus points" },
+                    { title: "Match Play History", detail: "Match play was golf's original format dating back to the 15th century in Scotland, and remained the only format until 1759" },
+                    { title: "Team Format Benefits", detail: "Team formats can reduce round times by 30% while allowing players of all skill levels to contribute meaningfully" },
+                    { title: "Corporate Scrambles", detail: "Scramble is used in 75% of corporate tournaments because it keeps everyone involved and speeds up play significantly" },
+                    { title: "Skins Game Payouts", detail: "Skins games have awarded over $50M in PGA Tour history, with single holes sometimes worth $1 million" },
+                    { title: "Best Ball Handicapping", detail: "Best Ball's format allows a 20 handicapper to compete fairly with scratch golfers through proper handicap allocation" },
+                    { title: "Modified Stableford", detail: "Modified Stableford awards 8 points for albatross, 5 for eagle, 2 for birdie, encouraging risk-taking on every hole" }
+                  ].map((fact, index) => (
+                    <div key={index} className="border-b border-amber-100/20 last:border-0">
+                      <button
+                        onClick={() => setExpandedFact(expandedFact === index ? null : index)}
+                        className="w-full text-left py-2 flex items-center justify-between hover:bg-white/5 transition-colors rounded px-2"
+                      >
+                        <span className="text-sm font-medium text-amber-100">{fact.title}</span>
+                        <ChevronDown 
+                          size={16} 
+                          className={`text-amber-100/60 transition-transform ${expandedFact === index ? 'rotate-180' : ''}`} 
+                        />
+                      </button>
+                      {expandedFact === index && (
+                        <div className="px-2 pb-3 text-xs text-amber-100/80 leading-relaxed animate-fade-in">
+                          {fact.detail}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Subtle Section Divider */}
+        <div className="flex justify-center mt-4">
+          <ChevronDown size={20} className="text-green-600/30 animate-pulse" />
+        </div>
+      </section>
+
+      {/* How Each Category Works */}
+      <section className="relative py-12 px-6">
+        <div 
+          className="max-w-4xl mx-auto"
+          style={{ 
+            opacity: getOpacity(1800),
+            transform: getTransform(0.05)
+          }}
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-green-900 mb-4">
+              How Each Category Works
+            </h2>
+            <p className="text-xl text-gray-800 max-w-2xl mx-auto leading-relaxed">
+              Understanding the different categories helps you choose the right format for your group
+            </p>
           </div>
 
-          <div className="text-center mt-12">
-            <Link
-              href="/formats"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-full font-semibold hover:shadow-xl transform hover:-translate-y-1 transition-all"
-            >
-              Explore All Formats
-              <ArrowRight size={20} />
-            </Link>
+          <div className="space-y-6">
+            {/* Tournament Formats */}
+            <div className="bg-white rounded-2xl shadow-lg border border-green-100 overflow-hidden">
+              <div className="bg-gradient-to-r from-green-800 to-green-700 p-6">
+                <div className="flex items-center gap-3">
+                  <Trophy className="w-8 h-8 text-amber-100" />
+                  <h3 className="text-2xl font-bold text-amber-50">Tournament Formats</h3>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-base text-gray-800 mb-4 leading-relaxed">
+                  Official competitive formats used in professional and amateur competitions. 
+                  These formats test true golfing ability and maintain the integrity of the game.
+                </p>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Stroke Play</h4>
+                    <p className="text-sm text-gray-700">
+                      Count every stroke. Lowest total score wins. The purest test of golf.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Match Play</h4>
+                    <p className="text-sm text-gray-700">
+                      Win individual holes. Strategic format where every hole is a new battle.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Stableford</h4>
+                    <p className="text-sm text-gray-700">
+                      Points-based scoring that rewards aggressive play and minimizes disasters.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Formats */}
+            <div className="bg-white rounded-2xl shadow-lg border border-green-100 overflow-hidden">
+              <div className="bg-gradient-to-r from-green-800 to-green-700 p-6">
+                <div className="flex items-center gap-3">
+                  <Users className="w-8 h-8 text-amber-100" />
+                  <h3 className="text-2xl font-bold text-amber-50">Team Formats</h3>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-base text-gray-800 mb-4 leading-relaxed">
+                  Collaborative formats where partners work together. Perfect for building 
+                  camaraderie and allowing players of different abilities to contribute.
+                </p>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Scramble</h4>
+                    <p className="text-sm text-gray-700">
+                      All players hit, team chooses best shot. Great for beginners and fast play.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Best Ball</h4>
+                    <p className="text-sm text-gray-700">
+                      Play your own ball, count best score. Individual play with team support.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Alternate Shot</h4>
+                    <p className="text-sm text-gray-700">
+                      Partners alternate hitting same ball. True teamwork and communication.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Betting Games */}
+            <div className="bg-white rounded-2xl shadow-lg border border-green-100 overflow-hidden">
+              <div className="bg-gradient-to-r from-green-800 to-green-700 p-6">
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-8 h-8 text-amber-100" />
+                  <h3 className="text-2xl font-bold text-amber-50">Betting Games</h3>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-base text-gray-800 mb-4 leading-relaxed">
+                  Add excitement with friendly wagers. These formats create drama on every hole 
+                  and keep all players engaged throughout the round.
+                </p>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Skins</h4>
+                    <p className="text-sm text-gray-700">
+                      Win holes to win "skins". Carryovers create big pots and excitement.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Nassau</h4>
+                    <p className="text-sm text-gray-700">
+                      Three bets in one: front 9, back 9, overall. Classic betting format.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Wolf</h4>
+                    <p className="text-sm text-gray-700">
+                      Rotating captain chooses partners or goes alone. Strategy and risk/reward.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Casual Formats */}
+            <div className="bg-white rounded-2xl shadow-lg border border-green-100 overflow-hidden">
+              <div className="bg-gradient-to-r from-green-800 to-green-700 p-6">
+                <div className="flex items-center gap-3 text-white">
+                  <Target className="w-8 h-8" />
+                  <h3 className="text-2xl font-bold">Casual Formats</h3>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-base text-gray-800 mb-4 leading-relaxed">
+                  Fun, relaxed formats perfect for social golf. These games keep things light 
+                  while still providing competition and improvement opportunities.
+                </p>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Bingo Bango Bongo</h4>
+                    <p className="text-sm text-gray-700">
+                      Points for first on green, closest to pin, first in hole. Levels playing field.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">String Game</h4>
+                    <p className="text-sm text-gray-700">
+                      Use string to move ball. Fun format that helps beginners enjoy the game.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-green-900 mb-2">Worst Ball</h4>
+                    <p className="text-sm text-gray-700">
+                      Play from worst shot. Challenging format that improves consistency.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        
+        {/* Subtle Section Divider */}
+        <div className="flex justify-center mt-4">
+          <ChevronDown size={20} className="text-green-600/30 animate-pulse" />
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-blue-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-            <Zap className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Transform Your Golf Game?
+      <section className="relative py-12 px-6 bg-gradient-to-t from-green-100 to-green-50">
+        <div 
+          className="max-w-3xl mx-auto text-center"
+          style={{ 
+            opacity: getOpacity(2400),
+            transform: getTransform(0.05)
+          }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-green-900 mb-6">
+            Ready to Transform Your Game?
           </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Find the perfect format for your next round and make every game memorable
+          <p className="text-xl text-gray-800 mb-8 max-w-xl mx-auto leading-relaxed">
+            Stop playing the same old stroke play. Discover formats that make every round 
+            memorable, improve your skills, and bring more fun to the game.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/formats"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:shadow-xl transform hover:-translate-y-1 transition-all"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-800 text-white font-medium rounded-lg hover:bg-green-900 transition-colors transform hover:scale-105"
             >
-              Start Exploring
+              Explore All Formats
               <ArrowRight size={20} />
             </Link>
             <Link
-              href="/tournaments"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 rounded-full font-semibold hover:bg-white/30 transition-all"
+              href="/formats?category=team"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-green-800 font-medium rounded-lg border-2 border-green-800 hover:bg-green-50 transition-colors transform hover:scale-105"
             >
-              Tournament Ideas
-              <Trophy size={20} />
+              Start with Team Formats
+              <Users size={20} />
             </Link>
           </div>
         </div>
       </section>
-      
-      <Footer />
     </div>
   );
 }

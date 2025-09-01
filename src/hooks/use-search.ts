@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useFormatStore } from '@/src/store'
 import { golfFormats } from '@/data/formats'
-import { searchFormats, debounce } from '@/src/lib/utils'
+import { searchFormats } from '@/src/lib/utils'
 import { POPULAR_SEARCHES } from '@/src/lib/constants'
 
 export function useSearch() {
@@ -15,24 +15,37 @@ export function useSearch() {
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [isSearching, setIsSearching] = useState(false)
   
-  const debouncedSearch = useMemo(
-    () => debounce((query: string) => {
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null)
+  
+  const debouncedSearch = useCallback((query: string) => {
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout)
+    }
+    
+    const newTimeout = setTimeout(() => {
       setSearchQuery(query)
       if (query.trim()) {
         addRecentSearch(query)
       }
       setIsSearching(false)
-    }, 300),
-    [setSearchQuery, addRecentSearch]
-  )
+    }, 300)
+    
+    setDebounceTimeout(newTimeout)
+  }, [setSearchQuery, addRecentSearch, debounceTimeout])
   
   const handleSearch = (query: string) => {
     setIsSearching(true)
     debouncedSearch(query)
   }
   
-  const generateSuggestions = useMemo(
-    () => debounce((query: string) => {
+  const [suggestionTimeout, setSuggestionTimeout] = useState<NodeJS.Timeout | null>(null)
+  
+  const generateSuggestions = useCallback((query: string) => {
+    if (suggestionTimeout) {
+      clearTimeout(suggestionTimeout)
+    }
+    
+    const newTimeout = setTimeout(() => {
       if (!query.trim() || query.length < 2) {
         setSuggestions([])
         return
@@ -57,9 +70,10 @@ export function useSearch() {
       ].slice(0, 8)
       
       setSuggestions(allSuggestions)
-    }, 200),
-    []
-  )
+    }, 200)
+    
+    setSuggestionTimeout(newTimeout)
+  }, [suggestionTimeout])
   
   useEffect(() => {
     if (searchState.query) {

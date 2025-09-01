@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Trophy, Heart, Github, Twitter, Mail, MapPin } from 'lucide-react';
+import { Trophy, Heart, Mail, MapPin, Crown, Star } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -33,69 +33,56 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <footer className="bg-masters-pine text-masters-cream masters-pattern">
       {/* Main Footer Content */}
-      <div className="container-centered py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="container-masters section-padding">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-6 group">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-                <Trophy className="w-7 h-7 text-white" />
+            <Link href="/" className="flex items-center gap-4 mb-8 group">
+              <div className="w-14 h-14 bg-masters-cream rounded flex items-center justify-center shadow-large group-hover:shadow-xl transition-all duration-300">
+                <Trophy className="w-8 h-8 text-masters-pine" />
               </div>
               <div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                <h3 className="text-h2 font-serif font-semibold text-masters-cream tracking-tight">
                   Golf Formats
-                </span>
-                <p className="text-sm text-gray-400 mt-1">
-                  Your complete golf game resource
+                </h3>
+                <p className="text-small text-masters-cream/70 -mt-1 tracking-wide uppercase">
+                  Masters Edition
                 </p>
               </div>
             </Link>
             
-            <p className="text-gray-300 mb-6 leading-relaxed">
+            <p className="text-masters-cream/80 mb-8 leading-relaxed text-body max-w-md">
               Discover the perfect golf format for every occasion. From classic stroke play 
-              to exciting betting games, we&apos;ve got comprehensive rules, scoring guides, 
-              and strategies for 20+ golf formats.
+              to exciting betting games, we have comprehensive rules, scoring guides, 
+              and strategies for 20+ golf formats in the tradition of excellence.
             </p>
             
-            <div className="flex items-center gap-4">
-              <Link 
-                href="https://github.com/golf-formats" 
-                className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
-                aria-label="GitHub"
-              >
-                <Github size={20} />
-              </Link>
-              <Link 
-                href="https://twitter.com/golfformats" 
-                className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter size={20} />
-              </Link>
+            <div className="flex items-center gap-6">
               <Link 
                 href="mailto:hello@golfformats.com" 
-                className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
-                aria-label="Email"
+                className="flex items-center gap-3 px-6 py-3 bg-masters-fairway/20 hover:bg-masters-fairway/30 rounded transition-all duration-300 text-small font-medium"
+                aria-label="Contact Us"
               >
-                <Mail size={20} />
+                <Mail size={18} />
+                <span>Contact Us</span>
               </Link>
             </div>
           </div>
 
           {/* Links Sections */}
           <div>
-            <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-              <Trophy size={16} />
+            <h4 className="font-serif font-medium text-masters-cream mb-6 flex items-center gap-3 text-h4">
+              <Crown size={20} />
               Formats
-            </h3>
-            <ul className="space-y-2">
+            </h4>
+            <ul className="space-y-3">
               {footerLinks.formats.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-masters-cream/70 hover:text-masters-cream transition-colors text-small hover-lift inline-block"
                   >
                     {link.label}
                   </Link>
@@ -105,13 +92,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-white mb-4">Tools</h3>
-            <ul className="space-y-2">
+            <h4 className="font-serif font-medium text-masters-cream mb-6 text-h4">Tools</h4>
+            <ul className="space-y-3">
               {footerLinks.tools.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-masters-cream/70 hover:text-masters-cream transition-colors text-small hover-lift inline-block"
                   >
                     {link.label}
                   </Link>
@@ -121,13 +108,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-white mb-4">Resources</h3>
-            <ul className="space-y-2">
+            <h4 className="font-serif font-medium text-masters-cream mb-6 text-h4">Resources</h4>
+            <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-masters-cream/70 hover:text-masters-cream transition-colors text-small hover-lift inline-block"
                   >
                     {link.label}
                   </Link>
@@ -138,54 +125,63 @@ export default function Footer() {
         </div>
 
         {/* Stats Section */}
-        <div className="border-t border-gray-700 mt-12 pt-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <div className="border-t border-masters-cream/20 mt-16 pt-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-400 mb-1">20+</div>
-              <div className="text-sm text-gray-400">Golf Formats</div>
+              <div className="text-display font-serif font-semibold text-masters-gold mb-2">20+</div>
+              <div className="text-small text-masters-cream/60 uppercase tracking-wider">Golf Formats</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400 mb-1">1-144</div>
-              <div className="text-sm text-gray-400">Player Range</div>
+              <div className="text-display font-serif font-semibold text-masters-gold mb-2">1-144</div>
+              <div className="text-small text-masters-cream/60 uppercase tracking-wider">Player Range</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-400 mb-1">All</div>
-              <div className="text-sm text-gray-400">Skill Levels</div>
+              <div className="text-display font-serif font-semibold text-masters-gold mb-2">All</div>
+              <div className="text-small text-masters-cream/60 uppercase tracking-wider">Skill Levels</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-400 mb-1">100%</div>
-              <div className="text-sm text-gray-400">Free Access</div>
+              <div className="text-display font-serif font-semibold text-masters-gold mb-2">100%</div>
+              <div className="text-small text-masters-cream/60 uppercase tracking-wider">Free Access</div>
+            </div>
+          </div>
+          
+          {/* Tradition Badge */}
+          <div className="flex justify-center mb-8">
+            <div className="badge-tradition text-masters-pine bg-masters-gold/20 border-masters-gold/40">
+              <Star size={16} className="text-masters-gold" />
+              <span className="font-medium">A Tradition of Excellence</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-700">
-        <div className="container-centered py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-sm text-gray-400">
-              © {currentYear} Golf Formats Database. Made with{' '}
-              <Heart size={14} className="inline text-red-400 mx-1" />
-              for golfers everywhere.
+      <div className="border-t border-masters-cream/20 bg-masters-charcoal/20">
+        <div className="container-masters py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-small text-masters-cream/60 text-center md:text-left">
+              © {currentYear} Golf Formats Database. Crafted with{' '}
+              <Heart size={16} className="inline text-masters-azalea mx-1" />
+              for the game we love.
             </div>
             
-            <div className="flex items-center gap-6 text-sm">
-              {footerLinks.company.map((link) => (
+            <div className="flex items-center gap-8 text-small">
+              {footerLinks.company.map((link, index) => (
                 <Link 
                   key={link.href}
                   href={link.href}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-masters-cream/60 hover:text-masters-cream transition-colors"
                 >
                   {link.label}
+                  {index < footerLinks.company.length - 1 && <span className="ml-8 text-masters-cream/30">|</span>}
                 </Link>
               ))}
             </div>
           </div>
           
-          <div className="flex items-center justify-center mt-4 text-xs text-gray-500">
-            <MapPin size={12} className="mr-1" />
-            Serving golfers worldwide
+          <div className="flex items-center justify-center mt-6 text-tiny text-masters-cream/40">
+            <MapPin size={14} className="mr-2" />
+            Serving golfers with distinction worldwide
           </div>
         </div>
       </div>

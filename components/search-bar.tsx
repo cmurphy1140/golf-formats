@@ -32,6 +32,8 @@ export default function SearchBar({
     clearRecentSearches 
   } = useSearch();
 
+  // TODO: Implement actual debouncing for search to improve performance
+  // Currently searches on every keystroke which could be optimized
   const debouncedSearch = useCallback((value: string) => {
     handleSearch(value);
     onSearch?.(value);
@@ -77,14 +79,14 @@ export default function SearchBar({
 
   return (
     <div className={`relative w-full ${className}`}>
-      <div className={`relative transition-all duration-300 ${
-        isFocused ? 'scale-[1.02]' : ''
+      <div className={`relative transition-all duration-300 hover-lift ${
+        isFocused ? 'scale-[1.01]' : ''
       }`}>
         <Search 
-          className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
-            isFocused ? 'text-green-600 dark:text-green-400' : 'text-gray-400'
+          className={`absolute left-6 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
+            isFocused ? 'text-masters-pine' : 'text-masters-slate/50'
           }`} 
-          size={20} 
+          size={22} 
         />
         <input
           ref={inputRef}
@@ -99,21 +101,21 @@ export default function SearchBar({
           }}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
-          className={`w-full pl-12 pr-12 py-4 rounded-2xl border-2 transition-all duration-300 ${
+          className={`input-masters pl-16 pr-16 py-6 text-body font-medium transition-all duration-300 ${
             isFocused 
-              ? 'border-green-500 shadow-lg shadow-green-500/20 dark:shadow-green-500/10' 
-              : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
-          } bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none backdrop-blur-sm`}
+              ? 'border-masters-pine shadow-large' 
+              : 'hover:border-masters-slate/40'
+          }`}
         />
         {inputValue && (
           <Button
             variant="ghost"
             size="icon"
             onClick={clearSearch}
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full hover:bg-masters-sand/50 text-masters-slate hover:text-masters-pine focus-masters"
             aria-label="Clear search"
           >
-            <X size={16} className="text-gray-400" />
+            <X size={18} />
           </Button>
         )}
       </div>
@@ -121,19 +123,19 @@ export default function SearchBar({
       {showSuggestions && showDropdown && hasContent && (
         <div 
           ref={dropdownRef}
-          className="absolute top-full mt-2 left-0 right-0 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-xl bg-white/90 dark:bg-gray-800/90 z-50 max-h-80 overflow-y-auto"
+          className="absolute top-full mt-4 left-0 right-0 bg-white rounded-lg shadow-large border border-masters-stone/20 glass-masters z-50 max-h-96 overflow-y-auto"
         >
           {suggestions.length > 0 && (
-            <div className="p-2">
-              <div className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                <TrendingUp size={14} />
+            <div className="p-4">
+              <div className="flex items-center gap-3 px-4 py-3 text-small font-medium text-masters-slate uppercase tracking-wider border-b border-masters-stone/20 mb-2">
+                <TrendingUp size={16} className="text-masters-pine" />
                 Suggestions
               </div>
               {suggestions.map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => selectSuggestion(suggestion)}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-900 dark:text-white text-sm"
+                  className="w-full text-left px-4 py-3 rounded hover:bg-masters-sand/50 transition-all duration-200 text-masters-charcoal text-body font-medium hover-lift"
                 >
                   {suggestion}
                 </button>
@@ -142,27 +144,27 @@ export default function SearchBar({
           )}
           
           {recentSearches.length > 0 && (
-            <div className="p-2 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex items-center justify-between px-3 py-2">
-                <div className="flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  <Clock size={14} />
+            <div className="p-4 border-t border-masters-stone/20">
+              <div className="flex items-center justify-between px-4 py-3 mb-3">
+                <div className="flex items-center gap-3 text-small font-medium text-masters-slate uppercase tracking-wider">
+                  <Clock size={16} className="text-masters-pine" />
                   Recent Searches
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={clearRecentSearches}
-                  className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 h-auto p-1"
+                  className="text-small text-masters-slate hover:text-masters-pine"
                 >
                   Clear
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-2 px-3 pb-2">
+              <div className="flex flex-wrap gap-3 px-4">
                 {recentSearches.slice(0, 6).map((search, index) => (
                   <Badge
                     key={index}
                     variant="secondary"
-                    className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-xs"
+                    className="cursor-pointer hover:bg-masters-pine/10 hover:text-masters-pine transition-colors duration-200 hover-lift"
                     onClick={() => selectSuggestion(search)}
                   >
                     {search}

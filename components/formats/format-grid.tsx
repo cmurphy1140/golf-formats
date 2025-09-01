@@ -1,15 +1,15 @@
 'use client';
 
-import { Grid, List, RotateCcw, SlidersHorizontal } from 'lucide-react';
+import { Grid, List, RotateCcw, SlidersHorizontal, Crown, ArrowRight } from 'lucide-react';
 import { GolfFormat } from '@/types/golf';
-import FormatCard from '@/components/format-card';
+import FormatCardSimple from '@/components/format-card-simple';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useFormatStore } from '@/src/store';
 import { SORT_OPTIONS } from '@/src/lib/constants';
 import { formatPlayerCount, getDifficultyLabel } from '@/src/lib/utils';
+import Link from 'next/link';
 
 interface FormatGridProps {
   formats: GolfFormat[];
@@ -28,77 +28,109 @@ export default function FormatGrid({ formats, totalCount, isLoading = false }: F
     );
   }
 
+  const getCategoryBadgeClass = (category: string) => {
+    switch (category) {
+      case 'tournament':
+        return 'badge-tournament';
+      case 'casual':
+        return 'badge-casual';
+      case 'betting':
+        return 'badge-betting';
+      case 'team':
+        return 'badge-team';
+      case 'training':
+        return 'badge-training';
+      default:
+        return 'badge-casual';
+    }
+  };
+
   const FormatListView = ({ format }: { format: GolfFormat }) => (
-    <Card className="hover:-translate-y-1 transition-all duration-300">
-      <div className="p-6">
-        <div className="flex items-start gap-6">
+    <div className="card-masters hover-glow hover-lift transition-all duration-300">
+      <div className="p-8">
+        <div className="flex items-start gap-8">
           {/* Format Info */}
           <div className="flex-1">
-            <div className="flex items-start justify-between mb-2">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex-1 pr-6">
+                <h3 className="text-h3 font-serif font-bold text-masters-charcoal mb-3">
                   {format.name}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 line-clamp-2">
+                <p className="text-masters-slate line-clamp-2 leading-relaxed">
                   {format.description}
                 </p>
               </div>
-              <Badge variant="outline" className="capitalize">
-                {format.category}
-              </Badge>
+              <div className="flex flex-col items-end gap-2">
+                <Badge className={`${getCategoryBadgeClass(format.category)} text-xs`}>
+                  {format.category}
+                </Badge>
+                {format.popularity >= 80 && (
+                  <div className="flex items-center gap-2 bg-masters-gold/10 px-2 py-1 rounded-full">
+                    <Crown size={12} className="text-masters-gold" />
+                    <span className="text-tiny font-medium text-masters-gold uppercase tracking-wider">Distinguished</span>
+                  </div>
+                )}
+              </div>
             </div>
             
             {/* Quick Stats */}
-            <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex flex-wrap gap-6 mt-6 text-small text-masters-slate font-medium">
               <span>{formatPlayerCount(format.players)}</span>
-              <span>•</span>
+              <span className="text-masters-stone">•</span>
               <span>{format.duration}</span>
-              <span>•</span>
+              <span className="text-masters-stone">•</span>
               <span className="capitalize">{format.type}</span>
-              <span>•</span>
+              <span className="text-masters-stone">•</span>
               <span>{getDifficultyLabel(format.difficulty)}</span>
             </div>
           </div>
           
           {/* Action Button */}
-          <div className="flex flex-col items-end gap-2">
-            <Button variant="outline" size="sm" asChild>
-              <a href={`/formats/${format.id}`}>
+          <div className="flex flex-col items-end gap-3">
+            <Link href={`/formats/${format.id}`}>
+              <Button variant="outline" size="sm" className="hover-lift">
                 View Details
-              </a>
-            </Button>
-            <div className="text-xs text-gray-400">
-              Popularity: {format.popularity}/100
+                <ArrowRight size={16} />
+              </Button>
+            </Link>
+            <div className="text-tiny text-masters-slate/60 font-medium">
+              Distinction: {format.popularity}/100
             </div>
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Controls Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-        <div className="flex items-center gap-4">
-          <div className="text-sm text-gray-600 dark:text-gray-300">
-            Showing <span className="font-semibold">{formats.length}</span> of{' '}
-            <span className="font-semibold">{totalCount}</span> formats
+      <div className="card-masters p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+        <div className="flex items-center gap-6">
+          <div className="text-small font-medium text-masters-slate">
+            Showing <span className="font-serif font-semibold text-masters-charcoal">{formats.length}</span> of{' '}
+            <span className="font-serif font-semibold text-masters-charcoal">{totalCount}</span> distinguished formats
           </div>
           {formats.length !== totalCount && (
-            <Badge variant="secondary">Filtered</Badge>
+            <Badge variant="secondary" className="bg-masters-pine/10 text-masters-pine">
+              Filtered Collection
+            </Badge>
           )}
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           {/* Sort Select */}
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Sort by" />
+            <SelectTrigger className="w-48 input-masters h-auto py-3">
+              <SelectValue placeholder="Sort by tradition" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white border border-masters-stone/20 rounded-lg shadow-large">
               {SORT_OPTIONS.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem 
+                  key={option.value} 
+                  value={option.value}
+                  className="hover:bg-masters-sand/50 font-medium text-masters-slate"
+                >
                   {option.label}
                 </SelectItem>
               ))}
@@ -106,22 +138,22 @@ export default function FormatGrid({ formats, totalCount, isLoading = false }: F
           </Select>
           
           {/* View Toggle */}
-          <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+          <div className="flex items-center gap-1 bg-masters-sand/50 rounded p-1">
             <Button
               variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('grid')}
-              className="p-2"
+              className="w-12 h-12 p-0 hover-lift"
             >
-              <Grid size={16} />
+              <Grid size={18} />
             </Button>
             <Button
               variant={viewMode === 'list' ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('list')}
-              className="p-2"
+              className="w-12 h-12 p-0 hover-lift"
             >
-              <List size={16} />
+              <List size={18} />
             </Button>
           </div>
         </div>
@@ -129,35 +161,40 @@ export default function FormatGrid({ formats, totalCount, isLoading = false }: F
 
       {/* Results */}
       {formats.length === 0 ? (
-        <Card className="text-center py-16">
+        <div className="card-masters text-center py-20">
           <div className="max-w-md mx-auto">
-            <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-              <SlidersHorizontal className="w-8 h-8 text-gray-400" />
+            <div className="w-20 h-20 bg-masters-sand rounded-full flex items-center justify-center mx-auto mb-6">
+              <SlidersHorizontal className="w-10 h-10 text-masters-slate/40" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-              No formats found
+            <h3 className="text-h3 font-serif font-bold text-masters-charcoal mb-4">
+              No Formats Found
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Try adjusting your filters or search terms
+            <p className="text-masters-slate mb-8 leading-relaxed">
+              We could not locate any formats matching your distinguished criteria. 
+              Perhaps consider broadening your search.
             </p>
-            <Button variant="outline" onClick={() => window.location.reload()}>
-              <RotateCcw size={16} className="mr-2" />
-              Reset Filters
+            <Button variant="outline" onClick={() => window.location.reload()} className="hover-lift">
+              <RotateCcw size={18} />
+              Reset Collection
             </Button>
           </div>
-        </Card>
+        </div>
       ) : (
         <>
           {viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {formats.map((format) => (
-                <FormatCard key={format.id} format={format} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {formats.map((format, index) => (
+                <div key={format.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.05}s` }}>
+                  <FormatCardSimple format={format} />
+                </div>
               ))}
             </div>
           ) : (
-            <div className="space-y-4">
-              {formats.map((format) => (
-                <FormatListView key={format.id} format={format} />
+            <div className="space-y-6">
+              {formats.map((format, index) => (
+                <div key={format.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.05}s` }}>
+                  <FormatListView format={format} />
+                </div>
               ))}
             </div>
           )}
@@ -169,24 +206,30 @@ export default function FormatGrid({ formats, totalCount, isLoading = false }: F
 
 function FormatGridSkeleton() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Controls Skeleton */}
-      <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 h-16 animate-pulse" />
+      <div className="card-masters p-6 h-20 skeleton-masters" />
       
       {/* Grid Skeleton */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <Card key={i} className="p-6 h-80">
-            <div className="animate-pulse space-y-4">
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
-              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full" />
-              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3" />
-              <div className="space-y-2 pt-4">
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="card-masters p-8 h-96">
+            <div className="space-y-6">
+              <div className="h-6 skeleton-masters rounded w-3/4" />
+              <div className="space-y-3">
+                <div className="h-4 skeleton-masters rounded w-full" />
+                <div className="h-4 skeleton-masters rounded w-2/3" />
+              </div>
+              <div className="space-y-3 pt-6">
+                <div className="h-4 skeleton-masters rounded w-1/2" />
+                <div className="h-4 skeleton-masters rounded w-1/3" />
+              </div>
+              <div className="flex justify-between pt-6">
+                <div className="h-6 skeleton-masters rounded w-24" />
+                <div className="h-6 skeleton-masters rounded w-16" />
               </div>
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </div>
