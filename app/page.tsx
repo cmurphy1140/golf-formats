@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
 import { 
   ArrowRight,
   Trophy,
@@ -175,7 +176,12 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-masters-stone/20 hover:shadow-xl transition-shadow">
+            <motion.div 
+              className="backdrop-blur-xl bg-white/70 rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all hover:bg-white/80"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Target className="w-6 h-6 text-masters-pine" />
               </div>
@@ -184,11 +190,16 @@ export default function HomePage() {
               </h3>
               <p className="text-base text-masters-slate leading-relaxed">
                 Match your skill level, group size, and playing style with the perfect format. 
-                Whether you're a beginner or scratch golfer, there's a format for you.
+                Whether you&apos;re a beginner or scratch golfer, there&apos;s a format for you.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-masters-stone/20 hover:shadow-xl transition-shadow">
+            <motion.div 
+              className="backdrop-blur-xl bg-white/70 rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all hover:bg-white/80"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Heart className="w-6 h-6 text-masters-pine" />
               </div>
@@ -199,9 +210,14 @@ export default function HomePage() {
                 Stop playing the same way every round. Our formats add variety, excitement, 
                 and new challenges that keep golf interesting week after week.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-masters-stone/20 hover:shadow-xl transition-shadow">
+            <motion.div 
+              className="backdrop-blur-xl bg-white/70 rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all hover:bg-white/80"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Zap className="w-6 h-6 text-masters-pine" />
               </div>
@@ -212,7 +228,7 @@ export default function HomePage() {
                 Each format teaches different skills and strategies. Build confidence, 
                 learn course management, and become a more complete golfer.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
         
@@ -245,7 +261,11 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
-            <div className="space-y-4">
+            <motion.div 
+              className="space-y-4"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}>
               <div className="flex gap-4">
                 <div className="flex-shrink-0">
                   <div className="w-10 h-10 bg-masters-pine rounded-full flex items-center justify-center">
@@ -313,10 +333,19 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="relative h-full">
-              <div className="bg-white rounded-2xl shadow-lg border border-masters-stone/20 p-8 h-full">
+            <motion.div 
+              className="relative h-full"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}>
+              <motion.div 
+                className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 p-8 h-full hover:bg-white/80 transition-all"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-2xl font-bold text-masters-charcoal">Did You Know?</h3>
                   <div className="flex gap-2">
@@ -445,8 +474,8 @@ export default function HomePage() {
                     );
                   })}
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
         
@@ -480,8 +509,13 @@ export default function HomePage() {
 
           <div className="space-y-6">
             {/* Tournament Formats */}
-            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
-              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
+            <motion.div 
+              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <Trophy className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Tournament Formats</h3>
@@ -513,11 +547,16 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Team Formats */}
-            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
-              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
+            <motion.div 
+              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <Users className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Team Formats</h3>
@@ -549,11 +588,16 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Betting Games */}
-            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
-              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
+            <motion.div 
+              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Betting Games</h3>
@@ -568,7 +612,7 @@ export default function HomePage() {
                   <div>
                     <h4 className="font-bold text-masters-charcoal mb-2">Skins</h4>
                     <p className="text-sm text-masters-slate">
-                      Win holes to win "skins". Carryovers create big pots and excitement.
+                      Win holes to win &quot;skins&quot;. Carryovers create big pots and excitement.
                     </p>
                   </div>
                   <div>
@@ -585,11 +629,16 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Casual Formats */}
-            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
-              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
+            <motion.div 
+              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <Target className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Casual Formats</h3>
@@ -621,7 +670,7 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
         
