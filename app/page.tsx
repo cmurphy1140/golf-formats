@@ -24,6 +24,9 @@ const GolfPattern = dynamic(() => import('@/components/backgrounds/golf-pattern'
 const DynamicGradient = dynamic(() => import('@/components/backgrounds/dynamic-gradient'), { ssr: false });
 const FloatingShapes = dynamic(() => import('@/components/backgrounds/floating-shapes'), { ssr: false });
 const ParticleField = dynamic(() => import('@/components/backgrounds/particle-field'), { ssr: false });
+const ScrollProgress = dynamic(() => import('@/components/scroll-progress'), { ssr: false });
+const ParallaxSection = dynamic(() => import('@/components/parallax-section'), { ssr: false });
+const RevealOnScroll = dynamic(() => import('@/components/reveal-on-scroll'), { ssr: false });
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
@@ -95,6 +98,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen relative">
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
+      
       {/* Dynamic Background Layers */}
       <GolfPattern />
       <DynamicGradient />
@@ -116,15 +122,19 @@ export default function HomePage() {
             <span>Transform Your Golf Experience</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-masters-charcoal mb-4 leading-tight">
-            Why Play Golf
-            <span className="block text-masters-pine">The Same Way?</span>
-          </h1>
+          <ParallaxSection offset={20}>
+            <h1 className="text-4xl md:text-6xl font-bold text-masters-charcoal mb-4 leading-tight">
+              Why Play Golf
+              <span className="block text-masters-pine">The Same Way?</span>
+            </h1>
+          </ParallaxSection>
 
-          <p className="text-xl text-masters-slate max-w-xl mx-auto mb-8 leading-relaxed">
-            Discover <span className="font-bold text-masters-pine">{animatedStats.formats || 20}+</span> unique golf formats that turn every round into an adventure. 
-            From competitive tournaments to fun team games, find the perfect way to play.
-          </p>
+          <ParallaxSection offset={15}>
+            <p className="text-xl text-masters-slate max-w-xl mx-auto mb-8 leading-relaxed">
+              Discover <span className="font-bold text-masters-pine">{animatedStats.formats || 20}+</span> unique golf formats that turn every round into an adventure. 
+              From competitive tournaments to fun team games, find the perfect way to play.
+            </p>
+          </ParallaxSection>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -166,13 +176,17 @@ export default function HomePage() {
           }}
         >
           <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
-              What is Golf Format Explorer?
-            </h2>
-            <p className="text-xl text-masters-slate max-w-3xl mx-auto leading-relaxed">
-              Your comprehensive guide to making golf more exciting, social, and enjoyable 
-              through different playing formats
-            </p>
+            <RevealOnScroll width="100%">
+              <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
+                What is Golf Format Explorer?
+              </h2>
+            </RevealOnScroll>
+            <RevealOnScroll width="100%" delay={0.1}>
+              <p className="text-xl text-masters-slate max-w-3xl mx-auto leading-relaxed">
+                Your comprehensive guide to making golf more exciting, social, and enjoyable 
+                through different playing formats
+              </p>
+            </RevealOnScroll>
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
@@ -252,12 +266,16 @@ export default function HomePage() {
           }}
         >
           <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-6">
-              Why Use Different Golf Formats?
-            </h2>
-            <p className="text-lg text-masters-slate/70 max-w-3xl mx-auto">
-              Transform your regular foursome into an exciting competition or casual fun
-            </p>
+            <RevealOnScroll width="100%">
+              <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-6">
+                Why Use Different Golf Formats?
+              </h2>
+            </RevealOnScroll>
+            <RevealOnScroll width="100%" delay={0.1}>
+              <p className="text-lg text-masters-slate/70 max-w-3xl mx-auto">
+                Transform your regular foursome into an exciting competition or casual fun
+              </p>
+            </RevealOnScroll>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
@@ -499,12 +517,16 @@ export default function HomePage() {
           }}
         >
           <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
-              How Each Category Works
-            </h2>
-            <p className="text-xl text-masters-slate max-w-2xl mx-auto leading-relaxed">
-              Understanding the different categories helps you choose the right format for your group
-            </p>
+            <RevealOnScroll width="100%">
+              <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
+                How Each Category Works
+              </h2>
+            </RevealOnScroll>
+            <RevealOnScroll width="100%" delay={0.1}>
+              <p className="text-xl text-masters-slate max-w-2xl mx-auto leading-relaxed">
+                Understanding the different categories helps you choose the right format for your group
+              </p>
+            </RevealOnScroll>
           </div>
 
           <div className="space-y-6">
