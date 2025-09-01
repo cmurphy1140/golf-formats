@@ -50,9 +50,57 @@ interface FormatStore {
   addToRecentlyViewed: (formatId: string) => void
 }
 
+const defaultSettings: Settings = {
+  handicap: 15,
+  skillLevel: 'intermediate',
+  groupSize: 4,
+  theme: 'auto',
+  animations: true,
+}
+
 export const useFormatStore = create<FormatStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
+      // Settings
+      settings: defaultSettings,
+      
+      updateSettings: (newSettings: Partial<Settings>) => {
+        const updatedSettings = { ...get().settings, ...newSettings }
+        localStorage.setItem('golfSettings', JSON.stringify(updatedSettings))
+        
+        // Apply theme immediately
+        if (newSettings.theme !== undefined) {
+          const theme = newSettings.theme === 'auto' 
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : newSettings.theme
+          document.documentElement.setAttribute('data-theme', theme)
+        }
+        
+        // Apply animations
+        if (newSettings.animations !== undefined) {
+          document.documentElement.setAttribute('data-animations', newSettings.animations ? 'on' : 'off')
+        }
+        
+        set({ settings: updatedSettings })
+      },
+      
+      loadSettings: () => {
+        const stored = localStorage.getItem('golfSettings')
+        if (stored) {
+          const settings = JSON.parse(stored)
+          set({ settings })
+          
+          // Apply theme
+          const theme = settings.theme === 'auto' 
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : settings.theme
+          document.documentElement.setAttribute('data-theme', theme)
+          
+          // Apply animations
+          document.documentElement.setAttribute('data-animations', settings.animations ? 'on' : 'off')
+        }
+      },
+      
       // Search state
       searchState: {
         query: '',

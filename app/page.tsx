@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { 
   ArrowRight,
   Trophy,
@@ -16,6 +17,12 @@ import {
   Heart,
   Zap
 } from 'lucide-react';
+
+// Dynamic imports for performance
+const GolfPattern = dynamic(() => import('@/components/backgrounds/golf-pattern'), { ssr: false });
+const DynamicGradient = dynamic(() => import('@/components/backgrounds/dynamic-gradient'), { ssr: false });
+const FloatingShapes = dynamic(() => import('@/components/backgrounds/floating-shapes'), { ssr: false });
+const ParticleField = dynamic(() => import('@/components/backgrounds/particle-field'), { ssr: false });
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
@@ -86,16 +93,15 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50/30 via-white to-stone-50">
+    <div className="min-h-screen relative">
+      {/* Dynamic Background Layers */}
+      <GolfPattern />
+      <DynamicGradient />
+      <FloatingShapes />
+      <ParticleField />
+      
       {/* Hero Section with Parallax */}
-      <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32">
-        {/* Animated subtle dot pattern - local to hero */}
-        <div className="absolute inset-0 opacity-[0.02] animate-pulse-slow">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle, #004B36 1px, transparent 1px)`,
-            backgroundSize: '20px 20px'
-          }} />
-        </div>
+      <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 z-10">
         
         <div 
           className="relative z-10 max-w-3xl mx-auto text-center px-6 transition-opacity duration-300"

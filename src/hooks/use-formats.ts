@@ -5,7 +5,7 @@ import { searchFormats, sortFormats } from '@/src/lib/utils'
 import { useFormatStore } from '@/src/store'
 
 export function useFormats() {
-  const { searchState, filterState, sortBy } = useFormatStore()
+  const { searchState, filterState, sortBy, settings } = useFormatStore()
   
   const filteredFormats = useMemo(() => {
     let filtered = [...golfFormats]
@@ -22,9 +22,14 @@ export function useFormats() {
       )
     }
     
-    if (filterState.skillLevel.length > 0) {
+    // Apply skill level filter (from filters or settings)
+    const skillLevels = filterState.skillLevel.length > 0 
+      ? filterState.skillLevel 
+      : [settings.skillLevel] // Use user's skill level as default
+    
+    if (skillLevels.length > 0 && filterState.skillLevel.length > 0) {
       filtered = filtered.filter(format => 
-        format.skillLevel.some(level => filterState.skillLevel.includes(level))
+        format.skillLevel.some(level => skillLevels.includes(level))
       )
     }
     
@@ -73,7 +78,7 @@ export function useFormats() {
     
     // Apply sorting
     return sortFormats(filtered, sortBy)
-  }, [searchState.query, filterState, sortBy])
+  }, [searchState.query, filterState, sortBy, settings.skillLevel])
   
   return {
     formats: filteredFormats,
@@ -111,23 +116,27 @@ export function useRecommendedFormats(
   skillLevel?: string,
   limit = 4
 ) {
+  const { settings } = useFormatStore()
+  
   return useMemo(() => {
     const currentFormat = golfFormats.find(f => f.id === currentFormatId)
     if (!currentFormat) return []
     
     let recommended = golfFormats.filter(format => format.id !== currentFormatId)
     
-    // If we have player count, filter by compatible formats
-    if (playerCount) {
+    // Use player count from parameter or settings
+    const effectivePlayerCount = playerCount || settings.groupSize
+    if (effectivePlayerCount) {
       recommended = recommended.filter(format => 
-        playerCount >= format.players.min && playerCount <= format.players.max
+        effectivePlayerCount >= format.players.min && effectivePlayerCount <= format.players.max
       )
     }
     
-    // If we have skill level, prioritize matching skill levels
-    if (skillLevel) {
+    // Use skill level from parameter or settings
+    const effectiveSkillLevel = skillLevel || settings.skillLevel
+    if (effectiveSkillLevel) {
       recommended = recommended.filter(format => 
-        format.skillLevel.includes(skillLevel as ('beginner' | 'intermediate' | 'advanced'))
+        format.skillLevel.includes(effectiveSkillLevel as ('beginner' | 'intermediate' | 'advanced'))
       )
     }
     
@@ -139,7 +148,7 @@ export function useRecommendedFormats(
       ...sameCategory.sort((a, b) => b.popularity - a.popularity),
       ...otherCategory.sort((a, b) => b.popularity - a.popularity)
     ].slice(0, limit)
-  }, [currentFormatId, playerCount, skillLevel, limit])
+  }, [currentFormatId, playerCount, skillLevel, limit, settings.groupSize, settings.skillLevel])
 }
 
 export function useFavoriteFormats() {

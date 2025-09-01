@@ -294,13 +294,73 @@
   }
 }
 
-/* Disable Dark Mode for Masters Theme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Keep light theme colors even in dark mode */
-  }
-  
-  body {
-    @apply bg-masters-cream text-masters-slate;
-  }
+/* Dark Theme Support */
+[data-theme="dark"] {
+  --masters-pine: #66d9b8;
+  --masters-fairway: #4dc99e;
+  --masters-charcoal: #e5e5e5;
+  --masters-slate: #b0b0b0;
+  --masters-sand: #1a1a1a;
+  --masters-gold: #f5c99b;
+  --masters-cream: #0a0a0a;
+  --masters-stone: #2a2a2a;
+}
+
+[data-theme="dark"] body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+[data-theme="dark"] .bg-masters-cream {
+  @apply bg-gray-900;
+}
+
+[data-theme="dark"] .bg-white {
+  @apply bg-gray-800;
+}
+
+[data-theme="dark"] .text-masters-charcoal {
+  @apply text-gray-100;
+}
+
+[data-theme="dark"] .text-masters-slate {
+  @apply text-gray-400;
+}
+
+[data-theme="dark"] .border-masters-pine\/10 {
+  border-color: rgba(102, 217, 184, 0.1);
+}
+
+[data-theme="dark"] .border-masters-pine\/20 {
+  border-color: rgba(102, 217, 184, 0.2);
+}
+
+[data-theme="dark"] .bg-masters-pine {
+  @apply bg-emerald-600;
+}
+
+[data-theme="dark"] .text-masters-pine {
+  @apply text-emerald-400;
+}
+
+[data-theme="dark"] .hover\:bg-masters-fairway:hover {
+  @apply hover:bg-emerald-700;
+}
+
+/* Animation Control */
+[data-animations="off"] * {
+  animation: none !important;
+  transition: none !important;
+}
+
+[data-animations="off"] .animate-pulse-slow,
+[data-animations="off"] .animate-fade-in,
+[data-animations="off"] .animate-slide-up,
+[data-animations="off"] .hover-lift:hover,
+[data-animations="off"] .transition-all,
+[data-animations="off"] .transition-colors,
+[data-animations="off"] .transition-transform,
+[data-animations="off"] .transition-shadow {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
 }

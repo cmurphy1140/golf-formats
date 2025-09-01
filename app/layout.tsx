@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import SettingsLoader from "@/components/settings-loader";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -48,6 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="min-h-screen bg-masters-cream text-masters-slate antialiased relative">
+        <SettingsLoader />
         {/* Global animated dot pattern background */}
         <div 
           className="fixed inset-0 w-screen h-screen pointer-events-none opacity-[0.03] animate-pulse-slow"

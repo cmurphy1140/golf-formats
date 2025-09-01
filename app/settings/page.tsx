@@ -2,14 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Save, RotateCcw, ChevronRight } from 'lucide-react';
-
-type Settings = {
-  handicap: number;
-  skillLevel: 'beginner' | 'intermediate' | 'advanced';
-  groupSize: number;
-  theme: 'light' | 'dark' | 'auto';
-  animations: boolean;
-};
+import { useFormatStore, Settings } from '@/src/store';
 
 const defaultSettings: Settings = {
   handicap: 15,
@@ -20,25 +13,27 @@ const defaultSettings: Settings = {
 };
 
 export default function SettingsPage() {
-  const [settings, setSettings] = useState<Settings>(defaultSettings);
+  const { settings: storeSettings, updateSettings, loadSettings } = useFormatStore();
+  const [settings, setSettings] = useState<Settings>(storeSettings);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem('golfSettings');
-    if (stored) {
-      setSettings(JSON.parse(stored));
-    }
-  }, []);
+    loadSettings();
+  }, [loadSettings]);
+
+  useEffect(() => {
+    setSettings(storeSettings);
+  }, [storeSettings]);
 
   const handleSave = () => {
-    localStorage.setItem('golfSettings', JSON.stringify(settings));
+    updateSettings(settings);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
 
   const handleReset = () => {
+    updateSettings(defaultSettings);
     setSettings(defaultSettings);
-    localStorage.removeItem('golfSettings');
   };
 
   return (
@@ -72,7 +67,7 @@ export default function SettingsPage() {
             </div>
             <select
               value={settings.skillLevel}
-              onChange={(e) => setSettings({...settings, skillLevel: e.target.value as any})}
+              onChange={(e) => setSettings({...settings, skillLevel: e.target.value as Settings['skillLevel']})}
               className="px-4 py-2 border border-masters-pine/20 rounded-md focus:outline-none focus:border-masters-pine/40 bg-white"
             >
               <option value="beginner">Beginner</option>
@@ -112,7 +107,7 @@ export default function SettingsPage() {
             </div>
             <select
               value={settings.theme}
-              onChange={(e) => setSettings({...settings, theme: e.target.value as any})}
+              onChange={(e) => setSettings({...settings, theme: e.target.value as Settings['theme']})}
               className="px-4 py-2 border border-masters-pine/20 rounded-md focus:outline-none focus:border-masters-pine/40 bg-white"
             >
               <option value="light">Light</option>
