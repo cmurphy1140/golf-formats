@@ -38,6 +38,135 @@
 .stagger-fade-in-9 { animation-delay: 400ms; }
 .stagger-fade-in-10 { animation-delay: 450ms; }
 
+/* Tedy-Inspired Clip-Path Button Animation */
+.btn-clip {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.btn-clip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--masters-pine);
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.btn-clip:hover::before {
+  clip-path: circle(150% at 50% 50%);
+}
+
+.btn-clip:hover {
+  color: var(--masters-cream) !important;
+}
+
+/* Text Reveal Animation */
+@keyframes textReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-reveal {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.text-reveal-content {
+  display: inline-block;
+  animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Glassmorphism Effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(27, 67, 50, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(27, 67, 50, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Smooth Scroll Reveal */
+@keyframes scrollReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  animation: scrollReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: var(--scroll-delay, 0ms);
+}
+
+/* Mega Dropdown Styles */
+.mega-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mega-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Premium Hover Effects */
+.premium-hover {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.premium-hover::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--masters-gold), var(--masters-pine));
+  border-radius: inherit;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(10px);
+}
+
+.premium-hover:hover::after {
+  opacity: 0.3;
+}
+
+.premium-hover:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
 @layer base {
   :root {
     /* Cohesive Masters Theme Colors - Optimized for Mobile & Desktop */
