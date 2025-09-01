@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { 
   ArrowRight,
@@ -19,17 +18,8 @@ import {
   Zap
 } from 'lucide-react';
 
-// Dynamic imports for performance
-const GolfPattern = dynamic(() => import('@/components/backgrounds/golf-pattern'), { ssr: false });
-const DynamicGradient = dynamic(() => import('@/components/backgrounds/dynamic-gradient'), { ssr: false });
-const FloatingShapes = dynamic(() => import('@/components/backgrounds/floating-shapes'), { ssr: false });
-const ParticleField = dynamic(() => import('@/components/backgrounds/particle-field'), { ssr: false });
-const ScrollProgress = dynamic(() => import('@/components/scroll-progress'), { ssr: false });
-const ParallaxSection = dynamic(() => import('@/components/parallax-section'), { ssr: false });
-const RevealOnScroll = dynamic(() => import('@/components/reveal-on-scroll'), { ssr: false });
 
 export default function HomePage() {
-  const [scrollY, setScrollY] = useState(0);
   const [expandedFact, setExpandedFact] = useState<number>(0);
   const [animatedStats, setAnimatedStats] = useState({
     formats: 0,
@@ -48,93 +38,56 @@ export default function HomePage() {
   };
   
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+    // Trigger animation on mount
+    if (!hasAnimated) {
+      setHasAnimated(true);
+      // Animate stats counting
+      const duration = 2000; // 2 seconds
+      const steps = 60;
+      const interval = duration / steps;
+      let currentStep = 0;
       
-      // Trigger animation when stats section is in view
-      if (!hasAnimated && window.scrollY > 200) {
-        setHasAnimated(true);
-        // Animate stats counting
-        const duration = 2000; // 2 seconds
-        const steps = 60;
-        const interval = duration / steps;
-        let currentStep = 0;
+      const timer = setInterval(() => {
+        currentStep++;
+        const progress = currentStep / steps;
         
-        const timer = setInterval(() => {
-          currentStep++;
-          const progress = currentStep / steps;
-          
-          setAnimatedStats({
-            formats: Math.floor(20 * progress),
-            timeReduction: Math.floor(30 * progress),
-            handicapRange: Math.floor(20 * progress),
-            tourEvents: Math.floor(50 * progress)
-          });
-          
-          if (currentStep >= steps) {
-            clearInterval(timer);
-            setAnimatedStats({ formats: 20, timeReduction: 30, handicapRange: 20, tourEvents: 50 });
-          }
-        }, interval);
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial position
-    return () => window.removeEventListener('scroll', handleScroll);
+        setAnimatedStats({
+          formats: Math.floor(20 * progress),
+          timeReduction: Math.floor(30 * progress),
+          handicapRange: Math.floor(20 * progress),
+          tourEvents: Math.floor(50 * progress)
+        });
+        
+        if (currentStep >= steps) {
+          clearInterval(timer);
+          setAnimatedStats({ formats: 20, timeReduction: 30, handicapRange: 20, tourEvents: 50 });
+        }
+      }, interval);
+    }
   }, [hasAnimated]);
 
-  // Calculate opacity - simply keep everything visible
-  const getOpacity = (elementTop: number, fadeDistance: number = 200) => {
-    // Disable fading entirely - keep all content fully visible
-    return 1;
-  };
-
-  // Calculate transform based on scroll - disabled to prevent content shifting
-  const getTransform = (speed: number = 1) => {
-    // Disabled parallax transform to keep content in place
-    return `translateY(0px)`;
-  };
 
   return (
-    <div className="min-h-screen relative">
-      {/* Scroll Progress Bar */}
-      <ScrollProgress />
-      
-      {/* Dynamic Background Layers */}
-      <GolfPattern />
-      <DynamicGradient />
-      <FloatingShapes />
-      <ParticleField />
+    <div className="min-h-screen relative bg-gradient-to-b from-amber-50/30 via-white to-green-50/20">
       
       {/* Hero Section with Parallax */}
       <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 z-10">
         
-        <div 
-          className="relative z-10 max-w-3xl mx-auto text-center px-6 transition-opacity duration-300"
-          style={{ 
-            opacity: getOpacity(0),
-            transform: getTransform(0.2)
-          }}
-        >
+        <div className="relative z-10 max-w-3xl mx-auto text-center px-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-800 rounded-full text-masters-pine text-sm font-medium mb-8">
             <Sparkles size={16} />
             <span>Transform Your Golf Experience</span>
           </div>
 
-          <ParallaxSection offset={20}>
-            <h1 className="text-4xl md:text-6xl font-bold text-masters-charcoal mb-4 leading-tight">
-              Why Play Golf
-              <span className="block text-masters-pine">The Same Way?</span>
-            </h1>
-          </ParallaxSection>
+          <h1 className="text-4xl md:text-6xl font-bold text-masters-charcoal mb-4 leading-tight">
+            Why Play Golf
+            <span className="block text-masters-pine">The Same Way?</span>
+          </h1>
 
-          <ParallaxSection offset={15}>
-            <p className="text-xl text-masters-slate max-w-xl mx-auto mb-8 leading-relaxed">
-              Discover <span className="font-bold text-masters-pine">{animatedStats.formats || 20}+</span> unique golf formats that turn every round into an adventure. 
-              From competitive tournaments to fun team games, find the perfect way to play.
-            </p>
-          </ParallaxSection>
+          <p className="text-xl text-masters-slate max-w-xl mx-auto mb-8 leading-relaxed">
+            Discover <span className="font-bold text-masters-pine">{animatedStats.formats || 20}+</span> unique golf formats that turn every round into an adventure. 
+            From competitive tournaments to fun team games, find the perfect way to play.
+          </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -168,25 +121,15 @@ export default function HomePage() {
 
       {/* What is This App Section */}
       <section id="what-is-this" className="relative py-12 px-6">
-        <div 
-          className="max-w-4xl mx-auto transition-all duration-500"
-          style={{ 
-            opacity: getOpacity(600),
-            transform: getTransform(0.05)
-          }}
-        >
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <RevealOnScroll width="100%">
-              <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
-                What is Golf Format Explorer?
-              </h2>
-            </RevealOnScroll>
-            <RevealOnScroll width="100%" delay={0.1}>
-              <p className="text-xl text-masters-slate max-w-3xl mx-auto leading-relaxed">
-                Your comprehensive guide to making golf more exciting, social, and enjoyable 
-                through different playing formats
-              </p>
-            </RevealOnScroll>
+            <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
+              What is Golf Format Explorer?
+            </h2>
+            <p className="text-xl text-masters-slate max-w-3xl mx-auto leading-relaxed">
+              Your comprehensive guide to making golf more exciting, social, and enjoyable 
+              through different playing formats
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
@@ -258,24 +201,14 @@ export default function HomePage() {
 
       {/* Why Use Different Formats Section */}
       <section id="why-formats" className="relative py-12 px-6 bg-white">
-        <div 
-          className="max-w-4xl mx-auto"
-          style={{ 
-            opacity: getOpacity(1200),
-            transform: getTransform(0.05)
-          }}
-        >
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <RevealOnScroll width="100%">
-              <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-6">
-                Why Use Different Golf Formats?
-              </h2>
-            </RevealOnScroll>
-            <RevealOnScroll width="100%" delay={0.1}>
-              <p className="text-lg text-masters-slate/70 max-w-3xl mx-auto">
-                Transform your regular foursome into an exciting competition or casual fun
-              </p>
-            </RevealOnScroll>
+            <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-6">
+              Why Use Different Golf Formats?
+            </h2>
+            <p className="text-lg text-masters-slate/70 max-w-3xl mx-auto">
+              Transform your regular foursome into an exciting competition or casual fun
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
@@ -509,24 +442,14 @@ export default function HomePage() {
 
       {/* How Each Category Works */}
       <section id="format-categories" className="relative py-12 px-6 bg-gradient-to-b from-amber-50/20 to-white">
-        <div 
-          className="max-w-4xl mx-auto"
-          style={{ 
-            opacity: getOpacity(1800),
-            transform: getTransform(0.05)
-          }}
-        >
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <RevealOnScroll width="100%">
-              <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
-                How Each Category Works
-              </h2>
-            </RevealOnScroll>
-            <RevealOnScroll width="100%" delay={0.1}>
-              <p className="text-xl text-masters-slate max-w-2xl mx-auto leading-relaxed">
-                Understanding the different categories helps you choose the right format for your group
-              </p>
-            </RevealOnScroll>
+            <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
+              How Each Category Works
+            </h2>
+            <p className="text-xl text-masters-slate max-w-2xl mx-auto leading-relaxed">
+              Understanding the different categories helps you choose the right format for your group
+            </p>
           </div>
 
           <div className="space-y-6">
