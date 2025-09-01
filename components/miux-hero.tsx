@@ -115,7 +115,7 @@ export default function MiuxHero() {
       <div 
         className="scroll-progress"
         style={{ 
-          transform: `scaleX(${Math.min(scrollY / (document.body.scrollHeight - window.innerHeight), 1)})` 
+          transform: `scaleX(${typeof window !== 'undefined' ? Math.min(scrollY / (document.body.scrollHeight - window.innerHeight), 1) : 0})` 
         }}
       />
     </section>
