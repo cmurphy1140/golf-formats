@@ -18,8 +18,8 @@ interface FormatCardSimpleProps {
 export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   const [isHovered, setIsHovered] = useState(false);
   const getCategoryColor = (category: string) => {
-    // All categories use the same dark green theme for consistency
-    return 'bg-green-50 text-green-800 border-green-200';
+    // All categories use the same Masters theme for consistency
+    return 'bg-masters-pine/10 text-masters-pine border-masters-pine/20';
   };
 
   const getDifficultyLabel = (difficulty: number) => {
@@ -30,10 +30,10 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   };
 
   const getDifficultyColor = (difficulty: number) => {
-    if (difficulty <= 2) return 'text-green-700';
-    if (difficulty <= 3) return 'text-green-800';
-    if (difficulty <= 4) return 'text-green-900';
-    return 'text-gray-900';
+    if (difficulty <= 2) return 'text-masters-fairway';
+    if (difficulty <= 3) return 'text-masters-pine';
+    if (difficulty <= 4) return 'text-masters-charcoal';
+    return 'text-masters-charcoal';
   };
 
   // Get quick rules for preview
@@ -48,53 +48,56 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   return (
     <Link href={`/formats/${format.id}`}>
       <div 
-        className="group bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer h-full relative overflow-hidden"
+        className="group bg-white rounded-lg border-2 border-masters-pine/10 p-6 hover:border-masters-pine/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Category Badge */}
+        {/* Category Badge with animation */}
         <div className="flex items-center justify-between mb-4">
-          <span className={`text-xs font-medium px-2 py-1 rounded-full border ${getCategoryColor(format.category)}`}>
+          <span className={`text-xs font-medium px-2 py-1 rounded-full border ${getCategoryColor(format.category)} transform transition-transform group-hover:scale-105`}>
             {format.category.toUpperCase()}
           </span>
           {format.popularity >= 80 && (
-            <Trophy size={16} className="text-yellow-500" />
+            <Trophy size={16} className="text-yellow-500 animate-pulse" />
           )}
         </div>
 
         {/* Title & Description */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-green-800 transition-colors">
+        <h3 className="text-lg font-semibold text-masters-charcoal mb-2 group-hover:text-masters-pine transition-colors">
           {format.name}
         </h3>
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+        <p className="text-sm text-masters-slate mb-4 line-clamp-2">
           {format.description}
         </p>
 
-        {/* Quick Stats */}
-        <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
-          <div className="flex items-center gap-1">
-            <Users size={14} />
+        {/* Quick Stats with hover effects */}
+        <div className="flex items-center gap-4 text-xs text-masters-slate/70 mb-4">
+          <div className="flex items-center gap-1 group-hover:text-masters-pine transition-colors">
+            <Users size={14} className="group-hover:scale-110 transition-transform" />
             <span>{format.players.min}-{format.players.max}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Clock size={14} />
+          <div className="flex items-center gap-1 group-hover:text-masters-pine transition-colors">
+            <Clock size={14} className="group-hover:scale-110 transition-transform" />
             <span>{format.duration}</span>
           </div>
-          <span className={`font-medium ${getDifficultyColor(format.difficulty)}`}>
+          <span className={`font-medium ${getDifficultyColor(format.difficulty)} px-2 py-0.5 rounded-full bg-masters-pine/5 group-hover:bg-masters-pine/10 transition-colors`}>
             {getDifficultyLabel(format.difficulty)}
           </span>
         </div>
 
-        {/* View Details Link */}
-        <div className="flex items-center text-sm font-medium text-green-800 group-hover:text-green-900">
-          <span>Learn more</span>
-          <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+        {/* View Details Link with enhanced animation */}
+        <div className="flex items-center text-sm font-medium text-masters-pine group-hover:text-masters-pine/90">
+          <span className="relative">
+            Learn more
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-masters-pine transition-all duration-300 group-hover:w-full"></span>
+          </span>
+          <ChevronRight size={16} className="ml-1 group-hover:translate-x-2 transition-transform duration-300" />
         </div>
 
         {/* Hover Preview - Quick Rules */}
         {isHovered && (
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-green-900 to-green-800 text-white p-4 transform transition-transform duration-300 animate-slide-up">
-            <div className="text-xs font-semibold mb-2 text-amber-100">Quick Rules:</div>
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-masters-pine to-masters-fairway text-white p-4 transform transition-transform duration-300 animate-slide-up">
+            <div className="text-xs font-semibold mb-2 text-masters-gold">Quick Rules:</div>
             <div className="space-y-1">
               {getQuickRules().map((rule, index) => (
                 <div 
@@ -102,7 +105,7 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
                   className="flex items-start gap-2 text-xs animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <CheckCircle size={12} className="text-amber-200 mt-0.5 flex-shrink-0" />
+                  <CheckCircle size={12} className="text-masters-gold mt-0.5 flex-shrink-0" />
                   <span className="text-white/90">{rule}</span>
                 </div>
               ))}

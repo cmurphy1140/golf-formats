@@ -64,13 +64,13 @@ export default function FilterPanel({
     items: readonly { readonly value: string; readonly label: string; readonly description?: string }[];
     getCount: (value: string) => number;
   }) => (
-    <div className="border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+    <div className="border-b border-masters-stone/20 last:border-b-0">
       <button
         onClick={() => toggleSection(section)}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+        className="w-full flex items-center justify-between p-4 hover:bg-masters-sand transition-colors"
       >
         <div className="flex items-center gap-2">
-          <span className="font-medium text-gray-900 dark:text-white">{title}</span>
+          <span className="font-medium text-masters-charcoal">{title}</span>
           {filterState[section].length > 0 && (
             <Badge variant="default" size="sm">
               {filterState[section].length}
@@ -79,7 +79,7 @@ export default function FilterPanel({
         </div>
         <ChevronDown 
           size={16} 
-          className={`text-gray-400 transition-transform ${
+          className={`text-masters-slate/60 transition-transform ${
             expandedSections[section] ? 'rotate-180' : ''
           }`} 
         />
@@ -99,10 +99,10 @@ export default function FilterPanel({
                 disabled={isDisabled}
                 className={`w-full flex items-center justify-between p-2 rounded-lg text-left transition-colors ${
                   isActive
-                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                    ? 'bg-masters-pine/10 text-masters-pine'
                     : isDisabled
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                    ? 'text-masters-slate/40 cursor-not-allowed'
+                    : 'hover:bg-masters-sand text-masters-slate'
                 }`}
               >
                 <div className="flex-1">
@@ -113,8 +113,8 @@ export default function FilterPanel({
                 </div>
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   isDisabled 
-                    ? 'bg-gray-100 dark:bg-gray-700' 
-                    : 'bg-gray-200 dark:bg-gray-600'
+                    ? 'bg-masters-stone/20' 
+                    : 'bg-masters-stone/30'
                 }`}>
                   {count}
                 </span>
@@ -127,13 +127,13 @@ export default function FilterPanel({
   );
 
   const PlayerCountSection = () => (
-    <div className="border-b border-gray-200 dark:border-gray-700">
+    <div className="border-b border-masters-stone/20">
       <button
         onClick={() => toggleSection('playerCount')}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+        className="w-full flex items-center justify-between p-4 hover:bg-masters-sand transition-colors"
       >
         <div className="flex items-center gap-2">
-          <span className="font-medium text-gray-900 dark:text-white">Player Count</span>
+          <span className="font-medium text-masters-charcoal">Player Count</span>
           {filterState.playerCount.length > 0 && (
             <Badge variant="default" size="sm">
               {filterState.playerCount.length}
@@ -142,7 +142,7 @@ export default function FilterPanel({
         </div>
         <ChevronDown 
           size={16} 
-          className={`text-gray-400 transition-transform ${
+          className={`text-masters-slate/60 transition-transform ${
             expandedSections.playerCount ? 'rotate-180' : ''
           }`} 
         />
@@ -162,10 +162,10 @@ export default function FilterPanel({
                 disabled={isDisabled}
                 className={`w-full flex items-center justify-between p-2 rounded-lg text-left transition-colors ${
                   isActive
-                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                    ? 'bg-masters-pine/10 text-masters-pine'
                     : isDisabled
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                    ? 'text-masters-slate/40 cursor-not-allowed'
+                    : 'hover:bg-masters-sand text-masters-slate'
                 }`}
               >
                 <div className="flex-1">
@@ -174,8 +174,8 @@ export default function FilterPanel({
                 </div>
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   isDisabled 
-                    ? 'bg-gray-100 dark:bg-gray-700' 
-                    : 'bg-gray-200 dark:bg-gray-600'
+                    ? 'bg-masters-stone/20' 
+                    : 'bg-masters-stone/30'
                 }`}>
                   {count}
                 </span>
@@ -188,13 +188,13 @@ export default function FilterPanel({
   );
 
   const DifficultySection = () => (
-    <div className="border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+    <div className="border-b border-masters-stone/20 last:border-b-0">
       <button
         onClick={() => toggleSection('difficulty')}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+        className="w-full flex items-center justify-between p-4 hover:bg-masters-sand transition-colors"
       >
         <div className="flex items-center gap-2">
-          <span className="font-medium text-gray-900 dark:text-white">Difficulty</span>
+          <span className="font-medium text-masters-charcoal">Difficulty</span>
           {filterState.difficulty.length > 0 && (
             <Badge variant="default" size="sm">
               {filterState.difficulty.length}
@@ -203,7 +203,7 @@ export default function FilterPanel({
         </div>
         <ChevronDown 
           size={16} 
-          className={`text-gray-400 transition-transform ${
+          className={`text-masters-slate/60 transition-transform ${
             expandedSections.difficulty ? 'rotate-180' : ''
           }`} 
         />
@@ -228,10 +228,10 @@ export default function FilterPanel({
                 disabled={isDisabled}
                 className={`w-full flex items-center justify-between p-2 rounded-lg text-left transition-colors ${
                   isActive
-                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                    ? 'bg-masters-pine/10 text-masters-pine'
                     : isDisabled
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                    ? 'text-masters-slate/40 cursor-not-allowed'
+                    : 'hover:bg-masters-sand text-masters-slate'
                 }`}
               >
                 <div className="flex-1">
@@ -240,8 +240,8 @@ export default function FilterPanel({
                 </div>
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   isDisabled 
-                    ? 'bg-gray-100 dark:bg-gray-700' 
-                    : 'bg-gray-200 dark:bg-gray-600'
+                    ? 'bg-masters-stone/20' 
+                    : 'bg-masters-stone/30'
                 }`}>
                   {count}
                 </span>
