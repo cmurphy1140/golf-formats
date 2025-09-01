@@ -4,6 +4,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* DISABLE ALL ANIMATIONS AND TRANSITIONS FOR PERFORMANCE */
+* {
+  animation: none !important;
+  transition: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  transform: none !important;
+}
+
 @layer base {
   :root {
     /* Masters Theme Colors */

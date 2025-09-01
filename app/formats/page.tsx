@@ -67,15 +67,8 @@ export default function FormatsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50/30 via-white to-stone-50">
-      {/* Hero Section with animated background */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden">
-        {/* Animated subtle dot pattern */}
-        <div className="absolute inset-0 opacity-[0.02] animate-pulse-slow">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle, #004B36 1px, transparent 1px)`,
-            backgroundSize: '20px 20px'
-          }} />
-        </div>
         
         <div className="relative px-4 py-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -83,7 +76,7 @@ export default function FormatsPage() {
               Golf Format Explorer
             </h1>
             <p className="text-base text-masters-pine max-w-2xl mx-auto mb-6">
-              Browse <span className="font-semibold text-masters-charcoal animate-pulse-slow">{totalFormats}</span> different ways to play golf, from tournament formats to fun betting games.
+              Browse <span className="font-semibold text-masters-charcoal">{totalFormats}</span> different ways to play golf, from tournament formats to fun betting games.
             </p>
           </div>
         </div>
@@ -103,11 +96,11 @@ export default function FormatsPage() {
                 <RecentlyViewed />
                 
                 {/* Filter Card with enhanced animations */}
-                <div className="bg-white rounded-2xl shadow-xl border-2 border-masters-pine/10 overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:border-masters-pine/20" data-filter-toggle>
+                <div className="bg-white rounded-2xl shadow-xl border-2 border-masters-pine/10 overflow-hidden" data-filter-toggle>
                   <div className="bg-gradient-to-br from-masters-pine to-masters-fairway p-4">
                     <div className="flex items-center justify-between text-white">
                       <div className="flex items-center gap-2">
-                        <Filter size={20} className="animate-pulse-slow" />
+                        <Filter size={20} />
                         <span className="font-semibold">Filters</span>
                         {activeFiltersCount > 0 && (
                           <span className="px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold">
@@ -115,7 +108,7 @@ export default function FormatsPage() {
                           </span>
                         )}
                       </div>
-                      <span className="text-sm bg-white/20 backdrop-blur px-2 py-1 rounded-full transition-all duration-300">
+                      <span className="text-sm bg-white/20 px-2 py-1 rounded-full">
                         <span className="font-semibold">{filteredCount}</span> results
                       </span>
                     </div>
@@ -141,9 +134,9 @@ export default function FormatsPage() {
               {/* Results Counter with Animation */}
               <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-masters-pine animate-pulse-slow"></div>
+                  <div className="h-2 w-2 rounded-full bg-masters-pine"></div>
                   <p className="text-sm text-masters-slate">
-                    Showing <span className="font-semibold text-masters-charcoal transition-all duration-300">{displayCount}</span> of {totalFormats} formats
+                    Showing <span className="font-semibold text-masters-charcoal">{displayCount}</span> of {totalFormats} formats
                     {filterState.category.length > 0 && (
                       <span className="ml-2 text-xs text-masters-pine">
                         ({filterState.category.join(', ')})
@@ -165,7 +158,7 @@ export default function FormatsPage() {
                         }
                       });
                     }}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium ${
                       filterState.category.length === 0
                         ? 'bg-masters-pine text-white shadow-md scale-105'
                         : 'bg-white text-masters-slate border border-masters-stone/30 hover:border-masters-pine hover:shadow-md'
@@ -173,7 +166,7 @@ export default function FormatsPage() {
                   >
                     All Formats
                     {filterState.category.length === 0 && (
-                      <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse-slow"></span>
+                      <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
                     )}
                   </button>
                   {categories.map((category, index) => {
@@ -182,7 +175,7 @@ export default function FormatsPage() {
                       <button
                         key={category.id}
                         onClick={() => toggleFilter('category', category.id)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
+                        className={`px-4 py-2 rounded-full text-sm font-medium ${
                           isActive
                             ? 'bg-masters-pine text-white shadow-md scale-105'
                             : 'bg-white text-masters-slate border border-masters-stone/30 hover:border-masters-pine hover:shadow-md'
@@ -193,7 +186,7 @@ export default function FormatsPage() {
                       >
                         {category.label}
                         {isActive && (
-                          <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse-slow"></span>
+                          <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
                         )}
                       </button>
                     );
@@ -203,7 +196,7 @@ export default function FormatsPage() {
 
 
               {/* Format Cards with loading state */}
-              <div className={`transition-opacity duration-300 ${isLoading ? 'opacity-50' : 'opacity-100'}`}>
+              <div className={`${isLoading ? 'opacity-50' : 'opacity-100'}`}>
                 <FormatGrid 
                   formats={formats}
                   totalCount={totalFormats}
