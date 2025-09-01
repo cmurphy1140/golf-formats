@@ -47,9 +47,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen bg-masters-cream text-masters-slate antialiased">
+      <body className="min-h-screen bg-masters-cream text-masters-slate antialiased relative">
+        {/* Global animated dot pattern background */}
+        <div 
+          className="fixed inset-0 w-screen h-screen pointer-events-none opacity-[0.03] animate-pulse-slow"
+          style={{
+            backgroundImage: `radial-gradient(circle, #004B36 1px, transparent 1px)`,
+            backgroundSize: '20px 20px',
+            zIndex: 0
+          }}
+        />
         <Header />
-        <main className="min-h-screen">
+        <main className="min-h-screen relative" style={{ zIndex: 1 }}>
           {children}
         </main>
         <Footer />

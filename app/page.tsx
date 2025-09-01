@@ -19,7 +19,7 @@ import {
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
-  const [expandedFact, setExpandedFact] = useState<number | null>(null);
+  const [expandedFact, setExpandedFact] = useState<number | null>(0);
   const [animatedStats, setAnimatedStats] = useState({
     formats: 0,
     timeReduction: 0,
@@ -27,6 +27,14 @@ export default function HomePage() {
     tourEvents: 0
   });
   const [hasAnimated, setHasAnimated] = useState(false);
+  
+  // Smooth scroll to section
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
   
   useEffect(() => {
     const handleScroll = () => {
@@ -78,13 +86,16 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50/30 via-white to-stone-50">
       {/* Hero Section with Parallax */}
       <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32">
-        <div 
-          className="absolute inset-0 bg-gradient-to-b from-green-50 to-white"
-          style={{ transform: getTransform(0.5) }}
-        />
+        {/* Animated subtle dot pattern - local to hero */}
+        <div className="absolute inset-0 opacity-[0.02] animate-pulse-slow">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle, #004B36 1px, transparent 1px)`,
+            backgroundSize: '20px 20px'
+          }} />
+        </div>
         
         <div 
           className="relative z-10 max-w-3xl mx-auto text-center px-6 transition-opacity duration-300"
@@ -116,27 +127,26 @@ export default function HomePage() {
               Explore Formats
               <ArrowRight size={20} />
             </Link>
-            <Link
-              href="#why-formats"
+            <button
+              onClick={() => scrollToSection('what-is-this')}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-masters-slate font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
             >
               Learn More
               <ChevronDown size={20} />
-            </Link>
+            </button>
           </div>
         </div>
 
         {/* Scroll Indicator - Positioned Below Content */}
-        <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2">
+        <button 
+          onClick={() => scrollToSection('what-is-this')}
+          className="absolute bottom-32 left-1/2 transform -translate-x-1/2 cursor-pointer hover:scale-110 transition-transform"
+          aria-label="Scroll to next section"
+        >
           <div className="animate-bounce">
             <ChevronDown size={40} className="text-masters-pine" strokeWidth={3} />
           </div>
-        </div>
-        
-        {/* Subtle Down Arrow */}
-        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 z-20">
-          <ChevronDown size={20} className="text-green-600/40 animate-pulse" />
-        </div>
+        </button>
       </section>
 
       {/* What is This App Section */}
@@ -201,13 +211,17 @@ export default function HomePage() {
         </div>
         
         {/* Subtle Section Divider */}
-        <div className="flex justify-center mt-4">
-          <ChevronDown size={20} className="text-green-600/30 animate-pulse" />
-        </div>
+        <button 
+          onClick={() => scrollToSection('why-formats')}
+          className="flex justify-center mt-4 w-full cursor-pointer hover:scale-110 transition-transform"
+          aria-label="Scroll to Why Use Different Formats"
+        >
+          <ChevronDown size={30} className="text-masters-pine/60 animate-pulse" />
+        </button>
       </section>
 
       {/* Why Use Different Formats Section */}
-      <section id="why-formats" className="relative py-12 px-6 bg-gradient-to-b from-white to-green-50">
+      <section id="why-formats" className="relative py-12 px-6 bg-white">
         <div 
           className="max-w-4xl mx-auto"
           style={{ 
@@ -431,13 +445,17 @@ export default function HomePage() {
         </div>
         
         {/* Subtle Section Divider */}
-        <div className="flex justify-center mt-4">
-          <ChevronDown size={20} className="text-green-600/30 animate-pulse" />
-        </div>
+        <button 
+          onClick={() => scrollToSection('format-categories')}
+          className="flex justify-center mt-4 w-full cursor-pointer hover:scale-110 transition-transform"
+          aria-label="Scroll to Format Categories"
+        >
+          <ChevronDown size={30} className="text-masters-pine/60 animate-pulse" />
+        </button>
       </section>
 
       {/* How Each Category Works */}
-      <section className="relative py-12 px-6">
+      <section id="format-categories" className="relative py-12 px-6 bg-gradient-to-b from-amber-50/20 to-white">
         <div 
           className="max-w-4xl mx-auto"
           style={{ 
@@ -456,11 +474,11 @@ export default function HomePage() {
 
           <div className="space-y-6">
             {/* Tournament Formats */}
-            <div className="bg-white rounded-2xl shadow-lg border border-masters-stone/20 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-6">
+            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
+              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
                 <div className="flex items-center gap-3">
-                  <Trophy className="w-8 h-8 text-amber-100" />
-                  <h3 className="text-2xl font-bold text-amber-50">Tournament Formats</h3>
+                  <Trophy className="w-8 h-8 text-masters-pine" />
+                  <h3 className="text-2xl font-bold text-masters-charcoal">Tournament Formats</h3>
                 </div>
               </div>
               <div className="p-6">
@@ -492,11 +510,11 @@ export default function HomePage() {
             </div>
 
             {/* Team Formats */}
-            <div className="bg-white rounded-2xl shadow-lg border border-masters-stone/20 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-6">
+            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
+              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
                 <div className="flex items-center gap-3">
-                  <Users className="w-8 h-8 text-amber-100" />
-                  <h3 className="text-2xl font-bold text-amber-50">Team Formats</h3>
+                  <Users className="w-8 h-8 text-masters-pine" />
+                  <h3 className="text-2xl font-bold text-masters-charcoal">Team Formats</h3>
                 </div>
               </div>
               <div className="p-6">
@@ -528,11 +546,11 @@ export default function HomePage() {
             </div>
 
             {/* Betting Games */}
-            <div className="bg-white rounded-2xl shadow-lg border border-masters-stone/20 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-6">
+            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
+              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
                 <div className="flex items-center gap-3">
-                  <DollarSign className="w-8 h-8 text-amber-100" />
-                  <h3 className="text-2xl font-bold text-amber-50">Betting Games</h3>
+                  <DollarSign className="w-8 h-8 text-masters-pine" />
+                  <h3 className="text-2xl font-bold text-masters-charcoal">Betting Games</h3>
                 </div>
               </div>
               <div className="p-6">
@@ -564,11 +582,11 @@ export default function HomePage() {
             </div>
 
             {/* Casual Formats */}
-            <div className="bg-white rounded-2xl shadow-lg border border-masters-stone/20 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-6">
-                <div className="flex items-center gap-3 text-white">
-                  <Target className="w-8 h-8" />
-                  <h3 className="text-2xl font-bold">Casual Formats</h3>
+            <div className="bg-masters-sand rounded-2xl shadow-lg border border-masters-pine/20 overflow-hidden">
+              <div className="bg-masters-pine/10 border-b border-masters-pine/20 p-6">
+                <div className="flex items-center gap-3">
+                  <Target className="w-8 h-8 text-masters-pine" />
+                  <h3 className="text-2xl font-bold text-masters-charcoal">Casual Formats</h3>
                 </div>
               </div>
               <div className="p-6">

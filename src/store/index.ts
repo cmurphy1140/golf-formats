@@ -2,7 +2,19 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { GolfFormat, FilterState, SearchState, ComparisonFormat } from '@/types/golf'
 
+export interface Settings {
+  handicap: number
+  skillLevel: 'beginner' | 'intermediate' | 'advanced'
+  groupSize: number
+  theme: 'light' | 'dark' | 'auto'
+  animations: boolean
+}
+
 interface FormatStore {
+  // Settings
+  settings: Settings
+  updateSettings: (settings: Partial<Settings>) => void
+  loadSettings: () => void
   // Search state
   searchState: SearchState
   setSearchQuery: (query: string) => void

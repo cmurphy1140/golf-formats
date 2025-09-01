@@ -39,7 +39,12 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   // Get quick rules for preview
   const getQuickRules = () => {
     const rules = [];
-    if (format.scoring) rules.push(`Scoring: ${format.scoring.split('.')[0]}`);
+    if (format.scoring) {
+      const scoringText = typeof format.scoring === 'string' 
+        ? format.scoring.split('.')[0]
+        : format.scoring.method;
+      rules.push(`Scoring: ${scoringText}`);
+    }
     if (format.players) rules.push(`Players: ${format.players.min}-${format.players.max}`);
     if (format.duration) rules.push(`Duration: ${format.duration}`);
     return rules.slice(0, 3); // Show max 3 rules

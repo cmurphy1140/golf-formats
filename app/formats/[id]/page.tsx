@@ -3,7 +3,10 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { golfFormats } from '@/data/formats';
-import BestBallDemoProfessional from '@/components/demos/best-ball-demo-professional';
+import BestBallDemoMinimal from '@/components/demos/best-ball-demo-minimal';
+import ScrambleDemoMinimal from '@/components/demos/scramble-demo-minimal';
+import MatchPlayDemoMinimal from '@/components/demos/match-play-demo-minimal';
+import SkinsDemoMinimal from '@/components/demos/skins-demo-minimal';
 import { 
   ArrowLeft,
   Users, 
@@ -99,12 +102,24 @@ export default function FormatDetailPage() {
                 </div>
               </div>
 
-              {/* Interactive Demo - Only for Best Ball */}
-              {format.id === 'best-ball' && (
-                <div className="mb-12">
-                  <BestBallDemoProfessional />
-                </div>
-              )}
+              {/* Interactive Demo - Show for formats with animations */}
+              {(() => {
+                const demos: { [key: string]: JSX.Element } = {
+                  'best-ball': <BestBallDemoMinimal />,
+                  'scramble': <ScrambleDemoMinimal />,
+                  'match-play': <MatchPlayDemoMinimal />,
+                  'skins': <SkinsDemoMinimal />
+                };
+                
+                if (demos[format.id]) {
+                  return (
+                    <div className="mb-12">
+                      {demos[format.id]}
+                    </div>
+                  );
+                }
+                return null;
+              })()}
 
               {/* Key Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">

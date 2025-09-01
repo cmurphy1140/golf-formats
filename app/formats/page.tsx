@@ -65,7 +65,7 @@ export default function FormatsPage() {
       {/* Hero Section with animated background */}
       <section className="relative overflow-hidden">
         {/* Animated subtle dot pattern */}
-        <div className="absolute inset-0 opacity-[0.02] animate-pulse">
+        <div className="absolute inset-0 opacity-[0.02] animate-pulse-slow">
           <div className="absolute inset-0" style={{
             backgroundImage: `radial-gradient(circle, #004B36 1px, transparent 1px)`,
             backgroundSize: '20px 20px'
@@ -78,7 +78,7 @@ export default function FormatsPage() {
               Golf Format Explorer
             </h1>
             <p className="text-base text-masters-pine max-w-2xl mx-auto mb-6">
-              Browse <span className="font-semibold text-masters-charcoal animate-pulse">{totalFormats}</span> different ways to play golf, from tournament formats to fun betting games.
+              Browse <span className="font-semibold text-masters-charcoal animate-pulse-slow">{totalFormats}</span> different ways to play golf, from tournament formats to fun betting games.
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function FormatsPage() {
                   <div className="bg-gradient-to-br from-masters-pine to-masters-fairway p-4">
                     <div className="flex items-center justify-between text-white">
                       <div className="flex items-center gap-2">
-                        <Filter size={20} className="animate-pulse" />
+                        <Filter size={20} className="animate-pulse-slow" />
                         <span className="font-semibold">Filters</span>
                       </div>
                       <span className="text-sm bg-white/20 backdrop-blur px-2 py-1 rounded-full transition-all duration-300">
@@ -116,7 +116,7 @@ export default function FormatsPage() {
               {/* Results Counter with Animation */}
               <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-masters-pine animate-pulse"></div>
+                  <div className="h-2 w-2 rounded-full bg-masters-pine animate-pulse-slow"></div>
                   <p className="text-sm text-masters-slate">
                     Showing <span className="font-semibold text-masters-charcoal transition-all duration-300">{displayCount}</span> of {totalFormats} formats
                     {filterState.category.length > 0 && (
@@ -148,7 +148,7 @@ export default function FormatsPage() {
                   >
                     All Formats
                     {filterState.category.length === 0 && (
-                      <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                      <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse-slow"></span>
                     )}
                   </button>
                   {categories.map((category, index) => {
@@ -168,7 +168,7 @@ export default function FormatsPage() {
                       >
                         {category.label}
                         {isActive && (
-                          <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                          <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse-slow"></span>
                         )}
                       </button>
                     );
