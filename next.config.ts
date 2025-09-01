@@ -7,8 +7,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Fix for multiple lockfiles warning
-  outputFileTracingRoot: __dirname,
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
