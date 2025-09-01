@@ -74,6 +74,13 @@ export default function HomePage() {
               Explore Formats
               <ArrowRight size={20} />
             </Link>
+            <Link
+              href="/scorecard"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-masters-gold/20 text-masters-pine font-medium rounded-lg border-2 border-masters-gold hover:bg-masters-gold/30"
+            >
+              Start Scorecard
+              <Target size={20} />
+            </Link>
             <button
               onClick={() => scrollToSection('what-is-this')}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-masters-slate font-medium rounded-lg border border-gray-300 hover:bg-gray-50"

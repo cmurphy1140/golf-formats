@@ -12,7 +12,8 @@ import {
   X,
   GitCompare,
   Heart,
-  Settings
+  Settings,
+  ClipboardList
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -29,6 +30,7 @@ export default function Header() {
   const navItems = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/formats', label: 'All Formats', icon: Grid },
+    { href: '/scorecard', label: 'Scorecard', icon: ClipboardList },
     { href: '/settings', label: 'Settings', icon: Settings }
   ];
 

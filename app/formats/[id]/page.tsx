@@ -395,10 +395,12 @@ export default function FormatDetailPage() {
                 )}
 
                 {/* Play Button */}
-                <button className="btn-masters-tradition w-full hover-lift">
-                  <Play className="w-5 h-5" />
-                  <span>Start Playing {format.name}</span>
-                </button>
+                <Link href={`/scorecard?format=${format.id}`} className="block">
+                  <button className="btn-masters-tradition w-full hover-lift">
+                    <Play className="w-5 h-5" />
+                    <span>Start Playing {format.name}</span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -102,10 +102,10 @@ export function useKeyboardShortcuts() {
         case 'Escape':
           // Clear search or close modals
           currentFocusIndex = -1;
-          const searchInput = document.querySelector('input[type="search"]') as HTMLInputElement;
-          if (searchInput && searchInput.value) {
-            searchInput.value = '';
-            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+          const escapeSearchInput = document.querySelector('input[type="search"]') as HTMLInputElement;
+          if (escapeSearchInput && escapeSearchInput.value) {
+            escapeSearchInput.value = '';
+            escapeSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
           }
           break;
 
