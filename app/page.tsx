@@ -125,13 +125,10 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Scroll Indicator - Positioned Lower */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-green-800 text-xs font-medium">Scroll to explore</span>
-              <div className="animate-bounce">
-                <ChevronDown size={28} className="text-green-800" strokeWidth={2.5} />
-              </div>
+          {/* Scroll Indicator - Just Arrow */}
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <div className="animate-bounce">
+              <ChevronDown size={36} className="text-green-900" strokeWidth={3} />
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { useFormats } from '@/src/hooks/use-formats';
 import { useSearch } from '@/src/hooks/use-search';
 import FormatGrid from '@/components/formats/format-grid';
 import FormatFilters from '@/components/formats/format-filters';
+import CategoryWheel from '@/components/category-wheel';
 import SearchBar from '@/components/search-bar';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -44,10 +45,18 @@ export default function FormatsPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-green-900 mb-4">
               Golf Format Explorer
             </h1>
-            <p className="text-lg text-green-800 max-w-2xl mx-auto">
+            <p className="text-lg text-green-800 max-w-2xl mx-auto mb-12">
               Discover the perfect golf format for your next round. Browse {totalFormats} different ways to play 
               golf, from classic tournament formats to fun betting games.
             </p>
+            
+            {/* Interactive Category Wheel */}
+            <div className="py-8">
+              <CategoryWheel 
+                selectedCategory={selectedCategory}
+                onCategorySelect={setSelectedCategory}
+              />
+            </div>
           </div>
         </div>
       </section>
