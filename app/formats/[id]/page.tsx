@@ -10,6 +10,11 @@ import BestBallDemoMinimal from '@/components/demos/best-ball-demo-minimal';
 import ScrambleDemoMinimal from '@/components/demos/scramble-demo-minimal';
 import MatchPlayDemoMinimal from '@/components/demos/match-play-demo-minimal';
 import SkinsDemoMinimal from '@/components/demos/skins-demo-minimal';
+import StablefordDemoMinimal from '@/components/demos/stableford-demo-minimal';
+import NassauDemoMinimal from '@/components/demos/nassau-demo-minimal';
+import WolfDemoMinimal from '@/components/demos/wolf-demo-minimal';
+import AlternateShotDemoMinimal from '@/components/demos/alternate-shot-demo-minimal';
+import StrokePlayDemoMinimal from '@/components/demos/stroke-play-demo-minimal';
 import { 
   ArrowLeft,
   Users, 
@@ -171,6 +176,35 @@ export default function FormatDetailPage() {
                   <div className="text-tiny text-masters-slate uppercase tracking-wider">Difficulty</div>
                 </div>
               </div>
+
+              {/* Interactive Demo Section */}
+              {(format.id === 'best-ball' || format.id === 'scramble' || format.id === 'match-play' || 
+                format.id === 'skins' || format.id === 'stableford' || format.id === 'nassau' || 
+                format.id === 'wolf' || format.id === 'alternate-shot' || format.id === 'stroke-play') && (
+                <div className="mb-8">
+                  <div className="card-masters">
+                    <div className="p-8 border-b border-masters-stone/20">
+                      <div className="flex items-center gap-3">
+                        <Play className="w-6 h-6 text-masters-pine" />
+                        <h2 className="text-h2 font-serif font-semibold text-masters-charcoal">
+                          Interactive Demo
+                        </h2>
+                      </div>
+                    </div>
+                    <div className="p-8">
+                      {format.id === 'best-ball' && <BestBallDemoMinimal />}
+                      {format.id === 'scramble' && <ScrambleDemoMinimal />}
+                      {format.id === 'match-play' && <MatchPlayDemoMinimal />}
+                      {format.id === 'skins' && <SkinsDemoMinimal />}
+                      {format.id === 'stableford' && <StablefordDemoMinimal />}
+                      {format.id === 'nassau' && <NassauDemoMinimal />}
+                      {format.id === 'wolf' && <WolfDemoMinimal />}
+                      {format.id === 'alternate-shot' && <AlternateShotDemoMinimal />}
+                      {format.id === 'stroke-play' && <StrokePlayDemoMinimal />}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Content Tabs */}
               <div className="space-y-8">

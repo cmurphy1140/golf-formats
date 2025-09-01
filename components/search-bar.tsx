@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { Search, X, Clock, TrendingUp } from 'lucide-react';
+import { Search, X, Clock, TrendingUp, Loader2 } from 'lucide-react';
 import { useSearch } from '@/src/hooks/use-search';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -22,6 +22,7 @@ export default function SearchBar({
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -29,19 +30,19 @@ export default function SearchBar({
     suggestions, 
     recentSearches, 
     handleSearch,
-    clearRecentSearches 
+    clearRecentSearches,
+    isSearching
   } = useSearch();
 
-  // TODO: Implement actual debouncing for search to improve performance
-  // Currently searches on every keystroke which could be optimized
-  const debouncedSearch = useCallback((value: string) => {
-    handleSearch(value);
-    onSearch?.(value);
-  }, [handleSearch, onSearch]);
-
+  // Properly use the existing debounced search from the hook
   const handleInputChange = (value: string) => {
     setInputValue(value);
-    debouncedSearch(value);
+    setIsTyping(true);
+    handleSearch(value); // This already has debouncing in the hook
+    onSearch?.(value);
+    
+    // Clear typing indicator after debounce
+    setTimeout(() => setIsTyping(false), 400);
   };
 
   const clearSearch = () => {
@@ -82,12 +83,19 @@ export default function SearchBar({
       <div className={`relative transition-all duration-300 hover-lift ${
         isFocused ? 'scale-[1.01]' : ''
       }`}>
-        <Search 
-          className={`absolute left-6 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
-            isFocused ? 'text-masters-pine' : 'text-masters-slate/50'
-          }`} 
-          size={22} 
-        />
+        {isSearching || isTyping ? (
+          <Loader2 
+            className={`absolute left-6 top-1/2 -translate-y-1/2 animate-spin text-masters-pine`} 
+            size={22} 
+          />
+        ) : (
+          <Search 
+            className={`absolute left-6 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
+              isFocused ? 'text-masters-pine' : 'text-masters-slate/50'
+            }`} 
+            size={22} 
+          />
+        )}
         <input
           ref={inputRef}
           type="text"

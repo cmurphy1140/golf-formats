@@ -28,21 +28,27 @@ export default function HomePage() {
     tourEvents: 50
   };
   
-  // Smooth scroll to section
+  // Enhanced smooth scroll to section with offset for header
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const yOffset = -80; // Offset for fixed header
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      });
     }
   };
   
 
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-b from-amber-50/30 via-white to-green-50/20">
+    <div className="min-h-screen relative bg-white">
       
       {/* Hero Section with Parallax */}
-      <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 z-10">
+      <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 bg-gradient-to-b from-amber-50/30 via-white to-green-50/20">
         
         <div className="relative z-10 max-w-3xl mx-auto text-center px-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-800 rounded-full text-masters-pine text-sm font-medium mb-8">
@@ -89,7 +95,7 @@ export default function HomePage() {
       </section>
 
       {/* What is This App Section */}
-      <section id="what-is-this" className="relative py-12 px-6">
+      <section id="what-is-this" className="relative py-12 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
@@ -154,7 +160,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Use Different Formats Section */}
-      <section id="why-formats" className="relative py-12 px-6 bg-white">
+      <section id="why-formats" className="relative py-12 px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-6">
@@ -382,7 +388,7 @@ export default function HomePage() {
       </section>
 
       {/* How Each Category Works */}
-      <section id="format-categories" className="relative py-12 px-6 bg-gradient-to-b from-amber-50/20 to-white">
+      <section id="format-categories" className="relative py-12 px-6 pb-20 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-masters-charcoal mb-4">
@@ -395,8 +401,8 @@ export default function HomePage() {
 
           <div className="space-y-6">
             {/* Tournament Formats */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
+            <div className="bg-white rounded-2xl shadow-lg border-2 border-masters-pine/20 overflow-hidden">
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-masters-pine/10 p-6">
                 <div className="flex items-center gap-3">
                   <Trophy className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Tournament Formats</h3>
@@ -431,8 +437,8 @@ export default function HomePage() {
             </div>
 
             {/* Team Formats */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
+            <div className="bg-white rounded-2xl shadow-lg border-2 border-masters-pine/20 overflow-hidden">
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-masters-pine/10 p-6">
                 <div className="flex items-center gap-3">
                   <Users className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Team Formats</h3>
@@ -467,8 +473,8 @@ export default function HomePage() {
             </div>
 
             {/* Betting Games */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
+            <div className="bg-white rounded-2xl shadow-lg border-2 border-masters-pine/20 overflow-hidden">
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-masters-pine/10 p-6">
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Betting Games</h3>
@@ -503,8 +509,8 @@ export default function HomePage() {
             </div>
 
             {/* Casual Formats */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
+            <div className="bg-white rounded-2xl shadow-lg border-2 border-masters-pine/20 overflow-hidden">
+              <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-masters-pine/10 p-6">
                 <div className="flex items-center gap-3">
                   <Target className="w-8 h-8 text-masters-pine" />
                   <h3 className="text-2xl font-bold text-masters-charcoal">Casual Formats</h3>

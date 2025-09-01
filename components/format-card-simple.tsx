@@ -53,9 +53,13 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   return (
     <Link href={`/formats/${format.id}`}>
       <div 
-        className="group bg-white rounded-lg border-2 border-masters-pine/10 p-6 hover:border-masters-pine/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden"
+        className="group bg-white rounded-lg border-2 border-masters-pine/10 p-6 hover:border-masters-pine/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        data-format-card
+        tabIndex={0}
+        role="article"
+        aria-label={`${format.name} - ${format.category} format`}
       >
         {/* Category Badge with animation */}
         <div className="flex items-center justify-between mb-4">

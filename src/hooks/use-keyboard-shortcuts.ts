@@ -7,6 +7,7 @@ export function useKeyboardShortcuts() {
   useEffect(() => {
     let lastKeyTime = 0;
     let lastKey = '';
+    let currentFocusIndex = -1;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
@@ -15,7 +16,7 @@ export function useKeyboardShortcuts() {
                      target.contentEditable === 'true';
 
       // Don't trigger shortcuts when typing in inputs
-      if (isInput && e.key !== 'Escape') return;
+      if (isInput && e.key !== 'Escape' && !e.key.startsWith('Arrow')) return;
 
       const now = Date.now();
       const timeSinceLastKey = now - lastKeyTime;
@@ -40,6 +41,38 @@ export function useKeyboardShortcuts() {
         return;
       }
 
+      // Handle arrow key navigation for format cards
+      if (e.key.startsWith('Arrow') && !isInput) {
+        const cards = Array.from(document.querySelectorAll('[data-format-card]')) as HTMLElement[];
+        if (cards.length === 0) return;
+
+        e.preventDefault();
+        
+        switch(e.key) {
+          case 'ArrowDown':
+            currentFocusIndex = currentFocusIndex < cards.length - 1 ? currentFocusIndex + 1 : 0;
+            break;
+          case 'ArrowUp':
+            currentFocusIndex = currentFocusIndex > 0 ? currentFocusIndex - 1 : cards.length - 1;
+            break;
+          case 'ArrowRight':
+            // For grid layout, move to next column
+            const cols = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+            currentFocusIndex = Math.min(currentFocusIndex + 1, cards.length - 1);
+            break;
+          case 'ArrowLeft':
+            // For grid layout, move to previous column
+            currentFocusIndex = Math.max(currentFocusIndex - 1, 0);
+            break;
+        }
+        
+        if (currentFocusIndex >= 0 && currentFocusIndex < cards.length) {
+          cards[currentFocusIndex].focus();
+          cards[currentFocusIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
       switch(e.key) {
         case '/':
           e.preventDefault();
@@ -58,8 +91,17 @@ export function useKeyboardShortcuts() {
           }
           break;
         
+        case 'Enter':
+          // Navigate to focused card
+          if (document.activeElement?.hasAttribute('data-format-card')) {
+            const link = document.activeElement.querySelector('a') as HTMLAnchorElement;
+            if (link) link.click();
+          }
+          break;
+        
         case 'Escape':
           // Clear search or close modals
+          currentFocusIndex = -1;
           const searchInput = document.querySelector('input[type="search"]') as HTMLInputElement;
           if (searchInput && searchInput.value) {
             searchInput.value = '';

@@ -118,10 +118,13 @@ export default function FormatsPage() {
                     {hasActiveFilters && (
                       <button
                         onClick={clearFilters}
-                        className="mt-3 w-full px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                        className="mt-3 w-full px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] hover:shadow-md animate-fade-in group"
                       >
-                        <X size={16} />
-                        Clear All Filters ({activeFiltersCount})
+                        <X size={16} className="group-hover:rotate-90 transition-transform duration-300" />
+                        <span>Clear All Filters</span>
+                        <span className="inline-flex items-center justify-center w-6 h-6 bg-red-600 text-white rounded-full text-xs font-bold animate-pulse">
+                          {activeFiltersCount}
+                        </span>
                       </button>
                     )}
                   </div>
@@ -158,11 +161,13 @@ export default function FormatsPage() {
                         }
                       });
                     }}
-                    className={`px-4 py-2 rounded-full text-sm font-medium ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-4 focus:ring-masters-pine/30 transition-all ${
                       filterState.category.length === 0
                         ? 'bg-masters-pine text-white shadow-md scale-105'
                         : 'bg-white text-masters-slate border border-masters-stone/30 hover:border-masters-pine hover:shadow-md'
                     }`}
+                    aria-label="Show all formats"
+                    aria-pressed={filterState.category.length === 0}
                   >
                     All Formats
                     {filterState.category.length === 0 && (
@@ -175,7 +180,7 @@ export default function FormatsPage() {
                       <button
                         key={category.id}
                         onClick={() => toggleFilter('category', category.id)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium ${
+                        className={`px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-4 focus:ring-masters-pine/30 transition-all ${
                           isActive
                             ? 'bg-masters-pine text-white shadow-md scale-105'
                             : 'bg-white text-masters-slate border border-masters-stone/30 hover:border-masters-pine hover:shadow-md'
@@ -183,6 +188,9 @@ export default function FormatsPage() {
                         style={{
                           animationDelay: `${index * 50}ms`
                         }}
+                        aria-label={`Filter by ${category.label}`}
+                        aria-pressed={isActive}
+                        title={category.description}
                       >
                         {category.label}
                         {isActive && (
@@ -196,10 +204,11 @@ export default function FormatsPage() {
 
 
               {/* Format Cards with loading state */}
-              <div className={`${isLoading ? 'opacity-50' : 'opacity-100'}`}>
+              <div className={`transition-all duration-500 ${isLoading ? 'opacity-40 scale-[0.99]' : 'opacity-100 scale-100'}`}>
                 <FormatGrid 
                   formats={formats}
                   totalCount={totalFormats}
+                  isLoading={isLoading}
                 />
               </div>
               
