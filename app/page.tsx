@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useScrollAnimations } from '@/src/hooks/use-scroll-animations';
 import MiuxHero from '@/components/miux-hero';
+import InteractiveGallery from '@/components/interactive-gallery';
+import { CursorGlow } from '@/components/magnetic-cursor';
+import { golfFormats } from '@/data/formats';
 import { 
   ArrowRight,
   Trophy,
@@ -50,6 +53,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen relative">
+      {/* Cursor Glow Effect */}
+      <CursorGlow />
       
       {/* Sophisticated Hero Section */}
       <MiuxHero />
@@ -114,6 +119,21 @@ export default function HomePage() {
         >
           <ChevronDown size={32} className="text-masters-pine md:w-10 md:h-10" strokeWidth={3} />
         </button>
+      </section>
+
+      {/* Interactive Gallery Section */}
+      <section className="relative py-16 px-6 bg-gradient-to-b from-white to-masters-sand/20">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="miux-heading font-serif mb-4">
+              Popular Formats
+            </h2>
+            <p className="miux-subheading text-masters-slate/70">
+              Discover the most played formats by golfers worldwide
+            </p>
+          </div>
+          <InteractiveGallery formats={golfFormats} />
+        </div>
       </section>
 
       {/* What is This App Section */}
