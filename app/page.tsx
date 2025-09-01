@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useScrollAnimations } from '@/src/hooks/use-scroll-animations';
 import { 
   ArrowRight,
   Trophy,
@@ -20,6 +21,8 @@ import {
 
 export default function HomePage() {
   const [expandedFact, setExpandedFact] = useState<number>(0);
+  useScrollAnimations();
+  
   // Static stats - no animation
   const stats = {
     formats: 20,
