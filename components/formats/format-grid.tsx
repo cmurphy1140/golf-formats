@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { Grid, List, RotateCcw, SlidersHorizontal, Crown, ArrowRight } from 'lucide-react';
 import { GolfFormat } from '@/types/golf';
 import FormatCardSimple from '@/components/format-card-simple';
+import MiuxCard from '@/components/miux-card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -19,6 +21,7 @@ interface FormatGridProps {
 
 export default function FormatGrid({ formats, totalCount, isLoading = false }: FormatGridProps) {
   const { viewMode, setViewMode, sortBy, setSortBy } = useFormatStore();
+  const [useMinimalistCards, setUseMinimalistCards] = useState(true);
 
   if (isLoading) {
     return (
@@ -185,7 +188,11 @@ export default function FormatGrid({ formats, totalCount, isLoading = false }: F
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {formats.map((format, index) => (
                 <div key={format.id} className={`stagger-fade-in stagger-fade-in-${Math.min(index + 1, 10)}`}>
-                  <FormatCardSimple format={format} />
+                  {useMinimalistCards ? (
+                    <MiuxCard format={format} index={index} />
+                  ) : (
+                    <FormatCardSimple format={format} />
+                  )}
                 </div>
               ))}
             </div>

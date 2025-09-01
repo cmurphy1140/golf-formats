@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useScrollAnimations } from '@/src/hooks/use-scroll-animations';
+import MiuxHero from '@/components/miux-hero';
 import { 
   ArrowRight,
   Trophy,
@@ -50,8 +51,11 @@ export default function HomePage() {
   return (
     <div className="min-h-screen relative">
       
-      {/* Hero Section */}
-      <section className="relative min-h-[600px] md:min-h-screen flex items-start justify-center overflow-hidden pt-20 md:pt-32 px-safe">
+      {/* Sophisticated Hero Section */}
+      <MiuxHero />
+      
+      {/* Original Hero Section - Hidden */}
+      <section className="hidden relative min-h-[600px] md:min-h-screen flex items-start justify-center overflow-hidden pt-20 md:pt-32 px-safe">
         
         <div className="relative z-10 max-w-3xl mx-auto text-center px-4 md:px-6">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-green-50 border border-green-800 rounded-full text-masters-pine text-xs md:text-sm font-medium mb-6 md:mb-8">
