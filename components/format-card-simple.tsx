@@ -53,7 +53,7 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   return (
     <Link href={`/formats/${format.id}`}>
       <div 
-        className="group bg-white rounded-lg border-2 border-masters-pine/10 p-4 md:p-6 hover:border-masters-pine/30 hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation"
+        className="group card-golf rounded-lg border-2 border-masters-pine/10 p-4 md:p-6 hover:border-masters-pine/30 hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         data-format-card

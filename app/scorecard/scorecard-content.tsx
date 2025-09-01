@@ -134,7 +134,7 @@ function ScorecardContent() {
 
   if (showFormatSelector) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50/30 via-white to-green-50/20 py-12">
+      <div className="min-h-screen py-12">
         <div className="max-w-4xl mx-auto px-6">
           <Link 
             href="/"
@@ -145,12 +145,12 @@ function ScorecardContent() {
           </Link>
 
           <div className="bg-white rounded-2xl shadow-xl border-2 border-masters-pine/20 overflow-hidden">
-            <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-8 text-white">
+            <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-8">
               <div className="flex items-center gap-3 mb-2">
-                <ClipboardList size={28} />
-                <h1 className="text-3xl font-bold">Select a Format</h1>
+                <ClipboardList size={28} className="text-masters-gold" />
+                <h1 className="text-3xl font-bold text-masters-cream">Select a Format</h1>
               </div>
-              <p className="text-masters-cream/90">Choose the format you'll be playing today</p>
+              <p className="text-masters-sand">Choose the format you'll be playing today</p>
             </div>
 
             <div className="p-8">
@@ -190,7 +190,7 @@ function ScorecardContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50/30 via-white to-green-50/20">
+    <div className="min-h-screen">
       {/* Header */}
       <div className="bg-white border-b border-masters-pine/20 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -228,7 +228,7 @@ function ScorecardContent() {
                 <RotateCcw size={20} className="text-masters-pine" />
               </button>
               <button
-                className="px-4 py-2 bg-masters-pine text-white rounded-lg hover:bg-masters-fairway transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-masters-pine text-masters-cream rounded-lg hover:bg-masters-fairway transition-colors flex items-center gap-2"
                 title="Save Scorecard"
               >
                 <Save size={16} />
@@ -296,14 +296,14 @@ function ScorecardContent() {
 
         {/* Scorecard */}
         <div className="bg-white rounded-xl shadow-lg border border-masters-pine/10 overflow-hidden">
-          <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-4 text-white">
+          <div className="bg-gradient-to-r from-masters-pine to-masters-fairway p-3 md:p-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
-                <Trophy size={20} />
+              <h2 className="text-lg font-semibold flex items-center gap-2 text-masters-cream">
+                <Trophy size={20} className="text-masters-gold" />
                 Scorecard
               </h2>
               <div className="text-sm">
-                {format && <span className="bg-white/20 px-3 py-1 rounded-full">{format.category}</span>}
+                {format && <span className="bg-masters-sand/30 text-masters-cream px-3 py-1 rounded-full border border-masters-gold/30">{format.category}</span>}
               </div>
             </div>
           </div>

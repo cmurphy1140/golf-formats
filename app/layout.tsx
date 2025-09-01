@@ -57,7 +57,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen bg-masters-cream text-masters-slate antialiased relative pb-safe">
+      <body className="min-h-screen text-masters-slate antialiased relative pb-safe">
+        <div className="golf-pattern-overlay" aria-hidden="true" />
         <SettingsLoader />
         <Header />
         <main className="min-h-screen relative" style={{ zIndex: 1 }}>
