@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { 
   ArrowRight,
   Trophy,
@@ -21,13 +20,13 @@ import {
 
 export default function HomePage() {
   const [expandedFact, setExpandedFact] = useState<number>(0);
-  const [animatedStats, setAnimatedStats] = useState({
-    formats: 0,
-    timeReduction: 0,
-    handicapRange: 0,
-    tourEvents: 0
-  });
-  const [hasAnimated, setHasAnimated] = useState(false);
+  // Static stats - no animation
+  const stats = {
+    formats: 20,
+    timeReduction: 30,
+    handicapRange: 20,
+    tourEvents: 50
+  };
   
   // Smooth scroll to section
   const scrollToSection = (sectionId: string) => {
@@ -37,34 +36,6 @@ export default function HomePage() {
     }
   };
   
-  useEffect(() => {
-    // Trigger animation on mount
-    if (!hasAnimated) {
-      setHasAnimated(true);
-      // Animate stats counting
-      const duration = 2000; // 2 seconds
-      const steps = 60;
-      const interval = duration / steps;
-      let currentStep = 0;
-      
-      const timer = setInterval(() => {
-        currentStep++;
-        const progress = currentStep / steps;
-        
-        setAnimatedStats({
-          formats: Math.floor(20 * progress),
-          timeReduction: Math.floor(30 * progress),
-          handicapRange: Math.floor(20 * progress),
-          tourEvents: Math.floor(50 * progress)
-        });
-        
-        if (currentStep >= steps) {
-          clearInterval(timer);
-          setAnimatedStats({ formats: 20, timeReduction: 30, handicapRange: 20, tourEvents: 50 });
-        }
-      }, interval);
-    }
-  }, [hasAnimated]);
 
 
   return (
@@ -85,21 +56,21 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xl text-masters-slate max-w-xl mx-auto mb-8 leading-relaxed">
-            Discover <span className="font-bold text-masters-pine">{animatedStats.formats || 20}+</span> unique golf formats that turn every round into an adventure. 
+            Discover <span className="font-bold text-masters-pine">{stats.formats}+</span> unique golf formats that turn every round into an adventure. 
             From competitive tournaments to fun team games, find the perfect way to play.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/formats"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-masters-pine text-white font-medium rounded-lg hover:bg-green-900 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-masters-pine text-white font-medium rounded-lg hover:bg-green-900"
             >
               Explore Formats
               <ArrowRight size={20} />
             </Link>
             <button
               onClick={() => scrollToSection('what-is-this')}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-masters-slate font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-masters-slate font-medium rounded-lg border border-gray-300 hover:bg-gray-50"
             >
               Learn More
               <ChevronDown size={20} />
@@ -110,12 +81,10 @@ export default function HomePage() {
         {/* Scroll Indicator - Positioned Below Content */}
         <button 
           onClick={() => scrollToSection('what-is-this')}
-          className="absolute bottom-32 left-1/2 transform -translate-x-1/2 cursor-pointer hover:scale-110 transition-transform"
+          className="absolute bottom-32 left-1/2 transform -translate-x-1/2 cursor-pointer"
           aria-label="Scroll to next section"
         >
-          <div className="animate-bounce">
-            <ChevronDown size={40} className="text-masters-pine" strokeWidth={3} />
-          </div>
+          <ChevronDown size={40} className="text-masters-pine" strokeWidth={3} />
         </button>
       </section>
 
@@ -133,12 +102,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <motion.div 
-              className="backdrop-blur-xl bg-white/70 rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all hover:bg-white/80"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl">
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Target className="w-6 h-6 text-masters-pine" />
               </div>
@@ -149,14 +113,9 @@ export default function HomePage() {
                 Match your skill level, group size, and playing style with the perfect format. 
                 Whether you&apos;re a beginner or scratch golfer, there&apos;s a format for you.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div 
-              className="backdrop-blur-xl bg-white/70 rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all hover:bg-white/80"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl">
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Heart className="w-6 h-6 text-masters-pine" />
               </div>
@@ -167,14 +126,9 @@ export default function HomePage() {
                 Stop playing the same way every round. Our formats add variety, excitement, 
                 and new challenges that keep golf interesting week after week.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div 
-              className="backdrop-blur-xl bg-white/70 rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all hover:bg-white/80"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl">
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Zap className="w-6 h-6 text-masters-pine" />
               </div>
@@ -185,17 +139,17 @@ export default function HomePage() {
                 Each format teaches different skills and strategies. Build confidence, 
                 learn course management, and become a more complete golfer.
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
         
         {/* Subtle Section Divider */}
         <button 
           onClick={() => scrollToSection('why-formats')}
-          className="flex justify-center mt-4 w-full cursor-pointer hover:scale-110 transition-transform"
+          className="flex justify-center mt-4 w-full cursor-pointer"
           aria-label="Scroll to Why Use Different Formats"
         >
-          <ChevronDown size={30} className="text-masters-pine/60 animate-pulse" />
+          <ChevronDown size={30} className="text-masters-pine/60" />
         </button>
       </section>
 
@@ -212,11 +166,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
-            <motion.div 
-              className="space-y-4"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}>
+            <div className="space-y-4">
               <div className="flex gap-4">
                 <div className="flex-shrink-0">
                   <div className="w-10 h-10 bg-masters-pine rounded-full flex items-center justify-center">
@@ -284,31 +234,22 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div 
-              className="relative h-full"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}>
-              <motion.div 
-                className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 p-8 h-full hover:bg-white/80 transition-all"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}>
+            <div className="relative h-full">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 h-full">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-2xl font-bold text-masters-charcoal">Did You Know?</h3>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setExpandedFact(expandedFact > 0 ? expandedFact - 1 : 3)}
-                      className="p-2 rounded-lg bg-green-50 hover:bg-masters-pine/10 transition-colors"
+                      className="p-2 rounded-lg bg-green-50 hover:bg-masters-pine/10"
                     >
                       <ChevronDown size={20} className="text-masters-pine rotate-90" />
                     </button>
                     <button
                       onClick={() => setExpandedFact(expandedFact < 3 ? expandedFact + 1 : 0)}
-                      className="p-2 rounded-lg bg-green-50 hover:bg-masters-pine/10 transition-colors"
+                      className="p-2 rounded-lg bg-green-50 hover:bg-masters-pine/10"
                     >
                       <ChevronDown size={20} className="text-masters-pine -rotate-90" />
                     </button>
@@ -341,7 +282,7 @@ export default function HomePage() {
                       { 
                         icon: Users,
                         title: "Team Efficiency", 
-                        fact: `Team formats reduce round times by ${animatedStats.timeReduction || 30}%`,
+                        fact: `Team formats reduce round times by ${stats.timeReduction}%`,
                         detail: "While allowing players of all skill levels to contribute equally"
                       }
                     ],
@@ -355,7 +296,7 @@ export default function HomePage() {
                       { 
                         icon: DollarSign,
                         title: "Million Dollar Holes", 
-                        fact: `Skins games have awarded over $${animatedStats.tourEvents || 50}M`,
+                        fact: `Skins games have awarded over $${stats.tourEvents}M`,
                         detail: "With single holes sometimes worth $1 million"
                       }
                     ],
@@ -363,7 +304,7 @@ export default function HomePage() {
                       { 
                         icon: Target,
                         title: "Handicap Magic", 
-                        fact: `${animatedStats.handicapRange || 20} handicappers can compete with scratch golfers`,
+                        fact: `${stats.handicapRange} handicappers can compete with scratch golfers`,
                         detail: "Best Ball's format levels the playing field perfectly"
                       },
                       { 
@@ -379,7 +320,7 @@ export default function HomePage() {
                     return (
                       <div
                         key={index}
-                        className={`absolute inset-0 transition-all duration-500 ${
+                        className={`absolute inset-0 ${
                           isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'
                         }`}
                       >
@@ -409,7 +350,7 @@ export default function HomePage() {
                                   <button
                                     key={dot}
                                     onClick={() => setExpandedFact(dot)}
-                                    className={`w-2 h-2 rounded-full transition-all ${
+                                    className={`w-2 h-2 rounded-full ${
                                       dot === index ? 'bg-masters-pine w-8' : 'bg-gray-300 hover:bg-gray-400'
                                     }`}
                                   />
@@ -425,18 +366,18 @@ export default function HomePage() {
                     );
                   })}
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
         
         {/* Subtle Section Divider */}
         <button 
           onClick={() => scrollToSection('format-categories')}
-          className="flex justify-center mt-4 w-full cursor-pointer hover:scale-110 transition-transform"
+          className="flex justify-center mt-4 w-full cursor-pointer"
           aria-label="Scroll to Format Categories"
         >
-          <ChevronDown size={30} className="text-masters-pine/60 animate-pulse" />
+          <ChevronDown size={30} className="text-masters-pine/60" />
         </button>
       </section>
 
@@ -454,12 +395,7 @@ export default function HomePage() {
 
           <div className="space-y-6">
             {/* Tournament Formats */}
-            <motion.div 
-              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
               <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <Trophy className="w-8 h-8 text-masters-pine" />
@@ -492,15 +428,10 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Team Formats */}
-            <motion.div 
-              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
               <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <Users className="w-8 h-8 text-masters-pine" />
@@ -533,15 +464,10 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Betting Games */}
-            <motion.div 
-              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
               <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-8 h-8 text-masters-pine" />
@@ -574,15 +500,10 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Casual Formats */}
-            <motion.div 
-              className="backdrop-blur-xl bg-white/70 rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:bg-white/80 transition-all"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}>
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
               <div className="bg-gradient-to-r from-masters-pine/10 to-masters-pine/5 border-b border-white/30 p-6">
                 <div className="flex items-center gap-3">
                   <Target className="w-8 h-8 text-masters-pine" />
@@ -615,7 +536,7 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
         
