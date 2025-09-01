@@ -469,45 +469,6 @@ export default function HomePage() {
           </div>
         </div>
         
-        {/* Subtle Section Divider */}
-        <div className="flex justify-center mt-4">
-          <ChevronDown size={20} className="text-green-600/30 animate-pulse" />
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative py-12 px-6 bg-gradient-to-t from-green-100 to-green-50">
-        <div 
-          className="max-w-3xl mx-auto text-center"
-          style={{ 
-            opacity: getOpacity(2400),
-            transform: getTransform(0.05)
-          }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-green-900 mb-6">
-            Ready to Transform Your Game?
-          </h2>
-          <p className="text-xl text-gray-800 mb-8 max-w-xl mx-auto leading-relaxed">
-            Stop playing the same old stroke play. Discover formats that make every round 
-            memorable, improve your skills, and bring more fun to the game.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/formats"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-800 text-white font-medium rounded-lg hover:bg-green-900 transition-colors transform hover:scale-105"
-            >
-              Explore All Formats
-              <ArrowRight size={20} />
-            </Link>
-            <Link
-              href="/formats?category=team"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-green-800 font-medium rounded-lg border-2 border-green-800 hover:bg-green-50 transition-colors transform hover:scale-105"
-            >
-              Start with Team Formats
-              <Users size={20} />
-            </Link>
-          </div>
-        </div>
       </section>
     </div>
   );
