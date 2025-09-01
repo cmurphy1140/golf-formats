@@ -1,5 +1,8 @@
 # Golf Formats App - Personalized Best Practices
 
+## Workflow Management
+@CLAUDE.sessions.md - FOLLOW THIS WORKFLOW FOR ALL TASKS
+
 ## UI/UX Design Preferences
 - **Professional & Sleek**: Avoid cartoonish or childish elements at all costs
 - **Masters Tournament Aesthetic**: Use pine greens, tans, ambers, and cream colors

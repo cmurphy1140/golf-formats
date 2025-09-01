@@ -1,0 +1,42 @@
+{
+  "user": {
+    "name": "Connor Murphy",
+    "email": "cmurphy1140@gmail.com"
+  },
+  "project": {
+    "name": "Golf Formats",
+    "type": "nextjs-webapp",
+    "description": "Golf game formats database with interactive demos and scorecard"
+  },
+  "task_prefixes": {
+    "priority": {
+      "h-": "High priority (critical/blocking)",
+      "m-": "Medium priority (normal features)",
+      "l-": "Low priority (nice-to-haves)",
+      "?-": "Investigate (may be obsolete)"
+    },
+    "types": {
+      "implement-": "feature/",
+      "fix-": "fix/",
+      "refactor-": "feature/",
+      "research-": "none",
+      "experiment-": "experiment/",
+      "migrate-": "feature/",
+      "test-": "feature/",
+      "docs-": "feature/"
+    }
+  },
+  "trigger_phrases": [
+    "go ahead",
+    "ship it",
+    "make it so",
+    "do it",
+    "proceed",
+    "implement"
+  ],
+  "blocked_tools": ["Edit", "Write", "MultiEdit"],
+  "api_mode": false,
+  "statusline": true,
+  "context_warning_threshold": 75,
+  "context_critical_threshold": 90
+}
