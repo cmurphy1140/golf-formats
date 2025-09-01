@@ -14,14 +14,19 @@ import {
   LayoutGrid,
   List,
   ChevronRight,
-  ChevronDown
+  ChevronDown,
+  X
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useKeyboardShortcuts } from '@/src/hooks/use-keyboard-shortcuts';
+import RecentlyViewed from '@/components/recently-viewed';
+import FilterPresets from '@/components/filter-presets';
 
 export default function FormatsPage() {
   const { formats, totalFormats, filteredCount } = useFormats();
   const { query } = useSearch();
-  const { filterState, toggleFilter, clearFilters } = useFilters();
+  const { filterState, toggleFilter, clearFilters, activeFiltersCount, hasActiveFilters } = useFilters();
+  useKeyboardShortcuts();
   const [displayCount, setDisplayCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -91,13 +96,24 @@ export default function FormatsPage() {
             {/* Filter Panel - Desktop */}
             <aside className="lg:w-72 flex-shrink-0">
               <div className="sticky top-24">
+                {/* Quick Filter Presets */}
+                <FilterPresets />
+                
+                {/* Recently Viewed */}
+                <RecentlyViewed />
+                
                 {/* Filter Card with enhanced animations */}
-                <div className="bg-white rounded-2xl shadow-xl border-2 border-masters-pine/10 overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:border-masters-pine/20">
+                <div className="bg-white rounded-2xl shadow-xl border-2 border-masters-pine/10 overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:border-masters-pine/20" data-filter-toggle>
                   <div className="bg-gradient-to-br from-masters-pine to-masters-fairway p-4">
                     <div className="flex items-center justify-between text-white">
                       <div className="flex items-center gap-2">
                         <Filter size={20} className="animate-pulse-slow" />
                         <span className="font-semibold">Filters</span>
+                        {activeFiltersCount > 0 && (
+                          <span className="px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold">
+                            {activeFiltersCount}
+                          </span>
+                        )}
                       </div>
                       <span className="text-sm bg-white/20 backdrop-blur px-2 py-1 rounded-full transition-all duration-300">
                         <span className="font-semibold">{filteredCount}</span> results
@@ -106,6 +122,15 @@ export default function FormatsPage() {
                   </div>
                   <div className="p-4">
                     <FormatFilters />
+                    {hasActiveFilters && (
+                      <button
+                        onClick={clearFilters}
+                        className="mt-3 w-full px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                      >
+                        <X size={16} />
+                        Clear All Filters ({activeFiltersCount})
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

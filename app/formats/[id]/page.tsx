@@ -2,7 +2,10 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { golfFormats } from '@/data/formats';
+import { useFormatStore } from '@/src/store';
+import ShareButton from '@/components/share-button';
 import BestBallDemoMinimal from '@/components/demos/best-ball-demo-minimal';
 import ScrambleDemoMinimal from '@/components/demos/scramble-demo-minimal';
 import MatchPlayDemoMinimal from '@/components/demos/match-play-demo-minimal';
@@ -27,6 +30,13 @@ import {
 export default function FormatDetailPage() {
   const params = useParams();
   const format = golfFormats.find(f => f.id === params.id);
+  const { addToRecentlyViewed } = useFormatStore();
+  
+  useEffect(() => {
+    if (format) {
+      addToRecentlyViewed(format.id);
+    }
+  }, [format, addToRecentlyViewed]);
 
   if (!format) {
     return (
@@ -99,6 +109,15 @@ export default function FormatDetailPage() {
                   <p className="text-h4 text-masters-slate leading-relaxed">
                     {format.description}
                   </p>
+                  
+                  {/* Share Buttons */}
+                  <div className="mt-6">
+                    <ShareButton 
+                      formatId={format.id}
+                      formatName={format.name}
+                      formatDescription={format.description}
+                    />
+                  </div>
                 </div>
               </div>
 

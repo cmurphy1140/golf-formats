@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import SettingsLoader from "@/components/settings-loader";
+import KeyboardShortcutsHelp from "@/components/keyboard-shortcuts-help";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -64,6 +65,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <KeyboardShortcutsHelp />
       </body>
     </html>
   );
