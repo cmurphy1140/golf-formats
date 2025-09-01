@@ -10,6 +10,34 @@
   transition-timing-function: ease-in-out;
 }
 
+/* Stagger Fade-In Animations */
+@keyframes staggerFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-fade-in {
+  animation: staggerFadeIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.stagger-fade-in-1 { animation-delay: 0ms; }
+.stagger-fade-in-2 { animation-delay: 50ms; }
+.stagger-fade-in-3 { animation-delay: 100ms; }
+.stagger-fade-in-4 { animation-delay: 150ms; }
+.stagger-fade-in-5 { animation-delay: 200ms; }
+.stagger-fade-in-6 { animation-delay: 250ms; }
+.stagger-fade-in-7 { animation-delay: 300ms; }
+.stagger-fade-in-8 { animation-delay: 350ms; }
+.stagger-fade-in-9 { animation-delay: 400ms; }
+.stagger-fade-in-10 { animation-delay: 450ms; }
+
 @layer base {
   :root {
     /* Cohesive Masters Theme Colors - Optimized for Mobile & Desktop */

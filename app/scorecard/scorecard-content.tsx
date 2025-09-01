@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { golfFormats } from '@/data/formats';
+import AnimatedCounter from '@/components/animated-counter';
 import { 
   ArrowLeft,
   ClipboardList,
@@ -358,7 +359,10 @@ function ScorecardContent() {
                       </td>
                     ))}
                     <td className="text-center p-2 font-bold text-masters-pine bg-masters-pine/10">
-                      {holes.slice(0, 9).reduce((sum, h) => sum + (h.scores[player.id] || 0), 0) || '-'}
+                      <AnimatedCounter 
+                        value={holes.slice(0, 9).reduce((sum, h) => sum + (h.scores[player.id] || 0), 0)}
+                        duration={400}
+                      />
                     </td>
                   </tr>
                 ))}
@@ -421,10 +425,18 @@ function ScorecardContent() {
                       </td>
                     ))}
                     <td className="text-center p-2 font-bold text-masters-pine bg-masters-pine/10">
-                      {holes.slice(9, 18).reduce((sum, h) => sum + (h.scores[player.id] || 0), 0) || '-'}
+                      <AnimatedCounter 
+                        value={holes.slice(9, 18).reduce((sum, h) => sum + (h.scores[player.id] || 0), 0)}
+                        duration={400}
+                      />
                     </td>
                     <td className="text-center p-2 font-bold text-masters-pine bg-masters-pine/20">
-                      <div>{getPlayerTotal(player.id) || '-'}</div>
+                      <div>
+                        <AnimatedCounter 
+                          value={getPlayerTotal(player.id)}
+                          duration={600}
+                        />
+                      </div>
                       <div className="text-xs text-masters-slate">
                         {getPlayerToPar(player.id)}
                       </div>
@@ -453,7 +465,10 @@ function ScorecardContent() {
                     </div>
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-bold text-masters-pine">
-                        {total || '-'}
+                        <AnimatedCounter 
+                          value={total}
+                          duration={800}
+                        />
                       </span>
                       <span className={`text-sm font-medium ${
                         toPar === 'E' ? 'text-blue-600' :
@@ -466,7 +481,10 @@ function ScorecardContent() {
                     </div>
                     {player.handicap > 0 && (
                       <div className="text-xs text-masters-slate mt-1">
-                        Net: {total - player.handicap || '-'}
+                        Net: <AnimatedCounter 
+                          value={total - player.handicap}
+                          duration={600}
+                        />
                       </div>
                     )}
                   </div>

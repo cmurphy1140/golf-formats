@@ -161,7 +161,7 @@ export default function FormatsPage() {
                         }
                       });
                     }}
-                    className={`px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-4 focus:ring-masters-pine/30 transition-all ${
+                    className={`stagger-fade-in stagger-fade-in-1 px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-4 focus:ring-masters-pine/30 transition-all ${
                       filterState.category.length === 0
                         ? 'bg-masters-pine text-white shadow-md scale-105'
                         : 'bg-white text-masters-slate border border-masters-stone/30 hover:border-masters-pine hover:shadow-md'
@@ -180,14 +180,11 @@ export default function FormatsPage() {
                       <button
                         key={category.id}
                         onClick={() => toggleFilter('category', category.id)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-4 focus:ring-masters-pine/30 transition-all ${
+                        className={`stagger-fade-in stagger-fade-in-${index + 2} px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-4 focus:ring-masters-pine/30 transition-all ${
                           isActive
                             ? 'bg-masters-pine text-white shadow-md scale-105'
                             : 'bg-white text-masters-slate border border-masters-stone/30 hover:border-masters-pine hover:shadow-md'
                         }`}
-                        style={{
-                          animationDelay: `${index * 50}ms`
-                        }}
                         aria-label={`Filter by ${category.label}`}
                         aria-pressed={isActive}
                         title={category.description}

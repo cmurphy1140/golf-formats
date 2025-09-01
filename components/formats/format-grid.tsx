@@ -184,7 +184,7 @@ export default function FormatGrid({ formats, totalCount, isLoading = false }: F
           {viewMode === 'grid' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {formats.map((format, index) => (
-                <div key={format.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.05}s` }}>
+                <div key={format.id} className={`stagger-fade-in stagger-fade-in-${Math.min(index + 1, 10)}`}>
                   <FormatCardSimple format={format} />
                 </div>
               ))}
@@ -192,7 +192,7 @@ export default function FormatGrid({ formats, totalCount, isLoading = false }: F
           ) : (
             <div className="space-y-6">
               {formats.map((format, index) => (
-                <div key={format.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.05}s` }}>
+                <div key={format.id} className={`stagger-fade-in stagger-fade-in-${Math.min(index + 1, 10)}`}>
                   <FormatListView format={format} />
                 </div>
               ))}

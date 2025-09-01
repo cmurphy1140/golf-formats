@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef, MouseEvent } from 'react';
 import { 
   Users, 
   Clock,
@@ -17,6 +17,38 @@ interface FormatCardSimpleProps {
 
 export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [tiltStyle, setTiltStyle] = useState({});
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -5; // Max 5 degree rotation
+    const rotateY = ((x - centerX) / centerX) * 5;
+    
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`,
+      transition: 'transform 0.1s ease-out'
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
+      transition: 'transform 0.3s ease-out'
+    });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
   const getCategoryColor = (category: string) => {
     // All categories use the same Masters theme for consistency
     return 'bg-masters-pine/10 text-masters-pine border-masters-pine/20';
@@ -53,9 +85,12 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   return (
     <Link href={`/formats/${format.id}`}>
       <div 
-        className="group card-golf rounded-lg border-2 border-masters-pine/10 p-4 md:p-6 hover:border-masters-pine/30 hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        ref={cardRef}
+        className="group card-golf rounded-lg border-2 border-masters-pine/10 p-4 md:p-6 hover:border-masters-pine/30 hover:shadow-xl cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation will-change-transform"
+        style={tiltStyle}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         data-format-card
         tabIndex={0}
         role="article"
