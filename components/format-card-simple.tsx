@@ -86,7 +86,7 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
     <Link href={`/formats/${format.id}`}>
       <div 
         ref={cardRef}
-        className="group card-golf rounded-lg border-2 border-masters-pine/10 p-4 md:p-6 hover:border-masters-pine/30 hover:shadow-xl cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation will-change-transform"
+        className="group glass-card premium-hover rounded-lg p-4 md:p-6 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation will-change-transform"
         style={tiltStyle}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}

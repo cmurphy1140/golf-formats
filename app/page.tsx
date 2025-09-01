@@ -57,8 +57,16 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-masters-charcoal mb-4 leading-tight">
-            Why Play Golf
-            <span className="block text-masters-pine">The Same Way?</span>
+            <span className="text-reveal">
+              <span className="text-reveal-content" style={{"--delay": "0ms"} as React.CSSProperties}>
+                Why Play Golf
+              </span>
+            </span>
+            <span className="block text-masters-pine text-reveal">
+              <span className="text-reveal-content" style={{"--delay": "200ms"} as React.CSSProperties}>
+                The Same Way?
+              </span>
+            </span>
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl text-masters-slate max-w-xl mx-auto mb-6 md:mb-8 leading-relaxed">
@@ -69,7 +77,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Link
               href="/formats"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-masters-pine text-white font-medium rounded-lg hover:bg-green-900 text-sm md:text-base min-h-[44px]"
+              className="btn-clip inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-white text-masters-pine border-2 border-masters-pine font-medium rounded-lg text-sm md:text-base min-h-[44px] relative z-10"
             >
               Explore Formats
               <ArrowRight size={20} />
@@ -115,7 +123,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl">
+            <div className="glass-card rounded-xl p-6 scroll-reveal" style={{"--scroll-delay": "0ms"} as React.CSSProperties}>
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Target className="w-6 h-6 text-masters-pine" />
               </div>
@@ -128,7 +136,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl">
+            <div className="glass-card rounded-xl p-6 scroll-reveal" style={{"--scroll-delay": "100ms"} as React.CSSProperties}>
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Heart className="w-6 h-6 text-masters-pine" />
               </div>
@@ -141,7 +149,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl">
+            <div className="glass-card rounded-xl p-6 scroll-reveal" style={{"--scroll-delay": "200ms"} as React.CSSProperties}>
               <div className="w-12 h-12 bg-masters-pine/10 rounded-lg flex items-center justify-center mb-4">
                 <Zap className="w-6 h-6 text-masters-pine" />
               </div>
