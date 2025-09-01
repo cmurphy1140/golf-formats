@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useScrollAnimations } from '@/src/hooks/use-scroll-animations';
 import MiuxHero from '@/components/miux-hero';
 import InteractiveGallery from '@/components/interactive-gallery';
+import HorizontalScrollSection from '@/components/horizontal-scroll-section';
 import { CursorGlow } from '@/components/magnetic-cursor';
 import { golfFormats } from '@/data/formats';
 import { 
@@ -120,6 +121,12 @@ export default function HomePage() {
           <ChevronDown size={32} className="text-masters-pine md:w-10 md:h-10" strokeWidth={3} />
         </button>
       </section>
+
+      {/* Horizontal Scroll Section */}
+      <HorizontalScrollSection 
+        formats={golfFormats.filter(f => f.popularity >= 70)}
+        title="Featured Formats"
+      />
 
       {/* Interactive Gallery Section */}
       <section className="relative py-16 px-6 bg-gradient-to-b from-white to-masters-sand/20">
