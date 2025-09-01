@@ -48,42 +48,42 @@ export default function HomePage() {
     <div className="min-h-screen relative bg-white">
       
       {/* Hero Section with Parallax */}
-      <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 bg-gradient-to-b from-amber-50/30 via-white to-green-50/20">
+      <section className="relative min-h-[600px] md:min-h-screen flex items-start justify-center overflow-hidden pt-20 md:pt-32 px-safe bg-gradient-to-b from-amber-50/30 via-white to-green-50/20">
         
-        <div className="relative z-10 max-w-3xl mx-auto text-center px-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-800 rounded-full text-masters-pine text-sm font-medium mb-8">
+        <div className="relative z-10 max-w-3xl mx-auto text-center px-4 md:px-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-green-50 border border-green-800 rounded-full text-masters-pine text-xs md:text-sm font-medium mb-6 md:mb-8">
             <Sparkles size={16} />
             <span>Transform Your Golf Experience</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-masters-charcoal mb-4 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-masters-charcoal mb-4 leading-tight">
             Why Play Golf
             <span className="block text-masters-pine">The Same Way?</span>
           </h1>
 
-          <p className="text-xl text-masters-slate max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-masters-slate max-w-xl mx-auto mb-6 md:mb-8 leading-relaxed">
             Discover <span className="font-bold text-masters-pine">{stats.formats}+</span> unique golf formats that turn every round into an adventure. 
             From competitive tournaments to fun team games, find the perfect way to play.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Link
               href="/formats"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-masters-pine text-white font-medium rounded-lg hover:bg-green-900"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-masters-pine text-white font-medium rounded-lg hover:bg-green-900 text-sm md:text-base min-h-[44px]"
             >
               Explore Formats
               <ArrowRight size={20} />
             </Link>
             <Link
               href="/scorecard"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-masters-gold/20 text-masters-pine font-medium rounded-lg border-2 border-masters-gold hover:bg-masters-gold/30"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-masters-gold/20 text-masters-pine font-medium rounded-lg border-2 border-masters-gold hover:bg-masters-gold/30 text-sm md:text-base min-h-[44px]"
             >
               Start Scorecard
               <Target size={20} />
             </Link>
             <button
               onClick={() => scrollToSection('what-is-this')}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-masters-slate font-medium rounded-lg border border-gray-300 hover:bg-gray-50"
+              className="hidden sm:inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-white text-masters-slate font-medium rounded-lg border border-gray-300 hover:bg-gray-50 text-sm md:text-base min-h-[44px]"
             >
               Learn More
               <ChevronDown size={20} />
@@ -94,10 +94,10 @@ export default function HomePage() {
         {/* Scroll Indicator - Positioned Below Content */}
         <button 
           onClick={() => scrollToSection('what-is-this')}
-          className="absolute bottom-32 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          className="absolute bottom-20 md:bottom-32 left-1/2 transform -translate-x-1/2 cursor-pointer"
           aria-label="Scroll to next section"
         >
-          <ChevronDown size={40} className="text-masters-pine" strokeWidth={3} />
+          <ChevronDown size={32} className="text-masters-pine md:w-10 md:h-10" strokeWidth={3} />
         </button>
       </section>
 

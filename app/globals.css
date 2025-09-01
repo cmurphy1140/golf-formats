@@ -30,6 +30,44 @@
     --masters-slate: #4A5247;
     --masters-charcoal: #2C312E;
   }
+  
+  /* iOS Safe Area Support */
+  @supports (padding: max(0px)) {
+    .pb-safe {
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+    .pt-safe {
+      padding-top: max(1rem, env(safe-area-inset-top));
+    }
+    .px-safe {
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+  }
+  
+  /* Touch optimization for mobile */
+  .touch-manipulation {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* Minimum touch target size for iOS */
+  @media (max-width: 768px) {
+    button, a, [role="button"], input, select, textarea {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Prevent text size adjustment on iOS */
+    body {
+      -webkit-text-size-adjust: 100%;
+    }
+    
+    /* Smooth scrolling on iOS */
+    .overflow-x-auto, .overflow-y-auto, .overflow-auto {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
 
   * {
     border-color: rgba(232, 226, 213, 0.2);

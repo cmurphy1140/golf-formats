@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '475px',
+      },
       colors: {
         masters: {
           // Primary Greens (Augusta's signature)

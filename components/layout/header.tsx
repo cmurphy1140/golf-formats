@@ -35,19 +35,19 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 glass-masters border-b border-masters-stone/20">
+    <header className="sticky top-0 z-50 glass-masters border-b border-masters-stone/20 px-safe">
       <div className="container-masters">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="w-12 h-12 bg-masters-pine rounded flex items-center justify-center shadow-medium group-hover:shadow-large transition-all duration-300">
-              <Trophy className="w-7 h-7 text-masters-cream" />
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-masters-pine rounded flex items-center justify-center shadow-medium group-hover:shadow-large transition-all duration-300">
+              <Trophy className="w-6 h-6 md:w-7 md:h-7 text-masters-cream" />
             </div>
-            <div className="hidden sm:block">
-              <h1 className="text-h3 font-serif font-medium text-masters-pine tracking-tight">
+            <div className="hidden xs:block">
+              <h1 className="text-lg md:text-h3 font-serif font-medium text-masters-pine tracking-tight">
                 Golf Formats
               </h1>
-              <p className="text-tiny text-masters-slate -mt-1 tracking-wide uppercase">
+              <p className="text-tiny text-masters-slate -mt-1 tracking-wide uppercase hidden md:block">
                 Masters Edition
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-6 border-t border-masters-stone/20 animate-fade-in">
+          <div className="md:hidden py-4 border-t border-masters-stone/20 animate-fade-in">
             <div className="space-y-2">
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -139,7 +139,7 @@ export default function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-6 py-4 transition-all duration-300 font-medium ${
+                    className={`flex items-center justify-between px-4 py-3 transition-all duration-300 font-medium text-base ${
                       isActive
                         ? 'text-masters-pine bg-masters-pine/5 border-l-3 border-masters-pine'
                         : 'text-masters-slate hover:text-masters-pine hover:bg-masters-sand/50'

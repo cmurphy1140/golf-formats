@@ -35,11 +35,19 @@ export const metadata: Metadata = {
     description: "Comprehensive database of golf game formats for recreational players. Discover 20+ ways to play golf with detailed rules, scoring, and strategies.",
   },
   robots: "index, follow",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Golf Formats",
+  },
 };
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover", // For iPhone notch support
 };
 
 export default function RootLayout({
@@ -49,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-screen bg-masters-cream text-masters-slate antialiased relative">
+      <body className="min-h-screen bg-masters-cream text-masters-slate antialiased relative pb-safe">
         <SettingsLoader />
         <Header />
         <main className="min-h-screen relative" style={{ zIndex: 1 }}>

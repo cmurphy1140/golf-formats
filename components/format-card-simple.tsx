@@ -53,7 +53,7 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
   return (
     <Link href={`/formats/${format.id}`}>
       <div 
-        className="group bg-white rounded-lg border-2 border-masters-pine/10 p-6 hover:border-masters-pine/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine"
+        className="group bg-white rounded-lg border-2 border-masters-pine/10 p-4 md:p-6 hover:border-masters-pine/30 hover:shadow-xl md:hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         data-format-card
@@ -63,7 +63,7 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
       >
         {/* Category Badge with animation */}
         <div className="flex items-center justify-between mb-4">
-          <span className={`text-xs font-medium px-2 py-1 rounded-full border ${getCategoryColor(format.category)} transform transition-transform group-hover:scale-105`}>
+          <span className={`text-xs font-medium px-3 py-1.5 rounded-full border ${getCategoryColor(format.category)} transform transition-transform group-hover:scale-105`}>
             {format.category.toUpperCase()}
           </span>
           {format.popularity >= 80 && (
@@ -72,10 +72,10 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
         </div>
 
         {/* Title & Description */}
-        <h3 className="text-lg font-semibold text-masters-charcoal mb-2 group-hover:text-masters-pine transition-colors">
+        <h3 className="text-base md:text-lg font-semibold text-masters-charcoal mb-2 group-hover:text-masters-pine transition-colors">
           {format.name}
         </h3>
-        <p className="text-sm text-masters-slate mb-4 line-clamp-2">
+        <p className="text-sm text-masters-slate mb-3 md:mb-4 line-clamp-2">
           {format.description}
         </p>
 
