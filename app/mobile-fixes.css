@@ -1,0 +1,178 @@
+/* Critical Mobile Browser Fixes */
+
+/* Prevent iOS zoom on input focus */
+@supports (-webkit-touch-callout: none) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Fix viewport issues on mobile */
+html {
+  -webkit-text-size-adjust: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+/* Fix mobile tap delays */
+* {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Ensure buttons are touchable on mobile */
+@media (max-width: 768px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Fix hover states on mobile */
+  @media (hover: none) {
+    .hover-lift:hover,
+    .hover-glow:hover,
+    .miux-card:hover,
+    .glass-card:hover {
+      transform: none;
+    }
+    
+    /* Add active states for touch feedback */
+    button:active,
+    a:active,
+    .miux-card:active,
+    .glass-card:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+  }
+}
+
+/* Fix parallax performance on mobile */
+@media (max-width: 768px) {
+  .parallax-element,
+  .parallax-container {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* Fix text readability on mobile */
+@media (max-width: 640px) {
+  .miux-heading {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .miux-subheading {
+    font-size: 1.25rem;
+  }
+  
+  .miux-body {
+    font-size: 1rem;
+  }
+  
+  /* Ensure proper spacing on mobile */
+  .container-masters {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Fix glassmorphism on mobile Safari */
+@supports (-webkit-backdrop-filter: none) {
+  .glass-card {
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* Ensure safe areas on modern phones */
+.px-safe {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Fix mobile navigation */
+@media (max-width: 768px) {
+  .mega-dropdown {
+    width: 100vw;
+    left: 0;
+    right: 0;
+  }
+  
+  /* Ensure mobile menu is touchable */
+  .mobile-nav-item {
+    padding: 1rem;
+    width: 100%;
+  }
+}
+
+/* Optimize animations for mobile performance */
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  * {
+    animation-duration: 0.3s !important;
+  }
+  
+  .stagger-fade-in {
+    animation-delay: 0s !important;
+  }
+}
+
+/* Fix scorecard input on mobile */
+@media (max-width: 768px) {
+  input[type="number"] {
+    width: 48px;
+    height: 40px;
+    font-size: 16px !important;
+    text-align: center;
+    padding: 0;
+  }
+}
+
+/* Ensure cards are touchable on mobile */
+@media (pointer: coarse) {
+  .format-card-simple,
+  .miux-card {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+/* Fix horizontal scroll issues */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* Improve button touch targets */
+@media (max-width: 768px) {
+  .btn-clip,
+  .miux-button {
+    padding: 0.875rem 1.5rem;
+    min-height: 48px;
+  }
+}
+
+/* Fix z-index issues on mobile */
+@media (max-width: 768px) {
+  .sticky,
+  header {
+    z-index: 40;
+  }
+  
+  .mega-dropdown {
+    z-index: 50;
+  }
+}
