@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useFormatStore } from '@/src/store';
 import SearchBar from '@/components/search-bar';
+import MegaDropdown from '@/components/mega-dropdown';
 
 export default function Header() {
   const pathname = usePathname();
@@ -64,10 +65,23 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-2">
-            {navItems.map((item) => {
+            <Link
+              href="/"
+              className={`relative flex items-center gap-3 px-6 py-3 transition-all duration-300 font-medium text-sm hover-lift ${
+                pathname === '/'
+                  ? 'text-masters-pine bg-masters-pine/5 border-b-2 border-masters-pine'
+                  : 'text-masters-slate hover:text-masters-pine hover:bg-masters-sand/50'
+              }`}
+            >
+              <Home size={18} />
+              <span>Home</span>
+            </Link>
+            
+            <MegaDropdown />
+            
+            {navItems.slice(2).map((item) => {
               const Icon = item.icon;
-              const isActive = pathname === item.href || 
-                (item.href === '/formats' && pathname.startsWith('/formats'));
+              const isActive = pathname === item.href;
               
               return (
                 <Link
@@ -81,11 +95,6 @@ export default function Header() {
                 >
                   <Icon size={18} />
                   <span>{item.label}</span>
-                  {item.badge && item.badge > 0 && (
-                    <Badge className="badge-masters bg-masters-pine/10 text-masters-pine h-6 min-w-6 text-xs">
-                      {item.badge}
-                    </Badge>
-                  )}
                 </Link>
               );
             })}
