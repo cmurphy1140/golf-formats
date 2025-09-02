@@ -96,6 +96,13 @@ export default function HomePage() {
               <ArrowRight size={20} />
             </Link>
             <Link
+              href="/animation-demo"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-masters-pine text-white font-medium rounded-lg hover:bg-masters-pine/90 text-sm md:text-base min-h-[44px]"
+            >
+              Interactive Demos
+              <Zap size={20} />
+            </Link>
+            <Link
               href="/scorecard"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-masters-gold/20 text-masters-pine font-medium rounded-lg border-2 border-masters-gold hover:bg-masters-gold/30 text-sm md:text-base min-h-[44px]"
             >
