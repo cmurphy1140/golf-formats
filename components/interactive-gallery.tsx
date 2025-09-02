@@ -13,12 +13,19 @@ export default function InteractiveGallery({ formats }: InteractiveGalleryProps)
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    setIsMobile(window.innerWidth <= 768);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
+      if (!containerRef.current || isMobile) return;
       const rect = containerRef.current.getBoundingClientRect();
       setMousePosition({
         x: e.clientX - rect.left,
@@ -26,36 +33,54 @@ export default function InteractiveGallery({ formats }: InteractiveGalleryProps)
       });
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const touch = e.touches[0];
+      setMousePosition({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
     const container = containerRef.current;
     container?.addEventListener('mousemove', handleMouseMove);
+    container?.addEventListener('touchmove', handleTouchMove);
 
     return () => {
+      window.removeEventListener('resize', handleResize);
       container?.removeEventListener('mousemove', handleMouseMove);
+      container?.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div ref={containerRef} className="relative">
-      {/* Dynamic background gradient that follows cursor */}
-      <div 
-        className="absolute inset-0 opacity-30 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle 600px at ${mousePosition.x}px ${mousePosition.y}px, 
-            rgba(27, 67, 50, 0.1), transparent)`,
-          transition: 'background 0.3s ease'
-        }}
-      />
+      {/* Dynamic background gradient that follows cursor - desktop only */}
+      {!isMobile && (
+        <div 
+          className="absolute inset-0 opacity-30 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle 600px at ${mousePosition.x}px ${mousePosition.y}px, 
+              rgba(27, 67, 50, 0.1), transparent)`,
+            transition: 'background 0.3s ease'
+          }}
+        />
+      )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 relative px-4 md:px-0">
         {formats.slice(0, 6).map((format, index) => (
-          <MagneticElement key={format.id} strength={0.2}>
+          <MagneticElement key={format.id} strength={isMobile ? 0 : 0.2}>
             <div
-              className={`group relative bg-white rounded-none overflow-hidden cursor-pointer
-                transition-all duration-500 ${
-                activeIndex === index ? 'scale-105 z-10' : 'scale-100'
-              }`}
-              onMouseEnter={() => setActiveIndex(index)}
-              onMouseLeave={() => setActiveIndex(null)}
+              className={`group relative bg-white rounded-lg md:rounded-none overflow-hidden cursor-pointer
+                transition-all duration-300 md:duration-500 ${
+                activeIndex === index ? 'md:scale-105 z-10' : 'scale-100'
+              } shadow-md md:shadow-none hover:shadow-lg`}
+              onMouseEnter={() => !isMobile && setActiveIndex(index)}
+              onMouseLeave={() => !isMobile && setActiveIndex(null)}
+              onTouchStart={() => isMobile && setActiveIndex(index)}
+              onTouchEnd={() => isMobile && setTimeout(() => setActiveIndex(null), 300)}
               style={{
                 transform: activeIndex !== null && activeIndex !== index 
                   ? 'scale(0.95)' 
@@ -66,7 +91,7 @@ export default function InteractiveGallery({ formats }: InteractiveGalleryProps)
               }}
             >
               {/* Card Content */}
-              <div className="p-8 relative">
+              <div className="p-4 md:p-8 relative">
                 {/* Animated Background Pattern */}
                 <div 
                   className="absolute inset-0 opacity-5"
@@ -100,7 +125,7 @@ export default function InteractiveGallery({ formats }: InteractiveGalleryProps)
                 </div>
 
                 {/* Title with Dynamic Underline */}
-                <h3 className="text-2xl font-light text-masters-charcoal mb-3 relative">
+                <h3 className="text-xl md:text-2xl font-light text-masters-charcoal mb-3 relative">
                   {format.name}
                   <span 
                     className="absolute bottom-0 left-0 h-0.5 bg-masters-pine transition-all duration-300"
@@ -111,7 +136,7 @@ export default function InteractiveGallery({ formats }: InteractiveGalleryProps)
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-masters-slate mb-6 line-clamp-2">
+                <p className="text-sm text-masters-slate mb-4 md:mb-6 line-clamp-2">
                   {format.description}
                 </p>
 
@@ -140,19 +165,21 @@ export default function InteractiveGallery({ formats }: InteractiveGalleryProps)
                   </div>
                 </div>
 
-                {/* Hover Reveal Content */}
-                <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t 
-                  from-masters-pine to-transparent text-white p-6
-                  transition-all duration-500 ${
-                  activeIndex === index 
-                    ? 'translate-y-0 opacity-100' 
-                    : 'translate-y-full opacity-0'
-                }`}>
-                  <p className="text-xs mb-2">Quick Play</p>
-                  <p className="text-sm">
-                    Difficulty: {format.difficulty}/5
-                  </p>
-                </div>
+                {/* Hover Reveal Content - Desktop only */}
+                {!isMobile && (
+                  <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t 
+                    from-masters-pine to-transparent text-white p-6
+                    transition-all duration-500 ${
+                    activeIndex === index 
+                      ? 'translate-y-0 opacity-100' 
+                      : 'translate-y-full opacity-0'
+                  }`}>
+                    <p className="text-xs mb-2">Quick Play</p>
+                    <p className="text-sm">
+                      Difficulty: {format.difficulty}/5
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Side Border Animation */}
