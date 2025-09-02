@@ -5,6 +5,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import SettingsLoader from "@/components/settings-loader";
 import KeyboardShortcutsHelp from "@/components/keyboard-shortcuts-help";
+import MobileViewportDebugger from "@/components/mobile-viewport-debugger";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <KeyboardShortcutsHelp />
+        <MobileViewportDebugger />
       </body>
     </html>
   );

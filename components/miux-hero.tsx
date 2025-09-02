@@ -7,29 +7,42 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 export default function MiuxHero() {
   const [scrollY, setScrollY] = useState(0);
   const [documentHeight, setDocumentHeight] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
     const handleScroll = () => {
-      setScrollY(window.scrollY);
-      setDocumentHeight(document.body.scrollHeight - window.innerHeight);
+      if (!isMobile) {
+        setScrollY(window.scrollY);
+        setDocumentHeight(document.body.scrollHeight - window.innerHeight);
+      }
     };
 
+    window.addEventListener('resize', handleResize);
     handleScroll(); // Initialize values
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile]);
 
-  const parallaxOffset = scrollY * 0.5;
-  const textParallax = scrollY * 0.3;
-  const opacity = Math.max(0, 1 - scrollY / 600);
+  const parallaxOffset = isMobile ? 0 : scrollY * 0.5;
+  const textParallax = isMobile ? 0 : scrollY * 0.3;
+  const opacity = isMobile ? 1 : Math.max(0, 1 - scrollY / 600);
 
   return (
     <section ref={heroRef} className="relative min-h-screen overflow-hidden">
       {/* Parallax Background */}
       <div 
         className="absolute inset-0 parallax-element"
-        style={{ transform: `translateY(${parallaxOffset}px) scale(1.1)` }}
+        style={{ transform: isMobile ? 'none' : `translateY(${parallaxOffset}px) scale(1.1)` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-masters-light-beige via-white to-masters-sand/30" />
         <div className="absolute inset-0 noise-overlay" />
@@ -37,9 +50,9 @@ export default function MiuxHero() {
 
       {/* Content */}
       <div 
-        className="relative z-10 min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24"
+        className="relative z-10 min-h-screen flex flex-col justify-center px-4 md:px-12 lg:px-24"
         style={{ 
-          transform: `translateY(${textParallax}px)`,
+          transform: isMobile ? 'none' : `translateY(${textParallax}px)`,
           opacity 
         }}
       >
@@ -103,24 +116,28 @@ export default function MiuxHero() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div 
-        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
-        style={{ opacity: opacity }}
-      >
-        <div className="flex flex-col items-center gap-2 text-masters-slate">
-          <span className="text-xs uppercase tracking-wider">Scroll</span>
-          <ChevronDown size={20} className="animate-bounce" />
+      {/* Scroll Indicator - Desktop only */}
+      {!isMobile && (
+        <div 
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+          style={{ opacity: opacity }}
+        >
+          <div className="flex flex-col items-center gap-2 text-masters-slate">
+            <span className="text-xs uppercase tracking-wider">Scroll</span>
+            <ChevronDown size={20} className="animate-bounce" />
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Scroll Progress */}
-      <div 
-        className="scroll-progress"
-        style={{ 
-          transform: `scaleX(${documentHeight > 0 ? Math.min(scrollY / documentHeight, 1) : 0})` 
-        }}
-      />
+      {/* Scroll Progress - Desktop only */}
+      {!isMobile && (
+        <div 
+          className="scroll-progress"
+          style={{ 
+            transform: `scaleX(${documentHeight > 0 ? Math.min(scrollY / documentHeight, 1) : 0})` 
+          }}
+        />
+      )}
     </section>
   );
 }

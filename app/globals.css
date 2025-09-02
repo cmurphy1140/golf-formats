@@ -2,6 +2,7 @@
 @import './miux-styles.css';
 @import './mobile-fixes.css';
 @import './mobile-enhancements.css';
+@import './unified-mobile.css';
 
 @tailwind base;
 @tailwind components;
