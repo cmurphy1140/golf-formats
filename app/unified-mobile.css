@@ -262,16 +262,14 @@
 
   /* Simplify hover states to active states */
   @media (hover: none) {
-    .hover\\:scale-105:hover,
-    .hover\\:shadow-lg:hover,
-    .hover\\:shadow-xl:hover {
+    [class*="hover:scale"]:hover,
+    [class*="hover:shadow"]:hover {
       transform: none !important;
       box-shadow: none !important;
     }
 
-    .hover\\:scale-105:active,
-    .hover\\:shadow-lg:active,
-    .hover\\:shadow-xl:active {
+    [class*="hover:scale"]:active,
+    [class*="hover:shadow"]:active {
       transform: scale(0.98) !important;
     }
   }
