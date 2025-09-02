@@ -70,8 +70,11 @@ export function MagneticElement({
 export function CursorGlow() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
@@ -90,7 +93,8 @@ export function CursorGlow() {
     };
   }, []);
 
-  if (typeof window === 'undefined') return null;
+  // Don't render on server or before mount to avoid hydration mismatch
+  if (!isMounted) return null;
 
   return (
     <div

@@ -6,13 +6,16 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 
 export default function MiuxHero() {
   const [scrollY, setScrollY] = useState(0);
+  const [documentHeight, setDocumentHeight] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
+      setDocumentHeight(document.body.scrollHeight - window.innerHeight);
     };
 
+    handleScroll(); // Initialize values
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -115,7 +118,7 @@ export default function MiuxHero() {
       <div 
         className="scroll-progress"
         style={{ 
-          transform: `scaleX(${typeof window !== 'undefined' ? Math.min(scrollY / (document.body.scrollHeight - window.innerHeight), 1) : 0})` 
+          transform: `scaleX(${documentHeight > 0 ? Math.min(scrollY / documentHeight, 1) : 0})` 
         }}
       />
     </section>
