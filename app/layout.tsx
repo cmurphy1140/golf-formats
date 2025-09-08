@@ -20,19 +20,19 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Golf Formats Database - Find Your Perfect Game",
+  title: "Format Finder - Discover Your Perfect Golf Game",
   description: "Comprehensive database of golf game formats for recreational players. Discover 20+ ways to play golf with detailed rules, scoring, and strategies.",
   keywords: "golf formats, golf rules, golf games, recreational golf, tournament golf, betting games, team golf",
-  authors: [{ name: "Golf Formats Team" }],
+  authors: [{ name: "Format Finder Team" }],
   openGraph: {
-    title: "Golf Formats Database - Find Your Perfect Game",
+    title: "Format Finder - Discover Your Perfect Golf Game",
     description: "Comprehensive database of golf game formats for recreational players. Discover 20+ ways to play golf with detailed rules, scoring, and strategies.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Golf Formats Database - Find Your Perfect Game",
+    title: "Format Finder - Discover Your Perfect Golf Game",
     description: "Comprehensive database of golf game formats for recreational players. Discover 20+ ways to play golf with detailed rules, scoring, and strategies.",
   },
   robots: "index, follow",

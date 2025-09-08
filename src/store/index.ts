@@ -220,7 +220,7 @@ export const useFormatStore = create<FormatStore>()(
         }))
     }),
     {
-      name: 'golf-formats-store',
+      name: 'format-finder-store',
       partialize: (state) => ({
         favoriteFormats: state.favoriteFormats,
         recentlyViewed: state.recentlyViewed,

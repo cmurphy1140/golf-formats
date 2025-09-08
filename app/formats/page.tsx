@@ -1,12 +1,10 @@
 'use client';
 
 import { useFormats } from '@/src/hooks/use-formats';
-import { useSearch } from '@/src/hooks/use-search';
 import { useFilters } from '@/src/hooks/use-filters';
 import FormatGrid from '@/components/formats/format-grid';
 import FormatFilters from '@/components/formats/format-filters';
 import CategoryWheel from '@/components/category-wheel';
-import SearchBar from '@/components/search-bar';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { 
@@ -24,7 +22,6 @@ import FilterPresets from '@/components/filter-presets';
 
 export default function FormatsPage() {
   const { formats, totalFormats, filteredCount } = useFormats();
-  const { query } = useSearch();
   const { filterState, toggleFilter, clearFilters, activeFiltersCount, hasActiveFilters } = useFilters();
   useKeyboardShortcuts();
   const [displayCount, setDisplayCount] = useState(0);

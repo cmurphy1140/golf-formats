@@ -1,13 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useRef, MouseEvent } from 'react';
+import { useRef } from 'react';
 import { 
   Users, 
   Clock,
   Trophy,
-  ChevronRight,
-  CheckCircle
+  ChevronRight
 } from 'lucide-react';
 import { GolfFormat } from '@/types/golf';
 
@@ -16,39 +15,7 @@ interface FormatCardSimpleProps {
 }
 
 export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [tiltStyle, setTiltStyle] = useState({});
   const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -5; // Max 5 degree rotation
-    const rotateY = ((x - centerX) / centerX) * 5;
-    
-    setTiltStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`,
-      transition: 'transform 0.1s ease-out'
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setTiltStyle({
-      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
-      transition: 'transform 0.3s ease-out'
-    });
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
   const getCategoryColor = (category: string) => {
     // All categories use the same Masters theme for consistency
     return 'bg-masters-pine/10 text-masters-pine border-masters-pine/20';
@@ -68,29 +35,12 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
     return 'text-masters-charcoal';
   };
 
-  // Get quick rules for preview
-  const getQuickRules = () => {
-    const rules = [];
-    if (format.scoring) {
-      const scoringText = typeof format.scoring === 'string' 
-        ? format.scoring.split('.')[0]
-        : format.scoring.method;
-      rules.push(`Scoring: ${scoringText}`);
-    }
-    if (format.players) rules.push(`Players: ${format.players.min}-${format.players.max}`);
-    if (format.duration) rules.push(`Duration: ${format.duration}`);
-    return rules.slice(0, 3); // Show max 3 rules
-  };
 
   return (
     <Link href={`/formats/${format.id}`}>
       <div 
         ref={cardRef}
-        className="group glass-card premium-hover rounded-lg p-4 md:p-6 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-masters-pine/30 focus:border-masters-pine active:scale-[0.98] touch-manipulation will-change-transform"
-        style={tiltStyle}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        className="group glass-card rounded-lg p-4 md:p-6 cursor-pointer h-full relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-masters-pine/20 transition-all duration-300 hover:shadow-lg"
         data-format-card
         tabIndex={0}
         role="article"
@@ -98,7 +48,7 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
       >
         {/* Category Badge with animation */}
         <div className="flex items-center justify-between mb-4">
-          <span className={`text-xs font-medium px-3 py-1.5 rounded-full border ${getCategoryColor(format.category)} transform transition-transform group-hover:scale-105`}>
+          <span className={`text-xs font-medium px-3 py-1.5 rounded-full border ${getCategoryColor(format.category)}`}>
             {format.category.toUpperCase()}
           </span>
           {format.popularity >= 80 && (
@@ -116,15 +66,15 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
 
         {/* Quick Stats with hover effects */}
         <div className="flex items-center gap-4 text-xs text-masters-slate/70 mb-4">
-          <div className="flex items-center gap-1 group-hover:text-masters-pine transition-colors">
-            <Users size={14} className="group-hover:scale-110 transition-transform" />
+          <div className="flex items-center gap-1 text-masters-slate/70">
+            <Users size={14} />
             <span>{format.players.min}-{format.players.max}</span>
           </div>
-          <div className="flex items-center gap-1 group-hover:text-masters-pine transition-colors">
-            <Clock size={14} className="group-hover:scale-110 transition-transform" />
+          <div className="flex items-center gap-1 text-masters-slate/70">
+            <Clock size={14} />
             <span>{format.duration}</span>
           </div>
-          <span className={`font-medium ${getDifficultyColor(format.difficulty)} px-2 py-0.5 rounded-full bg-masters-pine/5 group-hover:bg-masters-pine/10 transition-colors`}>
+          <span className={`font-medium ${getDifficultyColor(format.difficulty)} px-2 py-0.5 rounded-full bg-masters-pine/5`}>
             {getDifficultyLabel(format.difficulty)}
           </span>
         </div>
@@ -138,24 +88,6 @@ export default function FormatCardSimple({ format }: FormatCardSimpleProps) {
           <ChevronRight size={16} className="ml-1 group-hover:translate-x-2 transition-transform duration-300" />
         </div>
 
-        {/* Hover Preview - Quick Rules */}
-        {isHovered && (
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-masters-pine to-masters-fairway text-white p-4 transform transition-transform duration-300 animate-slide-up">
-            <div className="text-xs font-semibold mb-2 text-masters-gold">Quick Rules:</div>
-            <div className="space-y-1">
-              {getQuickRules().map((rule, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-start gap-2 text-xs animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <CheckCircle size={12} className="text-masters-gold mt-0.5 flex-shrink-0" />
-                  <span className="text-white/90">{rule}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </Link>
   );

@@ -1,4 +1,4 @@
-# Golf Formats Discovery App
+# Format Finder - Golf Formats Discovery App
 
 A beautifully designed web application for discovering and exploring different golf formats, featuring a Masters Tournament-inspired UI with elegant animations and intuitive filtering.
 
@@ -22,8 +22,8 @@ A beautifully designed web application for discovering and exploring different g
 
 ```bash
 # Clone the repository
-git clone https://github.com/cmurphy1140/golf-formats.git
-cd golf-formats
+git clone https://github.com/cmurphy1140/format-finder.git
+cd "Format Finder"
 
 # Install dependencies
 npm install
@@ -47,7 +47,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the app.
 ## 📁 Project Structure
 
 ```
-golf-formats/
+format-finder/
 ├── app/                    # Next.js app directory
 │   ├── formats/           # Formats listing page
 │   └── page.tsx           # Homepage
@@ -129,4 +129,4 @@ This project is open source and available under the MIT License.
 ---
 
 **Live Demo**: [Coming Soon]  
-**Repository**: [github.com/cmurphy1140/golf-formats](https://github.com/cmurphy1140/golf-formats)
+**Repository**: [github.com/cmurphy1140/format-finder](https://github.com/cmurphy1140/format-finder)

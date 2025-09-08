@@ -7,7 +7,6 @@ import {
   Home, 
   Grid, 
   Trophy, 
-  Search, 
   Menu, 
   X,
   GitCompare,
@@ -18,13 +17,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useFormatStore } from '@/src/store';
-import SearchBar from '@/components/search-bar';
 import MegaDropdown from '@/components/mega-dropdown';
 
 export default function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   
   const { comparisonFormats, favoriteFormats } = useFormatStore();
 
@@ -54,14 +51,6 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Search */}
-          <div className="hidden lg:flex flex-1 max-w-lg mx-8">
-            <SearchBar 
-              placeholder="Search the tradition..." 
-              className="w-full"
-              showSuggestions={true}
-            />
-          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-2">
@@ -100,17 +89,6 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="lg:hidden text-masters-slate hover:text-masters-pine hover:bg-masters-sand/50 focus-masters"
-            >
-              <Search size={20} />
-            </Button>
-          </div>
 
           {/* Mobile Menu Button */}
           <Button
@@ -123,16 +101,6 @@ export default function Header() {
           </Button>
         </div>
 
-        {/* Mobile Search Bar */}
-        {isSearchOpen && (
-          <div className="lg:hidden py-6 border-t border-masters-stone/20 animate-fade-in">
-            <SearchBar 
-              placeholder="Search the tradition..." 
-              className="w-full"
-              showSuggestions={true}
-            />
-          </div>
-        )}
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
@@ -166,14 +134,6 @@ export default function Header() {
                   </Link>
                 );
               })}
-            </div>
-            
-            <div className="border-t border-masters-stone/20 mt-6 pt-6">
-              <SearchBar 
-                placeholder="Search the tradition..." 
-                className="w-full"
-                showSuggestions={false}
-              />
             </div>
           </div>
         )}

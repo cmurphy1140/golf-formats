@@ -1,0 +1,208 @@
+/* Mobile Browser Optimizations */
+
+/* Prevent zoom on input focus (iOS) */
+@supports (-webkit-touch-callout: none) {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Better touch targets */
+@media (max-width: 768px) {
+  button,
+  a,
+  [role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+    position: relative;
+  }
+
+  /* Extend touch area without visual change */
+  button::before,
+  a::before,
+  [role="button"]::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -8px;
+  }
+}
+
+/* Smooth scrolling with momentum on iOS */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile-friendly card hover states */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .miux-card:hover,
+  .glass-card:hover,
+  .premium-hover:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Add touch feedback */
+  .miux-card:active,
+  .glass-card:active,
+  button:active,
+  a:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 768px) {
+  /* Disable parallax on mobile for better performance */
+  .parallax-element {
+    transform: none !important;
+  }
+
+  /* Simplify animations */
+  .stagger-fade-in,
+  .scroll-reveal,
+  .text-reveal-content {
+    animation-duration: 0.3s !important;
+    animation-delay: 0ms !important;
+  }
+
+  /* Disable complex transitions on mobile */
+  .btn-clip::before {
+    display: none;
+  }
+
+  .btn-clip:active {
+    background: var(--masters-pine);
+    color: white;
+  }
+}
+
+/* Safe area insets for modern phones */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Prevent pull-to-refresh on Chrome mobile */
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Mobile Sheet/Drawer optimizations */
+.sheet-mobile {
+  touch-action: none;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.sheet-handle {
+  touch-action: pan-y;
+}
+
+/* Optimize font rendering on mobile */
+@media (max-width: 768px) {
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+    text-rendering: optimizeSpeed;
+  }
+}
+
+/* Disable momentum scrolling in modals */
+.modal-open {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Mobile navigation optimizations */
+.mobile-nav {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+}
+
+/* Optimize images for mobile */
+@media (max-width: 768px) {
+  img {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Prevent double-tap zoom */
+.no-zoom {
+  touch-action: manipulation;
+}
+
+/* Mobile-specific text sizes */
+@media (max-width: 640px) {
+  .miux-heading {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .miux-subheading {
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+  }
+
+  .miux-body {
+    font-size: 1rem;
+  }
+}
+
+/* Optimize forms for mobile */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+/* PWA optimizations */
+@media (display-mode: standalone) {
+  /* Styles for when app is installed as PWA */
+  .pwa-only {
+    display: block;
+  }
+}
